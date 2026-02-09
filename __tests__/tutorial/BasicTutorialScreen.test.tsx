@@ -3,16 +3,13 @@ import { render, fireEvent } from '@testing-library/react-native';
 import BasicTutorialScreen from '@/screens/tutorial/BasicTutorialScreen';
 import { basicTutorialSlides } from '@/data/tutorial/tutorialSlides';
 
-// Mock react-native-reanimated
-jest.mock('react-native-reanimated', () => {
-  const View = require('react-native').View;
+// Mock Card component (uses reanimated + svg)
+jest.mock('@/components/cards/Card', () => {
+  const { View, Text } = require('react-native');
   return {
-    __esModule: true,
-    default: {
-      View,
-    },
-    FadeIn: { duration: () => undefined },
-    FadeOut: { duration: () => undefined },
+    Card: ({ suit, rank }: any) => (
+      <View><Text>{`${rank} ${suit}`}</Text></View>
+    ),
   };
 });
 

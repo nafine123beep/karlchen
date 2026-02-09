@@ -3,6 +3,16 @@ import { render } from '@testing-library/react-native';
 import { TutorialSlide } from '@/components/tutorial/TutorialSlide';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
 
+// Mock Card component (uses reanimated + svg)
+jest.mock('@/components/cards/Card', () => {
+  const { View, Text } = require('react-native');
+  return {
+    Card: ({ suit, rank }: any) => (
+      <View><Text>{`${rank} ${suit}`}</Text></View>
+    ),
+  };
+});
+
 const baseSlide: TutorialSlideData = {
   id: 'test-slide',
   headline: 'Test Headline',
@@ -70,34 +80,26 @@ describe('TutorialSlide', () => {
     expect(getByText('Important info!')).toBeTruthy();
   });
 
-  it('renders visual placeholder with correct label', () => {
+  it('renders cards visual for cards type', () => {
     const { getByText } = render(
       <TutorialSlide slide={baseSlide} isActive={true} />
     );
 
-    expect(getByText('Karten-Ansicht')).toBeTruthy();
+    // Card mock renders "rank suit" text
+    expect(getByText('Q clubs')).toBeTruthy();
   });
 
-  it('renders correct label for each visual type', () => {
-    const types = [
-      { type: 'cards' as const, label: 'Karten-Ansicht' },
-      { type: 'players' as const, label: 'Spieler-Ansicht' },
-      { type: 'points' as const, label: 'Punkte-Ansicht' },
-      { type: 'rules' as const, label: 'Regel-Ansicht' },
-    ];
+  it('renders fallback placeholder for rules type', () => {
+    const slide: TutorialSlideData = {
+      ...baseSlide,
+      visual: { type: 'rules' },
+    };
 
-    types.forEach(({ type, label }) => {
-      const slide: TutorialSlideData = {
-        ...baseSlide,
-        visual: { type },
-      };
+    const { getByText } = render(
+      <TutorialSlide slide={slide} isActive={true} />
+    );
 
-      const { getByText } = render(
-        <TutorialSlide slide={slide} isActive={true} />
-      );
-
-      expect(getByText(label)).toBeTruthy();
-    });
+    expect(getByText('Regel-Ansicht')).toBeTruthy();
   });
 
   it('does not render visual placeholder when visual is undefined', () => {
@@ -111,7 +113,7 @@ describe('TutorialSlide', () => {
       <TutorialSlide slide={slide} isActive={true} />
     );
 
-    expect(queryByText('Karten-Ansicht')).toBeNull();
-    expect(queryByText('Spieler-Ansicht')).toBeNull();
+    expect(queryByText('Regel-Ansicht')).toBeNull();
+    expect(queryByText('Q clubs')).toBeNull();
   });
 });

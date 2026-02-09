@@ -5,18 +5,30 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
+import { CardsVisual, PlayersVisual, PointsVisual } from './visuals';
 
 interface TutorialSlideProps {
   slide: TutorialSlideData;
   isActive: boolean;
 }
 
-// Visual placeholder colors and labels by type
-const VISUAL_CONFIG: Record<string, { color: string; label: string }> = {
-  cards: { color: '#2563eb', label: 'Karten-Ansicht' },
-  players: { color: '#7c3aed', label: 'Spieler-Ansicht' },
-  points: { color: '#059669', label: 'Punkte-Ansicht' },
-  rules: { color: '#0891b2', label: 'Regel-Ansicht' },
+const renderVisual = (visual: { type: string; data?: any }) => {
+  switch (visual.type) {
+    case 'cards':
+      return <CardsVisual data={visual.data} />;
+    case 'players':
+      return <PlayersVisual data={visual.data} />;
+    case 'points':
+      return <PointsVisual />;
+    default:
+      return (
+        <View style={styles.fallbackPlaceholder}>
+          <Text style={styles.fallbackLabel}>
+            {visual.type === 'rules' ? 'Regel-Ansicht' : visual.type}
+          </Text>
+        </View>
+      );
+  }
 };
 
 export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive }) => {
@@ -30,19 +42,8 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* Visual placeholder */}
-      {slide.visual && (
-        <View
-          style={[
-            styles.visualPlaceholder,
-            { backgroundColor: VISUAL_CONFIG[slide.visual.type]?.color ?? '#6b7280' },
-          ]}
-        >
-          <Text style={styles.visualLabel}>
-            {VISUAL_CONFIG[slide.visual.type]?.label ?? slide.visual.type}
-          </Text>
-        </View>
-      )}
+      {/* Visual content */}
+      {slide.visual && renderVisual(slide.visual)}
 
       <Text style={styles.headline}>{slide.headline}</Text>
 
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 16,
   },
-  visualPlaceholder: {
+  fallbackPlaceholder: {
     width: 200,
     height: 200,
     borderRadius: 20,
@@ -91,8 +92,9 @@ const styles = StyleSheet.create({
     opacity: 0.85,
     borderWidth: 2,
     borderColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#0891b2',
   },
-  visualLabel: {
+  fallbackLabel: {
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',

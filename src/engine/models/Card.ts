@@ -23,7 +23,7 @@ export class Card {
 
   /**
    * Calculate the point value of this card
-   * Ace = 11, Ten = 10, King = 4, Queen = 3, Jack = 2
+   * Ace = 11, Ten = 10, King = 4, Queen = 3, Jack = 2, Nine = 0
    */
   private calculateValue(): number {
     const valueMap: Record<Rank, number> = {
@@ -32,6 +32,7 @@ export class Card {
       [Rank.KING]: 4,
       [Rank.QUEEN]: 3,
       [Rank.JACK]: 2,
+      [Rank.NINE]: 0,
     };
     return valueMap[this.rank];
   }

@@ -58,7 +58,7 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
 
       // Non-trumps: sort by suit then rank
       const suitOrder = { clubs: 0, spades: 1, hearts: 2, diamonds: 3 };
-      const rankOrder = { 'J': 0, 'Q': 1, 'K': 2, '10': 3, 'A': 4 };
+      const rankOrder = { '9': -1, 'J': 0, 'Q': 1, 'K': 2, '10': 3, 'A': 4 };
 
       const suitDiff = suitOrder[a.suit as keyof typeof suitOrder] - suitOrder[b.suit as keyof typeof suitOrder];
       if (suitDiff !== 0) return suitDiff;

@@ -44,6 +44,7 @@ const getSuitColor = (suit: Suit): string => {
 // Get rank display (German style for Doppelkopf)
 const getRankDisplay = (rank: Rank): string => {
   const displays: Record<Rank, string> = {
+    [Rank.NINE]: '9',
     [Rank.JACK]: 'B',
     [Rank.QUEEN]: 'D',
     [Rank.KING]: 'K',

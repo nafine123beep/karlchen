@@ -13,6 +13,7 @@ export const CARD_VALUES: Record<Rank, number> = {
   [Rank.KING]: 4,
   [Rank.QUEEN]: 3,
   [Rank.JACK]: 2,
+  [Rank.NINE]: 0,
 };
 
 /**
@@ -38,10 +39,10 @@ export const SCORE_THRESHOLDS = {
 /**
  * Number of cards
  */
-export const DECK_SIZE = 40;
-export const HAND_SIZE = 10;
+export const DECK_SIZE = 48;
+export const HAND_SIZE = 12;
 export const TRICK_SIZE = 4;
-export const TOTAL_TRICKS = 10;
+export const TOTAL_TRICKS = 12;
 
 /**
  * Default trump suit
@@ -54,8 +55,8 @@ export const DEFAULT_TRUMP_SUIT = Suit.DIAMONDS;
 export const TRUMP_COUNTS = {
   QUEENS: 8, // 4 suits × 2 copies
   JACKS: 8, // 4 suits × 2 copies
-  DIAMONDS: 8, // 4 ranks × 2 copies (excluding Q, J which are already counted)
-  TOTAL: 24,
+  DIAMONDS: 10, // 5 ranks × 2 copies (excluding Q, J which are already counted)
+  TOTAL: 26,
 };
 
 /**

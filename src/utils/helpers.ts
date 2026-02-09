@@ -23,6 +23,7 @@ export function getSuitSymbol(suit: Suit): string {
  */
 export function getRankDisplay(rank: Rank): string {
   const displays: Record<Rank, string> = {
+    [Rank.NINE]: '9', // Neun
     [Rank.JACK]: 'B', // Bube
     [Rank.QUEEN]: 'D', // Dame
     [Rank.KING]: 'K', // König

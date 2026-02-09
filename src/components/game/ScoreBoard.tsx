@@ -114,7 +114,7 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
         {/* Trick counter */}
         <View style={styles.infoBadge}>
           <Text style={styles.infoLabel}>Stich</Text>
-          <Text style={styles.infoValue}>{trickNumber}/10</Text>
+          <Text style={styles.infoValue}>{trickNumber}/12</Text>
         </View>
 
         {/* Turn indicator */}

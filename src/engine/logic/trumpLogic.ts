@@ -5,7 +5,7 @@
  * 1. 🃛 10 of Hearts (Dulle) - if playing with that rule
  * 2. Queens (Kreuz-Dame > Pik-Dame > Herz-Dame > Karo-Dame)
  * 3. Jacks (Kreuz-Bube > Pik-Bube > Herz-Bube > Karo-Bube)
- * 4. Diamonds (A > 10 > K)
+ * 4. Diamonds (A > 10 > K > 9)
  */
 
 import { Card } from '@/engine/models/Card';
@@ -68,6 +68,7 @@ export function getTrumpOrder(card: Card): number | undefined {
       [Rank.ACE]: 8,
       [Rank.TEN]: 9,
       [Rank.KING]: 10,
+      [Rank.NINE]: 11,
     };
     return diamondOrder[card.rank];
   }
@@ -121,7 +122,7 @@ export function filterNonTrumpCards(cards: Card[]): Card[] {
 }
 
 /**
- * Count total number of trump cards (should be 26 in standard Doppelkopf)
+ * Count total number of trump cards (should be 26 in standard Doppelkopf mit Neunen)
  * TODO: 8 Queens + 8 Jacks + 10 Diamonds = 26 trump cards
  */
 export function countTrumpCards(cards: Card[]): number {

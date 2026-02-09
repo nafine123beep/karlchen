@@ -241,8 +241,8 @@ export function detectKarlchen(
   winnerId: PlayerId,
   players: Player[]
 ): { team: Team; playerId: PlayerId } | null {
-  // Karlchen only counts on the last trick (trick 10 ohne Neunen)
-  if (trickNumber !== 10) return null;
+  // Karlchen only counts on the last trick (trick 12 mit Neunen)
+  if (trickNumber !== 12) return null;
 
   const winner = players.find(p => p.id === winnerId);
   if (!winner) return null;

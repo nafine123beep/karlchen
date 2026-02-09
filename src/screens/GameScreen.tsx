@@ -144,7 +144,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         <View style={styles.simpleInfo}>
           <Text style={styles.infoText}>Phase: {gameState.phase}</Text>
           <Text style={styles.infoText}>Score: {gameState.scores.re} : {gameState.scores.kontra}</Text>
-          <Text style={styles.infoText}>Stich: {trickNumber}/10</Text>
+          <Text style={styles.infoText}>Stich: {trickNumber}/12</Text>
           <Text style={styles.infoText}>Deine Karten: {humanPlayer.hand.length}</Text>
           <Text style={styles.infoText}>Dein Zug: {isPlayerTurn ? 'Ja' : 'Nein'}</Text>
           <Text style={styles.infoText}>Spielbare Karten: {legalMoves.length}</Text>

@@ -87,10 +87,10 @@ export class GameState {
   }
 
   /**
-   * Check if game is finished (all 10 tricks played, ohne Neunen)
+   * Check if game is finished (all 12 tricks played, mit Neunen)
    */
   isGameFinished(): boolean {
-    return this.completedTricks.length === 10 && this.currentTrick.isComplete();
+    return this.completedTricks.length === 12 && this.currentTrick.isComplete();
   }
 
   /**

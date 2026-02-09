@@ -1,5 +1,5 @@
 /**
- * Deck Model - Manages the 40-card Doppelkopf deck (ohne Neunen, 2x 20 cards)
+ * Deck Model - Manages the 48-card Doppelkopf deck (mit Neunen, 2x 24 cards)
  */
 
 import { Card } from './Card';
@@ -13,12 +13,12 @@ export class Deck {
   }
 
   /**
-   * Create the full Doppelkopf deck (ohne Neunen)
-   * 2 copies of each card (J, Q, K, 10, A) in all 4 suits = 40 cards
+   * Create the full Doppelkopf deck (mit Neunen)
+   * 2 copies of each card (9, J, Q, K, 10, A) in all 4 suits = 48 cards
    */
   private initializeDeck(): void {
     const suits = [Suit.HEARTS, Suit.DIAMONDS, Suit.SPADES, Suit.CLUBS];
-    const ranks = [Rank.JACK, Rank.QUEEN, Rank.KING, Rank.TEN, Rank.ACE];
+    const ranks = [Rank.NINE, Rank.JACK, Rank.QUEEN, Rank.KING, Rank.TEN, Rank.ACE];
 
     suits.forEach(suit => {
       ranks.forEach(rank => {
@@ -42,15 +42,15 @@ export class Deck {
   }
 
   /**
-   * Deal cards to 4 players (10 cards each)
+   * Deal cards to 4 players (12 cards each)
    */
   deal(): [Card[], Card[], Card[], Card[]] {
     this.shuffle();
 
-    const hand1 = this.cards.slice(0, 10);
-    const hand2 = this.cards.slice(10, 20);
-    const hand3 = this.cards.slice(20, 30);
-    const hand4 = this.cards.slice(30, 40);
+    const hand1 = this.cards.slice(0, 12);
+    const hand2 = this.cards.slice(12, 24);
+    const hand3 = this.cards.slice(24, 36);
+    const hand4 = this.cards.slice(36, 48);
 
     return [hand1, hand2, hand3, hand4];
   }

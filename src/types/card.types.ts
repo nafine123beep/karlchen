@@ -10,8 +10,9 @@ export enum Suit {
   DIAMONDS = 'diamonds' // Karo
 }
 
-// Kartenwerte (Ranks) - ohne Neunen
+// Kartenwerte (Ranks) - mit Neunen
 export enum Rank {
+  NINE = '9',    // Neun
   JACK = 'J',    // Bube
   QUEEN = 'Q',   // Dame
   KING = 'K',    // König
@@ -23,7 +24,7 @@ export enum Rank {
 export interface ICard {
   suit: Suit;
   rank: Rank;
-  value: number;      // Punkte (Augen): Ass=11, 10=10, König=4, Dame=3, Bube=2
+  value: number;      // Punkte (Augen): Ass=11, 10=10, König=4, Dame=3, Bube=2, 9=0
   isTrump: boolean;   // Wird dynamisch berechnet
   id: string;         // Unique ID (z.B. "clubs-Q-1" für erste Kreuz-Dame)
 }
@@ -41,6 +42,7 @@ export enum TrumpOrder {
   DIAMONDS_ACE = 6,
   DIAMONDS_TEN = 5,
   DIAMONDS_KING = 4,
+  DIAMONDS_NINE = 3,
 }
 
 export type CardId = string;

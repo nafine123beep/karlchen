@@ -8,9 +8,11 @@ import HomeScreen from '@/screens/HomeScreen';
 import TutorialScreen from '@/screens/TutorialScreen';
 import GameScreen from '@/screens/GameScreen';
 import StatsScreen from '@/screens/StatsScreen';
+import BasicTutorialScreen from '@/screens/tutorial/BasicTutorialScreen';
 
 export type RootStackParamList = {
   Home: undefined;
+  BasicTutorial: undefined;
   Tutorial: undefined;
   Game: { mode: 'practice' | 'tutorial' };
   Stats: undefined;
@@ -36,6 +38,11 @@ export const AppNavigator: React.FC = () => {
         name="Home"
         component={HomeScreen}
         options={{ title: 'Karlchen - Doppelkopf Lernen' }}
+      />
+      <Stack.Screen
+        name="BasicTutorial"
+        component={BasicTutorialScreen}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Tutorial"

@@ -14,9 +14,6 @@ import { TutorialStep } from '@/types/learning.types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BasicTutorial'>;
 
-// Background color per slide
-const SLIDE_COLORS = ['#2563eb', '#059669', '#dc2626', '#7c3aed', '#0891b2'];
-
 const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const completeTutorialStep = useLearningStore(state => state.completeTutorialStep);
@@ -24,7 +21,6 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
   const slide = basicTutorialSlides[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === basicTutorialSlides.length - 1;
-  const backgroundColor = SLIDE_COLORS[currentIndex % SLIDE_COLORS.length];
 
   const handleNext = () => {
     if (isLast) {
@@ -42,7 +38,14 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor }]}>
+    <View style={styles.container}>
+      {/* Step badge */}
+      <View style={styles.stepBadge}>
+        <Text style={styles.stepBadgeText}>
+          {currentIndex + 1} / {basicTutorialSlides.length}
+        </Text>
+      </View>
+
       {/* Slide content */}
       <View style={styles.slideArea}>
         <TutorialSlide key={slide.id} slide={slide} isActive={true} />
@@ -57,14 +60,20 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
       {/* Navigation buttons */}
       <View style={styles.buttonRow}>
         {!isFirst ? (
-          <Pressable style={styles.backButton} onPress={handleBack}>
+          <Pressable
+            style={({ pressed }) => [styles.backButton, pressed && styles.buttonPressed]}
+            onPress={handleBack}
+          >
             <Text style={styles.backButtonText}>Zurück</Text>
           </Pressable>
         ) : (
           <View style={styles.buttonSpacer} />
         )}
 
-        <Pressable style={styles.nextButton} onPress={handleNext}>
+        <Pressable
+          style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]}
+          onPress={handleNext}
+        >
           <Text style={styles.nextButtonText}>
             {isLast ? 'Tutorial abschließen' : 'Weiter'}
           </Text>
@@ -77,9 +86,23 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#1e293b',
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 16,
+  },
+  stepBadge: {
+    alignSelf: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    paddingHorizontal: 14,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginBottom: 8,
+  },
+  stepBadgeText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 13,
+    fontWeight: '600',
   },
   slideArea: {
     flex: 1,
@@ -115,6 +138,9 @@ const styles = StyleSheet.create({
     color: '#1f2937',
     fontSize: 16,
     fontWeight: '700',
+  },
+  buttonPressed: {
+    opacity: 0.85,
   },
 });
 

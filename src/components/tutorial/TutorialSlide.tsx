@@ -3,8 +3,7 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
 
 interface TutorialSlideProps {
@@ -26,11 +25,10 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
   const textArray = Array.isArray(slide.text) ? slide.text : [slide.text];
 
   return (
-    <Animated.View
-      key={slide.id}
-      entering={FadeIn.duration(300)}
-      exiting={FadeOut.duration(200)}
-      style={styles.container}
+    <ScrollView
+      style={styles.scrollContainer}
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
     >
       {/* Visual placeholder */}
       {slide.visual && (
@@ -68,15 +66,19 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
           ))}
         </View>
       )}
-    </Animated.View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollContainer: {
     flex: 1,
+  },
+  container: {
+    flexGrow: 1,
     justifyContent: 'center',
     paddingHorizontal: 24,
+    paddingVertical: 16,
   },
   visualPlaceholder: {
     width: 200,

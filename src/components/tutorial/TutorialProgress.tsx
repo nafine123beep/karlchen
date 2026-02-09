@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   dotActive: {
-    width: 12,
-    height: 12,
+    width: 24,
+    height: 8,
     backgroundColor: '#ffffff',
   },
   dotInactive: {

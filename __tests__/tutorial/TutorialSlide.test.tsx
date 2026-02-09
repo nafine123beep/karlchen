@@ -3,19 +3,6 @@ import { render } from '@testing-library/react-native';
 import { TutorialSlide } from '@/components/tutorial/TutorialSlide';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
 
-// Mock react-native-reanimated
-jest.mock('react-native-reanimated', () => {
-  const View = require('react-native').View;
-  return {
-    __esModule: true,
-    default: {
-      View,
-    },
-    FadeIn: { duration: () => undefined },
-    FadeOut: { duration: () => undefined },
-  };
-});
-
 const baseSlide: TutorialSlideData = {
   id: 'test-slide',
   headline: 'Test Headline',

@@ -25,7 +25,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         {/* TODO: Implement menu buttons */}
         <Pressable
           style={styles.menuButton}
-          onPress={() => navigation.navigate('Tutorial')}
+          onPress={() => navigation.navigate('BasicTutorial')}
         >
           <Text style={styles.buttonText}>📚 Tutorial starten</Text>
           <Text style={styles.buttonSubtext}>

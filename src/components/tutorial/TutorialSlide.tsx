@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24,
     opacity: 0.85,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   visualLabel: {
     color: '#ffffff',

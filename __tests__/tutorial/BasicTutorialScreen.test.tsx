@@ -47,6 +47,24 @@ describe('BasicTutorialScreen', () => {
     expect(getByText('Schritt 1 von 5')).toBeTruthy();
   });
 
+  it('shows step badge on first slide', () => {
+    const { getByText } = render(
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expect(getByText('1 / 5')).toBeTruthy();
+  });
+
+  it('updates step badge when advancing', () => {
+    const { getByText } = render(
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    fireEvent.press(getByText('Weiter'));
+
+    expect(getByText('2 / 5')).toBeTruthy();
+  });
+
   it('shows Weiter button on first slide', () => {
     const { getByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />

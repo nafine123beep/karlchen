@@ -8,24 +8,28 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { TutorialSlide } from '@/components/tutorial/TutorialSlide';
 import { TutorialProgress } from '@/components/tutorial/TutorialProgress';
-import { TUTORIAL_SLIDES } from '@/data/tutorial/tutorialSlides';
+import { basicTutorialSlides } from '@/data/tutorial/tutorialSlides';
 import { useLearningStore } from '@/store/learningStore';
 import { TutorialStep } from '@/types/learning.types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BasicTutorial'>;
 
+// Background color per slide
+const SLIDE_COLORS = ['#2563eb', '#059669', '#dc2626', '#7c3aed', '#0891b2'];
+
 const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const completeTutorialStep = useLearningStore(state => state.completeTutorialStep);
 
-  const slide = TUTORIAL_SLIDES[currentIndex];
+  const slide = basicTutorialSlides[currentIndex];
   const isFirst = currentIndex === 0;
-  const isLast = currentIndex === TUTORIAL_SLIDES.length - 1;
+  const isLast = currentIndex === basicTutorialSlides.length - 1;
+  const backgroundColor = SLIDE_COLORS[currentIndex % SLIDE_COLORS.length];
 
   const handleNext = () => {
     if (isLast) {
       completeTutorialStep(TutorialStep.INTRODUCTION);
-      navigation.replace('Tutorial');
+      navigation.replace('Home');
     } else {
       setCurrentIndex(prev => prev + 1);
     }
@@ -37,28 +41,16 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const handleSkip = () => {
-    completeTutorialStep(TutorialStep.INTRODUCTION);
-    navigation.replace('Tutorial');
-  };
-
   return (
-    <View style={[styles.container, { backgroundColor: slide.backgroundColor }]}>
-      {/* Skip button */}
-      <View style={styles.header}>
-        <Pressable onPress={handleSkip} style={styles.skipButton}>
-          <Text style={styles.skipText}>Überspringen</Text>
-        </Pressable>
-      </View>
-
+    <View style={[styles.container, { backgroundColor }]}>
       {/* Slide content */}
       <View style={styles.slideArea}>
-        <TutorialSlide slide={slide} isActive={true} />
+        <TutorialSlide key={slide.id} slide={slide} isActive={true} />
       </View>
 
-      {/* Progress dots */}
+      {/* Progress dots + label */}
       <TutorialProgress
-        totalSteps={TUTORIAL_SLIDES.length}
+        totalSteps={basicTutorialSlides.length}
         currentStep={currentIndex}
       />
 
@@ -74,7 +66,7 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
 
         <Pressable style={styles.nextButton} onPress={handleNext}>
           <Text style={styles.nextButtonText}>
-            {isLast ? 'Tutorial starten' : 'Weiter'}
+            {isLast ? 'Tutorial abschließen' : 'Weiter'}
           </Text>
         </Pressable>
       </View>
@@ -88,17 +80,6 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 16,
-  },
-  header: {
-    alignItems: 'flex-end',
-    marginBottom: 8,
-  },
-  skipButton: {
-    padding: 8,
-  },
-  skipText: {
-    color: 'rgba(255, 255, 255, 0.6)',
-    fontSize: 14,
   },
   slideArea: {
     flex: 1,

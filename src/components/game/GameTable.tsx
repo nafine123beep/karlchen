@@ -25,6 +25,7 @@ interface GameTableProps {
   winnerName?: string;
   isAnimatingTrickWin?: boolean;
   onTrickAnimationComplete?: () => void;
+  openCards?: boolean;
 }
 
 // Player positions around the table (relative to human at bottom)
@@ -44,6 +45,7 @@ export const GameTable: React.FC<GameTableProps> = ({
   winnerName,
   isAnimatingTrickWin = false,
   onTrickAnimationComplete,
+  openCards = false,
 }) => {
   // Get opponent players (exclude human)
   const opponents = useMemo(() => {
@@ -89,6 +91,8 @@ export const GameTable: React.FC<GameTableProps> = ({
             position="top"
             isCurrentTurn={opponents.find(o => o.position === 'top')!.player.id === currentPlayerId}
             tricksWon={opponents.find(o => o.position === 'top')!.player.tricksTaken}
+            cards={opponents.find(o => o.position === 'top')!.player.hand}
+            showOpen={openCards}
           />
         )}
       </View>
@@ -104,6 +108,8 @@ export const GameTable: React.FC<GameTableProps> = ({
               position="left"
               isCurrentTurn={opponents.find(o => o.position === 'left')!.player.id === currentPlayerId}
               tricksWon={opponents.find(o => o.position === 'left')!.player.tricksTaken}
+              cards={opponents.find(o => o.position === 'left')!.player.hand}
+              showOpen={openCards}
             />
           )}
         </View>
@@ -130,6 +136,8 @@ export const GameTable: React.FC<GameTableProps> = ({
               position="right"
               isCurrentTurn={opponents.find(o => o.position === 'right')!.player.id === currentPlayerId}
               tricksWon={opponents.find(o => o.position === 'right')!.player.tricksTaken}
+              cards={opponents.find(o => o.position === 'right')!.player.hand}
+              showOpen={openCards}
             />
           )}
         </View>

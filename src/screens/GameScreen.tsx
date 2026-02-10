@@ -39,7 +39,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [showGameOver, setShowGameOver] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
-  const [useSimpleUI, setUseSimpleUI] = useState(false);
+  const [openCards, setOpenCards] = useState(false);
   const [illegalMoveError, setIllegalMoveError] = useState<{
     reason: string;
     explanation?: string;
@@ -136,29 +136,6 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const trickNumber = (gameState.completedTricks?.length ?? 0) + 1;
 
-  // Simple UI mode for debugging
-  if (useSimpleUI) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Doppelkopf - {mode}</Text>
-        <View style={styles.simpleInfo}>
-          <Text style={styles.infoText}>Phase: {gameState.phase}</Text>
-          <Text style={styles.infoText}>Score: {gameState.scores.re} : {gameState.scores.kontra}</Text>
-          <Text style={styles.infoText}>Stich: {trickNumber}/12</Text>
-          <Text style={styles.infoText}>Deine Karten: {humanPlayer.hand.length}</Text>
-          <Text style={styles.infoText}>Dein Zug: {isPlayerTurn ? 'Ja' : 'Nein'}</Text>
-          <Text style={styles.infoText}>Spielbare Karten: {legalMoves.length}</Text>
-        </View>
-        <Pressable style={styles.backButton} onPress={() => setUseSimpleUI(false)}>
-          <Text style={styles.backButtonText}>Vollständige UI anzeigen</Text>
-        </Pressable>
-        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Text style={styles.backButtonText}>Beenden</Text>
-        </Pressable>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       {/* Score Board */}
@@ -187,6 +164,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
           winnerName={trickWinInfo?.winnerName}
           isAnimatingTrickWin={isAnimatingTrickWin}
           onTrickAnimationComplete={onTrickAnimationComplete}
+          openCards={openCards}
         />
       </View>
 
@@ -215,8 +193,11 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
       {/* Buttons */}
       <View style={styles.buttonRow}>
-        <Pressable style={styles.smallButton} onPress={() => setUseSimpleUI(true)}>
-          <Text style={styles.smallButtonText}>Debug</Text>
+        <Pressable
+          style={[styles.smallButton, openCards && styles.smallButtonActive]}
+          onPress={() => setOpenCards(prev => !prev)}
+        >
+          <Text style={styles.smallButtonText}>Mit offenen Karten spielen</Text>
         </Pressable>
         <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Text style={styles.backButtonText}>Beenden</Text>
@@ -251,25 +232,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#059669',
     padding: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  simpleInfo: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-  },
-  infoText: {
-    fontSize: 16,
-    color: '#ffffff',
-    marginBottom: 8,
   },
   loadingText: {
     fontSize: 18,
@@ -332,6 +294,9 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
+  },
+  smallButtonActive: {
+    backgroundColor: 'rgba(59, 130, 246, 0.6)',
   },
   smallButtonText: {
     color: '#ffffff',

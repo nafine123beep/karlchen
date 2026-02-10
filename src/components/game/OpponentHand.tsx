@@ -8,6 +8,9 @@ import Animated, { FadeIn, Layout } from 'react-native-reanimated';
 
 const isWeb = Platform.OS === 'web';
 import { CardBack } from '@/components/cards/CardBack';
+import { Card } from '@/components/cards/Card';
+import { Card as CardModel } from '@/engine/models/Card';
+import { Suit, Rank } from '@/types/card.types';
 
 type Position = 'top' | 'left' | 'right';
 
@@ -17,6 +20,8 @@ interface OpponentHandProps {
   position: Position;
   isCurrentTurn?: boolean;
   tricksWon?: number;
+  cards?: CardModel[];
+  showOpen?: boolean;
 }
 
 // Card overlap based on position
@@ -32,6 +37,8 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
   position,
   isCurrentTurn = false,
   tricksWon = 0,
+  cards,
+  showOpen = false,
 }) => {
   const isVertical = position === 'left' || position === 'right';
   const overlap = CARD_OVERLAP[position];
@@ -39,7 +46,7 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
 
   // Generate card positions
   const renderCards = () => {
-    const cards = [];
+    const rendered = [];
     for (let i = 0; i < cardCount; i++) {
       const style = isVertical
         ? { top: i * overlap }
@@ -51,20 +58,34 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
         layout: Layout.springify(),
       };
 
-      cards.push(
+      const rotation = isVertical ? (position === 'left' ? 90 : -90) : 0;
+      const cardContent = showOpen && cards && cards[i] ? (
+        <View style={rotation !== 0 ? { transform: [{ rotate: `${rotation}deg` }] } : undefined}>
+          <Card
+            suit={cards[i].suit as Suit}
+            rank={cards[i].rank as Rank}
+            isTrump={cards[i].isTrump}
+            size={cardSize}
+          />
+        </View>
+      ) : (
+        <CardBack
+          size={cardSize}
+          rotation={rotation}
+        />
+      );
+
+      rendered.push(
         <CardWrapper
-          key={i}
+          key={showOpen && cards && cards[i] ? cards[i].id : i}
           {...wrapperProps}
           style={[styles.cardWrapper, style, { zIndex: i }]}
         >
-          <CardBack
-            size={cardSize}
-            rotation={isVertical ? (position === 'left' ? 90 : -90) : 0}
-          />
+          {cardContent}
         </CardWrapper>
       );
     }
-    return cards;
+    return rendered;
   };
 
   // Calculate container dimensions

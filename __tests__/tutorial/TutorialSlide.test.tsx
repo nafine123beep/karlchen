@@ -99,9 +99,14 @@ describe('TutorialSlide', () => {
       <TutorialSlide slide={slide} isActive={true} />
     );
 
-    // RulesVisual shows a mini trick with player names
+    // RulesVisual shows a mini trick with Farbzwang annotations
     expect(getByText('Stich')).toBeTruthy();
-    expect(getByText(/gewinnt!/)).toBeTruthy();
+    expect(getByText(/spielt ♠ aus/)).toBeTruthy();
+    // Two players have "Farbzwang!" tags (Ben + Clara)
+    const { getAllByText } = render(
+      <TutorialSlide slide={slide} isActive={true} />
+    );
+    expect(getAllByText('Farbzwang!')).toHaveLength(2);
   });
 
   it('does not render visual when visual is undefined', () => {

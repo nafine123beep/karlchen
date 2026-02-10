@@ -22,6 +22,8 @@ interface GameStore {
   aiPlayers: AIPlayer[];
   isProcessing: boolean;
   error: string | null;
+  // Reactivity
+  stateVersion: number;
   // Animation state
   isAnimatingTrickWin: boolean;
   trickWinInfo: TrickWinInfo | null;
@@ -48,6 +50,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   aiPlayers: [],
   isProcessing: false,
   error: null,
+  // Reactivity
+  stateVersion: 0,
   // Animation state
   isAnimatingTrickWin: false,
   trickWinInfo: null,
@@ -71,6 +75,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       gameState: engine.getGameState(),
       aiPlayers,
       error: null,
+      stateVersion: 0,
     });
 
     // If AI starts, trigger AI turn
@@ -140,6 +145,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
           gameState: stateAfter,
           isProcessing: false,
           isAnimatingTrickWin: true,
+          stateVersion: get().stateVersion + 1,
           trickWinInfo: winnerId
             ? {
                 winnerPlayerId: winnerId,
@@ -158,6 +164,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       set({
         gameState: stateAfter,
         isProcessing: false,
+        stateVersion: get().stateVersion + 1,
       });
 
       // Process AI turns if needed
@@ -234,6 +241,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
             gameState: stateAfter,
             isProcessing: false,
             isAnimatingTrickWin: true,
+            stateVersion: get().stateVersion + 1,
             trickWinInfo: winnerId
               ? {
                   winnerPlayerId: winnerId,
@@ -249,7 +257,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         }
 
         // Update state after each AI move
-        set({ gameState: stateAfter });
+        set({ gameState: stateAfter, stateVersion: get().stateVersion + 1 });
 
         // Small delay between AI moves for UX
         if (!engine.isHumanTurn() && !stateAfter.isGameFinished()) {
@@ -296,6 +304,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       isAnimatingTrickWin: false,
       trickWinInfo: null,
       lastCompletedTrickCards: null,
+      stateVersion: 0,
     });
   },
 
@@ -308,6 +317,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       isAnimatingTrickWin: false,
       trickWinInfo: null,
       lastCompletedTrickCards: null,
+      stateVersion: get().stateVersion + 1,
     });
 
     // Continue with AI turns if needed

@@ -29,6 +29,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
   const isProcessing = useGameStore(state => state.isProcessing);
   const storeError = useGameStore(state => state.error);
   const resetGame = useGameStore(state => state.resetGame);
+  const stateVersion = useGameStore(state => state.stateVersion);
   // Animation state
   const isAnimatingTrickWin = useGameStore(state => state.isAnimatingTrickWin);
   const trickWinInfo = useGameStore(state => state.trickWinInfo);
@@ -70,13 +71,15 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
   }, [gameState?.players]);
 
   // Get current trick cards for display
+  // stateVersion as dependency ensures recomputation when cards are added
+  // (gameState/currentTrick are mutable objects with stable references)
   const currentTrickCards = useMemo(() => {
     if (!gameState?.currentTrick) return [];
     return gameState.currentTrick.cards.map(tc => ({
       card: tc.card,
       playerId: tc.playerId,
     }));
-  }, [gameState?.currentTrick]);
+  }, [stateVersion]);
 
   // Build player names map for GameOverModal
   const playerNames = useMemo((): Record<PlayerId, string> => {

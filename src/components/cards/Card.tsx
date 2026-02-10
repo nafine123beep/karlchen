@@ -28,12 +28,21 @@ interface CardProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-// SVG paths for suit symbols
+// Traditional French-style suit symbol paths (Französisches Blatt)
+// All paths are designed for a 24x24 viewBox, centered at (12,12)
 const SUIT_PATHS: Record<Suit, string> = {
-  [Suit.HEARTS]: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
-  [Suit.DIAMONDS]: 'M12 2L2 12l10 10 10-10L12 2z',
-  [Suit.SPADES]: 'M12 2C9 7 4 9 4 13c0 2.5 2 4 4 4-.5 1-1.5 2-3 3h14c-1.5-1-2.5-2-3-3 2 0 4-1.5 4-4 0-4-5-6-8-11z',
-  [Suit.CLUBS]: 'M12 2c-2.5 0-4.5 2-4.5 4.5 0 1.5.7 2.8 1.8 3.7C7.3 10.8 6 12.7 6 15c0 2.8 2.2 5 5 5h2c2.8 0 5-2.2 5-5 0-2.3-1.3-4.2-3.3-4.8 1.1-.9 1.8-2.2 1.8-3.7C16.5 4 14.5 2 12 2z',
+  // Bold heart shape — two rounded lobes meeting at a point
+  [Suit.HEARTS]:
+    'M12 21 C12 21 3 14 3 8.5 C3 5.4 5.4 3 8.5 3 C10.1 3 11.4 3.8 12 5 C12.6 3.8 13.9 3 15.5 3 C18.6 3 21 5.4 21 8.5 C21 14 12 21 12 21Z',
+  // Classic diamond — tall, narrow rhombus with slightly curved edges
+  [Suit.DIAMONDS]:
+    'M12 2 C12 2 6 9.5 4 12 C6 14.5 12 22 12 22 C12 22 18 14.5 20 12 C18 9.5 12 2 12 2Z',
+  // Traditional spade — inverted heart body with a stem
+  [Suit.SPADES]:
+    'M12 2 C12 2 3 9 3 14 C3 17 5.5 18.5 8 17.5 C7 19 6 20.5 5 21 L19 21 C18 20.5 17 19 16 17.5 C18.5 18.5 21 17 21 14 C21 9 12 2 12 2Z',
+  // Traditional club — three circular lobes with a stem
+  [Suit.CLUBS]:
+    'M12 3 C9.5 3 7.5 5 7.5 7 C7.5 8.5 8.5 9.8 10 10.2 C7.5 10.5 5.5 12.5 5.5 15 C5.5 17 7 18.5 9 18.5 C10 18.5 11 18 11.5 17.2 C11 18.5 10 19.5 8 21 L16 21 C14 19.5 13 18.5 12.5 17.2 C13 18 14 18.5 15 18.5 C17 18.5 18.5 17 18.5 15 C18.5 12.5 16.5 10.5 14 10.2 C15.5 9.8 16.5 8.5 16.5 7 C16.5 5 14.5 3 12 3Z',
 };
 
 // Get colors for suits
@@ -200,13 +209,13 @@ export const Card: React.FC<CardProps> = ({
           >
             {rankDisplay}
           </SvgText>
-          <G transform="translate(5, 22) scale(0.4)">
+          <G transform="translate(2, 20) scale(0.5)">
             <Path d={SUIT_PATHS[suit]} fill={color} />
           </G>
         </G>
 
-        {/* Center suit symbol (large) */}
-        <G transform="translate(23, 38) scale(1)">
+        {/* Center suit symbol (large, bold — Französisches Blatt style) */}
+        <G transform="translate(14, 29) scale(1.75)">
           <Path d={SUIT_PATHS[suit]} fill={color} />
         </G>
 
@@ -222,7 +231,7 @@ export const Card: React.FC<CardProps> = ({
           >
             {rankDisplay}
           </SvgText>
-          <G transform="translate(5, 22) scale(0.4)">
+          <G transform="translate(2, 20) scale(0.5)">
             <Path d={SUIT_PATHS[suit]} fill={color} />
           </G>
         </G>

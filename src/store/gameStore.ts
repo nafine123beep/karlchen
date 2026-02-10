@@ -97,6 +97,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
       const stateBefore = engine.getGameState();
       const trickCardsBefore = stateBefore.currentTrick?.cards || [];
 
+      // Save card reference BEFORE engine.playCard() removes it from the hand
+      const currentPlayer = engine.getCurrentPlayer();
+      const currentPlayerId = currentPlayer.id;
+      const playedCardRef = currentPlayer.hand.find(c => c.id === cardId);
+
       // Play card through engine
       const result = engine.playCard(cardId);
 
@@ -127,10 +132,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
         const trickCardsForAnimation = [
           ...trickCardsBefore,
           {
-            card: stateBefore.players
-              .flatMap(p => p.hand)
-              .find(c => c.id === cardId)!,
-            playerId: stateBefore.players[stateBefore.currentPlayerIndex].id,
+            card: playedCardRef!,
+            playerId: currentPlayerId,
           },
         ];
 

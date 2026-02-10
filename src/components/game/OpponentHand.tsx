@@ -3,8 +3,10 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Animated, { FadeIn, Layout } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 import { CardBack } from '@/components/cards/CardBack';
 
 type Position = 'top' | 'left' | 'right';
@@ -43,18 +45,23 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
         ? { top: i * overlap }
         : { left: i * overlap };
 
+      const CardWrapper = isWeb ? View : Animated.View;
+      const wrapperProps = isWeb ? {} : {
+        entering: FadeIn.delay(i * 30),
+        layout: Layout.springify(),
+      };
+
       cards.push(
-        <Animated.View
+        <CardWrapper
           key={i}
-          entering={FadeIn.delay(i * 30)}
-          layout={Layout.springify()}
+          {...wrapperProps}
           style={[styles.cardWrapper, style, { zIndex: i }]}
         >
           <CardBack
             size={cardSize}
             rotation={isVertical ? (position === 'left' ? 90 : -90) : 0}
           />
-        </Animated.View>
+        </CardWrapper>
       );
     }
     return cards;

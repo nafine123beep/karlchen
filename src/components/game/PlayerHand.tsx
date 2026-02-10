@@ -3,14 +3,13 @@
  */
 
 import React, { useMemo } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Platform } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  withSpring,
-  useSharedValue,
   FadeIn,
   Layout,
 } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 import { Card } from '@/components/cards/Card';
 import { Card as CardModel } from '@/engine/models/Card';
 import { Suit, Rank } from '@/types/card.types';
@@ -85,11 +84,16 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
             // Allow clicking any card - GameScreen will handle illegal moves
             const isDisabled = disabled;
 
+            const CardWrapper = isWeb ? View : Animated.View;
+            const wrapperProps = isWeb ? {} : {
+              entering: FadeIn.delay(index * 50),
+              layout: Layout.springify(),
+            };
+
             return (
-              <Animated.View
+              <CardWrapper
                 key={card.id}
-                entering={FadeIn.delay(index * 50)}
-                layout={Layout.springify()}
+                {...wrapperProps}
                 style={[
                   styles.cardWrapper,
                   { left: index * CARD_OVERLAP, zIndex: isSelected ? 100 : index },
@@ -104,7 +108,7 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
                   disabled={isDisabled}
                   onPress={() => onCardPress(card.id)}
                 />
-              </Animated.View>
+              </CardWrapper>
             );
           })}
         </View>

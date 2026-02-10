@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -162,6 +162,16 @@ export const TrickWinAnimation: React.FC<TrickWinAnimationProps> = ({
       setTimeout(onAnimationComplete, 100);
     }
   };
+
+  // Fallback for web: ensure animation completes even if reanimated callbacks don't fire
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      const timeout = setTimeout(() => {
+        handleCardAnimationComplete();
+      }, HIGHLIGHT_DELAY + ANIMATION_DURATION + 300);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>

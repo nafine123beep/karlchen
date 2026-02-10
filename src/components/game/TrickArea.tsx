@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Animated, {
   FadeIn,
   FadeOut,
@@ -13,6 +13,8 @@ import Animated, {
   SlideInRight,
   ZoomOut,
 } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 import { Card } from '@/components/cards/Card';
 import { Card as CardModel } from '@/engine/models/Card';
 import { Suit, Rank } from '@/types/card.types';
@@ -92,11 +94,16 @@ export const TrickArea: React.FC<TrickAreaProps> = ({
         const EnterAnimation = POSITION_ANIMATIONS[position];
         const isWinning = trickCard.card.id === winningCardId;
 
+        const CardWrapper = isWeb ? View : Animated.View;
+        const wrapperProps = isWeb ? {} : {
+          entering: EnterAnimation.duration(300),
+          exiting: ZoomOut.duration(200),
+        };
+
         return (
-          <Animated.View
+          <CardWrapper
             key={trickCard.card.id}
-            entering={EnterAnimation.duration(300)}
-            exiting={ZoomOut.duration(200)}
+            {...wrapperProps}
             style={[
               styles.cardPosition,
               {
@@ -116,7 +123,7 @@ export const TrickArea: React.FC<TrickAreaProps> = ({
                 highlighted={isWinning}
               />
             </View>
-          </Animated.View>
+          </CardWrapper>
         );
       })}
     </View>

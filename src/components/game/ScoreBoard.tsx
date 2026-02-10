@@ -3,8 +3,10 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 import { Team, GamePhase } from '@/types/game.types';
 import { getTeamColor, getTeamName } from '@/utils/helpers';
 
@@ -44,7 +46,7 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
   const kontraWinning = kontraScore >= WINNING_THRESHOLD;
 
   return (
-    <Animated.View entering={FadeIn} style={styles.container}>
+    <Animated.View entering={isWeb ? undefined : FadeIn} style={styles.container}>
       {/* Score display */}
       <View style={styles.scoreContainer}>
         {/* Re score */}

@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, Platform } from 'react-native';
 import Svg, { Rect, Text as SvgText, G, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import Animated, {
   useAnimatedStyle,
@@ -61,7 +61,8 @@ const SIZE_MULTIPLIERS = {
   large: 1.3,
 };
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const isWeb = Platform.OS === 'web';
+const AnimatedPressable = isWeb ? Pressable : Animated.createAnimatedComponent(Pressable);
 
 export const Card: React.FC<CardProps> = ({
   suit,
@@ -82,7 +83,7 @@ export const Card: React.FC<CardProps> = ({
   const color = getSuitColor(suit);
   const rankDisplay = getRankDisplay(rank);
 
-  // Animated styles for interactions
+  // Animated styles for interactions (native only)
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       { scale: scale.value },
@@ -92,16 +93,16 @@ export const Card: React.FC<CardProps> = ({
 
   // Handle press animations
   const handlePressIn = () => {
-    scale.value = withSpring(0.95);
+    if (!isWeb) scale.value = withSpring(0.95);
   };
 
   const handlePressOut = () => {
-    scale.value = withSpring(1);
+    if (!isWeb) scale.value = withSpring(1);
   };
 
   // Selected card lifts up
   React.useEffect(() => {
-    translateY.value = withSpring(selected ? -15 : 0);
+    if (!isWeb) translateY.value = withSpring(selected ? -15 : 0);
   }, [selected]);
 
   return (
@@ -113,8 +114,9 @@ export const Card: React.FC<CardProps> = ({
       style={[
         styles.container,
         { width, height },
-        animatedStyle,
-        disabled && styles.disabled,
+        isWeb ? (disabled ? styles.disabled : undefined) : animatedStyle,
+        !isWeb && disabled && styles.disabled,
+        isWeb && selected && { transform: [{ translateY: -15 }] },
       ]}
     >
       <Svg width={width} height={height} viewBox={`0 0 ${CARD_WIDTH} ${CARD_HEIGHT}`}>

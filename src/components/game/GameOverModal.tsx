@@ -3,8 +3,10 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, Modal, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Modal, Pressable, ScrollView, Platform } from 'react-native';
 import Animated, { FadeIn, SlideInUp } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 import { Team, SpecialPoints, PlayerId } from '@/types/game.types';
 
 interface GameOverModalProps {
@@ -50,7 +52,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
         <Animated.View
-          entering={SlideInUp.springify()}
+          entering={isWeb ? undefined : SlideInUp.springify()}
           style={styles.container}
         >
           {/* Winner Banner */}

@@ -3,8 +3,10 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Modal, Pressable, Platform } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown } from 'react-native-reanimated';
+
+const isWeb = Platform.OS === 'web';
 
 interface IllegalMoveModalProps {
   visible: boolean;
@@ -28,7 +30,7 @@ export const IllegalMoveModal: React.FC<IllegalMoveModalProps> = ({
     >
       <Pressable style={styles.overlay} onPress={onDismiss}>
         <Animated.View
-          entering={SlideInDown.springify()}
+          entering={isWeb ? undefined : SlideInDown.springify()}
           style={styles.container}
         >
           {/* Warning icon */}

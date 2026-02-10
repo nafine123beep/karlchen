@@ -52,9 +52,15 @@ export class Card {
    * TODO: Implement comparison logic (trump vs non-trump, rank ordering)
    */
   compareTo(other: Card, leadSuit?: Suit): number {
-    // TODO: Implement card comparison
-    // Returns: positive if this > other, negative if this < other, 0 if equal
-    return 0;
+    const RANK_STRENGTH: Record<Rank, number> = {
+      [Rank.ACE]: 5,
+      [Rank.TEN]: 4,
+      [Rank.KING]: 3,
+      [Rank.QUEEN]: 2,
+      [Rank.JACK]: 1,
+      [Rank.NINE]: 0,
+    };
+    return RANK_STRENGTH[this.rank] - RANK_STRENGTH[other.rank];
   }
 
   /**

@@ -37,8 +37,8 @@ export function isTrump(card: Card, trumpSuit: Suit = Suit.DIAMONDS): boolean {
  * TODO: Returns undefined if not trump
  */
 export function getTrumpOrder(card: Card): number | undefined {
-  // TODO: Implement trump ordering
-  if (!card.isTrump) return undefined;
+  // Determine order purely from suit/rank (no card.isTrump guard)
+  // so this works both before and after initializeTrumpCards
 
   // Queens (order 0-3)
   if (card.rank === Rank.QUEEN) {

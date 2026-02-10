@@ -80,9 +80,8 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
           {sortedCards.map((card, index) => {
             const isLegalMove = legalMoveIds.has(card.id);
             const isSelected = selectedCardId === card.id;
-            // Only disable when entire hand is disabled (not player's turn)
-            // Allow clicking any card - GameScreen will handle illegal moves
-            const isDisabled = disabled;
+            // Disable card when: not player's turn OR card is not a legal move
+            const isDisabled = disabled || !isLegalMove;
 
             const CardWrapper = isWeb ? View : Animated.View;
             const wrapperProps = isWeb ? {} : {
@@ -103,10 +102,10 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
                   suit={card.suit as Suit}
                   rank={card.rank as Rank}
                   isTrump={card.isTrump}
-                  highlighted={isLegalMove}
+                  highlighted={isLegalMove && !disabled}
                   selected={isSelected}
                   disabled={isDisabled}
-                  onPress={() => onCardPress(card.id)}
+                  onPress={isDisabled ? undefined : () => onCardPress(card.id)}
                 />
               </CardWrapper>
             );

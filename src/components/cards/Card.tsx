@@ -120,10 +120,11 @@ export const Card: React.FC<CardProps> = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       disabled={disabled || !onPress}
+      pointerEvents={disabled ? 'none' : 'auto'}
       style={[
         styles.container,
         { width, height },
-        isWeb ? (disabled ? styles.disabled : undefined) : animatedStyle,
+        isWeb ? (disabled ? styles.disabledWeb : undefined) : animatedStyle,
         !isWeb && disabled && styles.disabled,
         isWeb && selected && { transform: [{ translateY: -15 }] },
       ]}
@@ -263,6 +264,10 @@ const styles = StyleSheet.create({
   disabled: {
     opacity: 0.5,
   },
+  disabledWeb: {
+    opacity: 0.5,
+    filter: 'grayscale(80%)',
+  } as any,
 });
 
 export default Card;

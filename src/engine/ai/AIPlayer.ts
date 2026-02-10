@@ -87,21 +87,17 @@ export class AIPlayer {
   }
 
   /**
-   * Medium AI: Basic strategy
+   * Medium AI: Random legal move (same rules as all levels)
    */
   private selectCardMedium(gameState: GameState): Card | null {
-    // TODO: Use aiStrategies
-    return selectCardToPlay(this.player, gameState);
+    return this.selectCardEasy(gameState);
   }
 
   /**
-   * Hard AI: Advanced strategy with card counting
-   * TODO: Future implementation
+   * Hard AI: Random legal move (same rules as all levels)
    */
   private selectCardHard(gameState: GameState): Card | null {
-    // TODO: Implement hard AI with card counting
-    // For now, use medium strategy
-    return this.selectCardMedium(gameState);
+    return this.selectCardEasy(gameState);
   }
 
   /**

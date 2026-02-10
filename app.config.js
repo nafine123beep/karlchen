@@ -25,7 +25,11 @@ module.exports = {
     package: 'com.karlchen.app'
   },
   web: {
+    bundler: 'metro',
     // favicon: './assets/favicon.png' // TODO: Add favicon
+  },
+  experiments: {
+    baseUrl: '/karlchen',
   },
   plugins: [
     'expo-font'

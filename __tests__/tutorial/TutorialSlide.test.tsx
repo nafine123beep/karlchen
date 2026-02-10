@@ -89,7 +89,7 @@ describe('TutorialSlide', () => {
     expect(getByText('Q clubs')).toBeTruthy();
   });
 
-  it('renders fallback placeholder for rules type', () => {
+  it('renders rules visual for rules type', () => {
     const slide: TutorialSlideData = {
       ...baseSlide,
       visual: { type: 'rules' },
@@ -99,10 +99,12 @@ describe('TutorialSlide', () => {
       <TutorialSlide slide={slide} isActive={true} />
     );
 
-    expect(getByText('Regel-Ansicht')).toBeTruthy();
+    // RulesVisual shows a mini trick with player names
+    expect(getByText('Stich')).toBeTruthy();
+    expect(getByText(/gewinnt!/)).toBeTruthy();
   });
 
-  it('does not render visual placeholder when visual is undefined', () => {
+  it('does not render visual when visual is undefined', () => {
     const slide: TutorialSlideData = {
       id: 'no-visual',
       headline: 'No Visual',
@@ -113,7 +115,7 @@ describe('TutorialSlide', () => {
       <TutorialSlide slide={slide} isActive={true} />
     );
 
-    expect(queryByText('Regel-Ansicht')).toBeNull();
+    expect(queryByText('Stich')).toBeNull();
     expect(queryByText('Q clubs')).toBeNull();
   });
 });

@@ -5,7 +5,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
-import { CardsVisual, PlayersVisual, PointsVisual } from './visuals';
+import { CardsVisual, PlayersVisual, PointsVisual, RulesVisual } from './visuals';
 
 interface TutorialSlideProps {
   slide: TutorialSlideData;
@@ -20,12 +20,12 @@ const renderVisual = (visual: { type: string; data?: any }) => {
       return <PlayersVisual data={visual.data} />;
     case 'points':
       return <PointsVisual />;
+    case 'rules':
+      return <RulesVisual />;
     default:
       return (
         <View style={styles.fallbackPlaceholder}>
-          <Text style={styles.fallbackLabel}>
-            {visual.type === 'rules' ? 'Regel-Ansicht' : visual.type}
-          </Text>
+          <Text style={styles.fallbackLabel}>{visual.type}</Text>
         </View>
       );
   }

@@ -40,11 +40,10 @@ export class Player {
    * TODO: Remove card from hand and return it
    */
   playCard(cardId: string): Card | null {
-    // TODO: Implement card playing
-    const cardIndex = this.hand.findIndex(card => card.id === cardId);
-    if (cardIndex === -1) return null;
+    const card = this.hand.find(c => c.id === cardId);
+    if (!card) return null;
 
-    const [card] = this.hand.splice(cardIndex, 1);
+    this.hand = this.hand.filter(c => c.id !== cardId);
     return card;
   }
 

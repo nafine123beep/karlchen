@@ -237,15 +237,6 @@ export const Card: React.FC<CardProps> = ({
           </G>
         </G>
 
-        {/* Trump indicator icon */}
-        {isTrump && (
-          <G transform="translate(52, 4) scale(0.6)">
-            <Path
-              d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-              fill="#f59e0b"
-            />
-          </G>
-        )}
       </Svg>
     </AnimatedPressable>
   );

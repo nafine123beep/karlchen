@@ -17,7 +17,7 @@ export interface TutorialSlide {
   text: string | string[]; // Array for multiple paragraphs
   bulletPoints?: string[]; // Optional bullet list
   visual?: {
-    type: 'cards' | 'players' | 'points' | 'rules' | 'suits';
+    type: 'cards' | 'players' | 'points' | 'rules' | 'suits' | 'trumpOverview';
     data?: any; // Visual-specific data
   };
   highlightText?: string; // Important text to emphasize

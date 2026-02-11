@@ -53,8 +53,7 @@ export const basicTutorialSlides: TutorialSlide[] = [
       'Karo Dame'
     ],
     visual: {
-      type: 'cards',
-      data: { showTopTrumps: true }
+      type: 'trumpOverview',
     }
   },
   {

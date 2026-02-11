@@ -25,7 +25,7 @@ interface CardProps {
   disabled?: boolean;
   highlighted?: boolean;
   selected?: boolean;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
 }
 
 // Traditional French-style suit symbol paths (Französisches Blatt)
@@ -65,6 +65,7 @@ const getRankDisplay = (rank: Rank): string => {
 
 // Size multipliers
 const SIZE_MULTIPLIERS = {
+  tiny: 0.5,
   small: 0.7,
   medium: 1,
   large: 1.3,

@@ -8,6 +8,7 @@ import { GameState } from '@/engine/models/GameState';
 import { Card } from '@/engine/models/Card';
 import { AIPlayer, AILevel } from '@/engine/ai/AIPlayer';
 import { Team, PlayerId } from '@/types/game.types';
+import { useHintsStore } from './hintsStore';
 
 interface TrickWinInfo {
   winnerPlayerId: PlayerId;
@@ -78,6 +79,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
       stateVersion: 0,
     });
 
+    // Reset hints for new game
+    useHintsStore.getState().resetForNewGame();
+
     // If AI starts, trigger AI turn
     if (!engine.isHumanTurn()) {
       get().processAITurn();
@@ -118,6 +122,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
         trickCardsBefore.length === 3 && stateAfter.currentTrick?.size === 0;
 
       if (trickJustCompleted && stateAfter.completedTricks?.length > 0) {
+        // Notify hints store that trick completed
+        useHintsStore.getState().onTrickComplete();
         // Get the just-completed trick
         const completedTrick = stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
         const winnerId = completedTrick.winnerId;
@@ -226,6 +232,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
           trickCardsBefore.length === 3 && stateAfter.currentTrick?.size === 0;
 
         if (trickJustCompleted && stateAfter.completedTricks?.length > 0) {
+          // Notify hints store that trick completed
+          useHintsStore.getState().onTrickComplete();
           // Get the just-completed trick
           const completedTrick = stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
           const winnerId = completedTrick.winnerId;

@@ -4,7 +4,6 @@
 
 import { Hint, HintContext } from '@/types/hint.types';
 import { useHintsStore } from '@/store/hintsStore';
-import { checkFollowSuitOrTrump } from './triggers/followSuitOrTrump';
 import { checkTrumpBeatsSuit } from './triggers/trumpBeatsSuit';
 import { checkSaveHighTrumps } from './triggers/saveHighTrumps';
 import { checkFoxProtection } from './triggers/foxProtection';
@@ -21,8 +20,9 @@ export function getHint(context: HintContext): Hint | null {
 
   // Check each trigger in priority order
   // Rule violations first, then strategic hints
+  // Note: FOLLOW_SUIT_OR_TRUMP is handled directly in GameScreen
+  // (before validation, in the illegal move path)
   const triggers = [
-    checkFollowSuitOrTrump,      // Rule violation - highest priority
     checkTrumpBeatsSuit,          // Common beginner mistake
     checkSaveHighTrumps,          // Trump strategy
     checkFoxProtection,           // Special card protection
@@ -32,14 +32,18 @@ export function getHint(context: HintContext): Hint | null {
   ];
 
   for (const trigger of triggers) {
-    const hint = trigger(context);
-    if (hint) {
-      // Check suppression
-      const isRuleViolation = hint.id === 'FOLLOW_SUIT_OR_TRUMP';
-      if (hintsStore.canShowHint(hint.id, isRuleViolation)) {
-        hintsStore.recordHintShown(hint.id);
-        return hint;
+    try {
+      const hint = trigger(context);
+      if (hint) {
+        // Check suppression
+        const isRuleViolation = hint.id === 'FOLLOW_SUIT_OR_TRUMP';
+        if (hintsStore.canShowHint(hint.id, isRuleViolation)) {
+          hintsStore.recordHintShown(hint.id);
+          return hint;
+        }
       }
+    } catch {
+      // Skip failing trigger, continue with next
     }
   }
 

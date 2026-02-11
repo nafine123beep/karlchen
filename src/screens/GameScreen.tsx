@@ -12,8 +12,14 @@ import { GameTable } from '@/components/game/GameTable';
 import { PlayerHand } from '@/components/game/PlayerHand';
 import { IllegalMoveModal } from '@/components/game/IllegalMoveModal';
 import { GameOverModal } from '@/components/game/GameOverModal';
+import { HintModal } from '@/components/game/HintModal';
 import { validateMove } from '@/engine/logic/legalMoves';
 import { Team, GamePhase, PlayerId } from '@/types/game.types';
+import { getHint } from '@/engine/hints/HintEngine';
+import { checkFollowSuitOrTrump } from '@/engine/hints/triggers/followSuitOrTrump';
+import { useHintsStore } from '@/store/hintsStore';
+import { useSettingsStore } from '@/store/settingsStore';
+import { Hint } from '@/types/hint.types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Game'>;
 
@@ -45,6 +51,10 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     reason: string;
     explanation?: string;
   } | null>(null);
+  const [currentHint, setCurrentHint] = useState<Hint | null>(null);
+
+  // Hints settings
+  const beginnerHintsEnabled = useSettingsStore(state => state.beginnerHintsEnabled);
 
   // Start game on mount
   useEffect(() => {
@@ -103,12 +113,57 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     const validation = validateMove(card, humanPlayer, gameState.currentTrick);
 
     if (!validation.valid) {
-      // Show error modal explaining why move is illegal
+      // If hints enabled, show educational hint instead of basic error
+      if (beginnerHintsEnabled) {
+        const hint = checkFollowSuitOrTrump({
+          selectedCard: card,
+          playerHand: humanPlayer.hand,
+          currentTrick: gameState.currentTrick,
+          legalMoves: legalMoves,
+          completedTricks: gameState.completedTricks,
+          trickIndex: gameState.completedTricks.length,
+          playerTeam: humanPlayer.team,
+          announcements: {
+            re: gameState.players.some(p => p.team === Team.RE && p.hasAnnounced),
+            kontra: gameState.players.some(p => p.team === Team.CONTRA && p.hasAnnounced),
+          },
+        });
+        if (hint) {
+          setCurrentHint(hint);
+          setSelectedCardId(null); // Don't auto-play after dismiss (card is illegal)
+          return;
+        }
+      }
+      // Fallback: show basic error modal
       setIllegalMoveError({
         reason: validation.reason || 'Ungültiger Zug',
         explanation: validation.explanation,
       });
       return;
+    }
+
+    // Check for hints if enabled (BEFORE playing card)
+    if (beginnerHintsEnabled) {
+      const hint = getHint({
+        selectedCard: card,
+        playerHand: humanPlayer.hand,
+        currentTrick: gameState.currentTrick,
+        legalMoves: legalMoves,
+        completedTricks: gameState.completedTricks,
+        trickIndex: gameState.completedTricks.length,
+        playerTeam: humanPlayer.team,
+        announcements: {
+          re: gameState.players.some(p => p.team === Team.RE && p.hasAnnounced),
+          kontra: gameState.players.some(p => p.team === Team.CONTRA && p.hasAnnounced),
+        },
+      });
+
+      if (hint) {
+        // Save the card to play after hint dismissal
+        setSelectedCardId(cardId);
+        setCurrentHint(hint);
+        return; // Don't play yet, show hint first
+      }
     }
 
     // Card is legal - play it directly (single click)
@@ -225,6 +280,26 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         reason={illegalMoveError?.reason || ''}
         explanation={illegalMoveError?.explanation}
         onDismiss={() => setIllegalMoveError(null)}
+      />
+
+      {/* Hint Modal */}
+      <HintModal
+        visible={currentHint !== null}
+        hint={currentHint}
+        onDismiss={async () => {
+          const cardToPlay = selectedCardId;
+          setCurrentHint(null);
+          setSelectedCardId(null);
+          // Optionally auto-play the card after hint dismissal
+          if (cardToPlay) {
+            await playCard(cardToPlay);
+          }
+        }}
+        onLearnMore={(key) => {
+          // Optional: Navigate to tutorial section
+          // navigation.navigate('BasicTutorial', { scrollTo: key });
+          console.log('Learn more:', key);
+        }}
       />
     </View>
   );

@@ -20,7 +20,7 @@ export const SUIT_NAMES_DE: Record<Suit, string> = {
  * Get the currently winning card in a trick
  */
 export function getCurrentWinningCard(trick: Trick): Card | null {
-  const cards = trick.getCards();
+  const cards = trick.cards;
   if (cards.length === 0) return null;
 
   const leadCard = trick.getLeadCard();
@@ -49,7 +49,7 @@ export function getCurrentWinningPlayer(trick: Trick): string | null {
   const winningCard = getCurrentWinningCard(trick);
   if (!winningCard) return null;
 
-  const cards = trick.getCards();
+  const cards = trick.cards;
   const winningPlay = cards.find(pc => pc.card.id === winningCard.id);
 
   return winningPlay?.playerId || null;
@@ -110,7 +110,7 @@ export function isTeammate(
  * Get required suit for current trick (if any)
  */
 export function getRequiredSuit(trick: Trick): Suit | 'trump' | null {
-  if (trick.getCards().length === 0) return null;
+  if (trick.cards.length === 0) return null;
 
   const leadCard = trick.getLeadCard();
   if (!leadCard) return null;

@@ -16,7 +16,7 @@ export function checkTrumpBeatsSuit(context: HintContext): Hint | null {
   if (selectedCard.isTrump) return null;
 
   // Check if any card in trick is trump
-  const trickHasTrump = currentTrick.getCards().some(pc => pc.card.isTrump);
+  const trickHasTrump = currentTrick.getCards().some(c => c.isTrump);
   if (!trickHasTrump) return null;
 
   // Check if current winning card is trump

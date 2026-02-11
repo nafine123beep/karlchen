@@ -70,12 +70,12 @@ describe('BasicTutorialScreen', () => {
     expect(getByText('Weiter')).toBeTruthy();
   });
 
-  it('does not show Zurück button on first slide', () => {
+  it('does not show Zur\u00fcck button on first slide', () => {
     const { queryByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(queryByText('Zurück')).toBeNull();
+    expect(queryByText('Zur\u00fcck')).toBeNull();
   });
 
   it('advances to next slide on Weiter press', () => {
@@ -89,17 +89,17 @@ describe('BasicTutorialScreen', () => {
     expect(getByText('Schritt 2 von 6')).toBeTruthy();
   });
 
-  it('shows Zurück button after advancing', () => {
+  it('shows Zur\u00fcck button after advancing', () => {
     const { getByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     fireEvent.press(getByText('Weiter'));
 
-    expect(getByText('Zurück')).toBeTruthy();
+    expect(getByText('Zur\u00fcck')).toBeTruthy();
   });
 
-  it('goes back to previous slide on Zurück press', () => {
+  it('goes back to previous slide on Zur\u00fcck press', () => {
     const { getByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
@@ -109,96 +109,54 @@ describe('BasicTutorialScreen', () => {
     expect(getByText(basicTutorialSlides[1].headline)).toBeTruthy();
 
     // Go back to slide 1
-    fireEvent.press(getByText('Zurück'));
+    fireEvent.press(getByText('Zur\u00fcck'));
     expect(getByText(basicTutorialSlides[0].headline)).toBeTruthy();
   });
 
-  it('shows Tutorial abschließen on last slide', () => {
+  it('shows Weiter zum Quiz on last slide', () => {
     const { getByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    // Navigate to last slide (answer quiz on slide 3)
+    // Navigate to last slide
     for (let i = 0; i < basicTutorialSlides.length - 1; i++) {
-      try {
-        const correctOption = getByText('Kreuz bedienen, falls möglich');
-        fireEvent.press(correctOption);
-      } catch {
-        // Not a quiz slide, continue
-      }
       fireEvent.press(getByText('Weiter'));
     }
 
-    expect(getByText('Tutorial abschließen')).toBeTruthy();
+    expect(getByText('Weiter zum Quiz')).toBeTruthy();
   });
 
-  it('completes tutorial and navigates to Home on last slide', () => {
+  it('completes tutorial and navigates to QuizIntro on last slide', () => {
     const { getByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    // Navigate to last slide (answer quiz on slide 3)
+    // Navigate to last slide
     for (let i = 0; i < basicTutorialSlides.length - 1; i++) {
-      // If this is the quiz slide, answer the quiz first
-      try {
-        const correctOption = getByText('Kreuz bedienen, falls möglich');
-        fireEvent.press(correctOption);
-      } catch {
-        // Not a quiz slide, continue
-      }
       fireEvent.press(getByText('Weiter'));
     }
 
     // Press complete button
-    fireEvent.press(getByText('Tutorial abschließen'));
+    fireEvent.press(getByText('Weiter zum Quiz'));
 
     expect(mockCompleteTutorialStep).toHaveBeenCalledWith('introduction');
-    expect(mockReplace).toHaveBeenCalledWith('Home');
+    expect(mockReplace).toHaveBeenCalledWith('QuizIntro');
   });
 
-  it('disables Weiter button on quiz slide until answered correctly', () => {
-    const { getByText } = render(
+  it('Step 3 shows no quiz UI elements', () => {
+    const { getByText, queryByText } = render(
       <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    // Navigate to slide 3 (the quiz slide, index 2)
+    // Navigate to slide 3
     fireEvent.press(getByText('Weiter'));
     fireEvent.press(getByText('Weiter'));
 
     expect(getByText('Farben und Fehlfarbe')).toBeTruthy();
 
-    // Pressing Weiter should NOT advance (quiz not answered)
-    fireEvent.press(getByText('Weiter'));
-    expect(getByText('Farben und Fehlfarbe')).toBeTruthy();
-
-    // Answer the quiz correctly
-    fireEvent.press(getByText('Kreuz bedienen, falls möglich'));
-
-    // Now Weiter should work
-    fireEvent.press(getByText('Weiter'));
-    expect(getByText(basicTutorialSlides[3].headline)).toBeTruthy();
-  });
-
-  it('shows feedback on wrong quiz answer and allows retry', () => {
-    const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
-    );
-
-    // Navigate to quiz slide
-    fireEvent.press(getByText('Weiter'));
-    fireEvent.press(getByText('Weiter'));
-
-    // Choose wrong answer
-    fireEvent.press(getByText('Eine beliebige Karte spielen'));
-
-    // Should show incorrect feedback
-    expect(getByText(/Nicht ganz/)).toBeTruthy();
-
-    // Should show retry button
-    fireEvent.press(getByText('Nochmal versuchen'));
-
-    // Should be able to try again
-    fireEvent.press(getByText('Kreuz bedienen, falls möglich'));
-    expect(getByText(/Richtig/)).toBeTruthy();
+    // No quiz elements should be present
+    expect(queryByText('Kreuz bedienen, falls m\u00f6glich')).toBeNull();
+    expect(queryByText('Eine beliebige Karte spielen')).toBeNull();
+    expect(queryByText('Immer Trumpf spielen')).toBeNull();
   });
 });

@@ -35,6 +35,16 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
         <Pressable
           style={styles.menuButton}
+          onPress={() => navigation.navigate('QuizIntro')}
+        >
+          <Text style={styles.buttonText}>Quiz starten</Text>
+          <Text style={styles.buttonSubtext}>
+            Teste dein Regelwissen
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.menuButton}
           onPress={() => navigation.navigate('Game', { mode: 'practice' })}
         >
           <Text style={styles.buttonText}>🎮 Freies Spiel</Text>

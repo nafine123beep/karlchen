@@ -16,30 +16,24 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BasicTutorial'>;
 
 const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState(false);
   const completeTutorialStep = useLearningStore(state => state.completeTutorialStep);
 
   const slide = basicTutorialSlides[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === basicTutorialSlides.length - 1;
-  const hasQuiz = !!slide.quiz;
-  const canProceed = !hasQuiz || quizCompleted;
 
   const handleNext = () => {
-    if (!canProceed) return;
     if (isLast) {
       completeTutorialStep(TutorialStep.INTRODUCTION);
-      navigation.replace('Home');
+      navigation.replace('QuizIntro');
     } else {
       setCurrentIndex(prev => prev + 1);
-      setQuizCompleted(false);
     }
   };
 
   const handleBack = () => {
     if (!isFirst) {
       setCurrentIndex(prev => prev - 1);
-      setQuizCompleted(false);
     }
   };
 
@@ -54,12 +48,7 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
 
       {/* Slide content */}
       <View style={styles.slideArea}>
-        <TutorialSlide
-          key={slide.id}
-          slide={slide}
-          isActive={true}
-          onQuizCorrect={() => setQuizCompleted(true)}
-        />
+        <TutorialSlide key={slide.id} slide={slide} isActive={true} />
       </View>
 
       {/* Progress dots + label */}
@@ -82,19 +71,11 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
         )}
 
         <Pressable
-          style={({ pressed }) => [
-            styles.nextButton,
-            pressed && styles.buttonPressed,
-            !canProceed && styles.buttonDisabled,
-          ]}
+          style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]}
           onPress={handleNext}
-          disabled={!canProceed}
         >
-          <Text style={[
-            styles.nextButtonText,
-            !canProceed && styles.buttonTextDisabled,
-          ]}>
-            {isLast ? 'Tutorial abschließen' : 'Weiter'}
+          <Text style={styles.nextButtonText}>
+            {isLast ? 'Weiter zum Quiz' : 'Weiter'}
           </Text>
         </Pressable>
       </View>
@@ -160,12 +141,6 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.85,
-  },
-  buttonDisabled: {
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-  },
-  buttonTextDisabled: {
-    color: 'rgba(31, 41, 55, 0.4)',
   },
 });
 

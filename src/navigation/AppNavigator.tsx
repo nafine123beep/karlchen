@@ -9,6 +9,9 @@ import TutorialScreen from '@/screens/TutorialScreen';
 import GameScreen from '@/screens/GameScreen';
 import StatsScreen from '@/screens/StatsScreen';
 import BasicTutorialScreen from '@/screens/tutorial/BasicTutorialScreen';
+import QuizIntroScreen from '@/screens/quiz/QuizIntroScreen';
+import QuizScreen from '@/screens/quiz/QuizScreen';
+import QuizResultScreen from '@/screens/quiz/QuizResultScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -16,6 +19,9 @@ export type RootStackParamList = {
   Tutorial: undefined;
   Game: { mode: 'practice' | 'tutorial' };
   Stats: undefined;
+  QuizIntro: undefined;
+  Quiz: undefined;
+  QuizResult: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -58,6 +64,21 @@ export const AppNavigator: React.FC = () => {
         name="Stats"
         component={StatsScreen}
         options={{ title: 'Statistiken' }}
+      />
+      <Stack.Screen
+        name="QuizIntro"
+        component={QuizIntroScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="QuizResult"
+        component={QuizResultScreen}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -39,16 +39,6 @@ export const basicTutorialSlides: TutorialSlide[] = [
     visual: {
       type: 'suits',
     },
-    quiz: {
-      question: '\u2663 Kreuz 9 wird ausgespielt (kein Trumpf) \u2013 was musst du tun?',
-      options: [
-        { text: 'Eine beliebige Karte spielen', isCorrect: false },
-        { text: 'Kreuz bedienen, falls m\u00f6glich', isCorrect: true },
-        { text: 'Immer Trumpf spielen', isCorrect: false },
-      ],
-      feedbackCorrect: 'Richtig! Farbzwang \u2013 du musst die Farbe bedienen.',
-      feedbackIncorrect: 'Nicht ganz \u2013 denk an den Farbzwang!',
-    },
   },
   {
     id: 'slide-4',

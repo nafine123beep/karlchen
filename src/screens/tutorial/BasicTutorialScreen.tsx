@@ -1,5 +1,5 @@
 /**
- * BasicTutorialScreen - 5-slide introduction to Doppelkopf basics
+ * BasicTutorialScreen - 6-slide introduction to Doppelkopf basics
  */
 
 import React, { useState } from 'react';

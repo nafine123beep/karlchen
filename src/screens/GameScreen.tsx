@@ -144,26 +144,53 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
     // Check for hints if enabled (BEFORE playing card)
     if (beginnerHintsEnabled) {
-      const hint = getHint({
-        selectedCard: card,
-        playerHand: humanPlayer.hand,
-        currentTrick: gameState.currentTrick,
-        legalMoves: legalMoves,
-        completedTricks: gameState.completedTricks,
-        trickIndex: gameState.completedTricks.length,
-        playerTeam: humanPlayer.team,
-        announcements: {
-          re: gameState.players.some(p => p.team === Team.RE && p.hasAnnounced),
-          kontra: gameState.players.some(p => p.team === Team.CONTRA && p.hasAnnounced),
-        },
-      });
+      try {
+        const trickCards = gameState.currentTrick.getCards();
+        if (__DEV__) {
+          console.log('[Hints] Checking hints:', {
+            card: card.toString(),
+            trickSize: trickCards.length,
+            legalMovesCount: legalMoves.length,
+            trickIndex: gameState.completedTricks.length,
+            hintsStore: {
+              hintsShownThisTrick: useHintsStore.getState().hintsShownThisTrick,
+              totalHintsShown: useHintsStore.getState().totalHintsShown,
+              shownHints: [...useHintsStore.getState().shownHintsThisGame],
+            },
+          });
+        }
 
-      if (hint) {
-        // Save the card to play after hint dismissal
-        setSelectedCardId(cardId);
-        setCurrentHint(hint);
-        return; // Don't play yet, show hint first
+        const hint = getHint({
+          selectedCard: card,
+          playerHand: humanPlayer.hand,
+          currentTrick: gameState.currentTrick,
+          legalMoves: legalMoves,
+          completedTricks: gameState.completedTricks,
+          trickIndex: gameState.completedTricks.length,
+          playerTeam: humanPlayer.team,
+          announcements: {
+            re: gameState.players.some(p => p.team === Team.RE && p.hasAnnounced),
+            kontra: gameState.players.some(p => p.team === Team.CONTRA && p.hasAnnounced),
+          },
+        });
+
+        if (__DEV__) {
+          console.log('[Hints] Result:', hint ? hint.id : 'null');
+        }
+
+        if (hint) {
+          // Save the card to play after hint dismissal
+          setSelectedCardId(cardId);
+          setCurrentHint(hint);
+          return; // Don't play yet, show hint first
+        }
+      } catch (e) {
+        if (__DEV__) {
+          console.warn('[Hints] Error checking hints:', e);
+        }
       }
+    } else if (__DEV__) {
+      console.log('[Hints] Hints disabled (beginnerHintsEnabled=false)');
     }
 
     // Card is legal - play it directly (single click)

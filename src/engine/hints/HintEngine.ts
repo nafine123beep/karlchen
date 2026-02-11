@@ -34,16 +34,25 @@ export function getHint(context: HintContext): Hint | null {
   for (const trigger of triggers) {
     try {
       const hint = trigger(context);
+      if (__DEV__) {
+        console.log(`[Hints] ${trigger.name}: ${hint ? hint.id : 'null'}`);
+      }
       if (hint) {
         // Check suppression
         const isRuleViolation = hint.id === 'FOLLOW_SUIT_OR_TRUMP';
-        if (hintsStore.canShowHint(hint.id, isRuleViolation)) {
+        const canShow = hintsStore.canShowHint(hint.id, isRuleViolation);
+        if (__DEV__) {
+          console.log(`[Hints] canShowHint(${hint.id}): ${canShow}`);
+        }
+        if (canShow) {
           hintsStore.recordHintShown(hint.id);
           return hint;
         }
       }
-    } catch {
-      // Skip failing trigger, continue with next
+    } catch (e) {
+      if (__DEV__) {
+        console.warn(`[Hints] ${trigger.name} error:`, e);
+      }
     }
   }
 

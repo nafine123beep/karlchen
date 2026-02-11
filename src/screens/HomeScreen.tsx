@@ -62,6 +62,16 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             {stats.gamesPlayed} Spiele gespielt
           </Text>
         </Pressable>
+
+        <Pressable
+          style={styles.menuButton}
+          onPress={() => navigation.navigate('Settings')}
+        >
+          <Text style={styles.buttonText}>⚙️ Einstellungen</Text>
+          <Text style={styles.buttonSubtext}>
+            Lernhilfen und Optionen
+          </Text>
+        </Pressable>
       </View>
 
       <View style={styles.footer}>

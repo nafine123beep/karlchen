@@ -17,6 +17,7 @@ interface AppSettings {
   // Learning Settings
   showTips: boolean;
   autoAdvanceTutorial: boolean;
+  beginnerHintsEnabled: boolean;
 
   // UI Settings
   cardSize: 'small' | 'medium' | 'large';
@@ -35,6 +36,7 @@ interface SettingsStore extends AppSettings {
   setAnimationSpeed: (speed: 'slow' | 'normal' | 'fast') => void;
   setShowTips: (show: boolean) => void;
   setAutoAdvanceTutorial: (auto: boolean) => void;
+  setBeginnerHintsEnabled: (enabled: boolean) => void;
   setCardSize: (size: 'small' | 'medium' | 'large') => void;
   setTheme: (theme: 'light' | 'dark' | 'auto') => void;
   setHighContrast: (enabled: boolean) => void;
@@ -56,6 +58,7 @@ const defaultSettings: AppSettings = {
   // Learning Settings
   showTips: true,
   autoAdvanceTutorial: false,
+  beginnerHintsEnabled: true,
 
   // UI Settings
   cardSize: 'medium',
@@ -98,6 +101,10 @@ export const useSettingsStore = create<SettingsStore>()(
         set({ autoAdvanceTutorial: auto });
       },
 
+      setBeginnerHintsEnabled: (enabled: boolean) => {
+        set({ beginnerHintsEnabled: enabled });
+      },
+
       // UI Settings Actions
       setCardSize: (size: 'small' | 'medium' | 'large') => {
         set({ cardSize: size });
@@ -131,6 +138,7 @@ export const useSettingsStore = create<SettingsStore>()(
           animationSpeed: state.animationSpeed,
           showTips: state.showTips,
           autoAdvanceTutorial: state.autoAdvanceTutorial,
+          beginnerHintsEnabled: state.beginnerHintsEnabled,
           cardSize: state.cardSize,
           theme: state.theme,
           highContrast: state.highContrast,

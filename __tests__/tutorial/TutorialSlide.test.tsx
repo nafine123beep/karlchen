@@ -123,4 +123,65 @@ describe('TutorialSlide', () => {
     expect(queryByText('Stich')).toBeNull();
     expect(queryByText('Q clubs')).toBeNull();
   });
+
+  it('renders suits visual for suits type', () => {
+    const slide: TutorialSlideData = {
+      ...baseSlide,
+      visual: { type: 'suits' },
+    };
+
+    const { getByText } = render(
+      <TutorialSlide slide={slide} isActive={true} />
+    );
+
+    expect(getByText('Kreuz')).toBeTruthy();
+    expect(getByText('Pik')).toBeTruthy();
+    expect(getByText('Herz')).toBeTruthy();
+    expect(getByText('Karo')).toBeTruthy();
+  });
+
+  it('renders quiz question and options when quiz is provided', () => {
+    const quizSlide: TutorialSlideData = {
+      ...baseSlide,
+      quiz: {
+        question: 'Test question?',
+        options: [
+          { text: 'Option A', isCorrect: false },
+          { text: 'Option B', isCorrect: true },
+        ],
+        feedbackCorrect: 'Correct!',
+        feedbackIncorrect: 'Wrong!',
+      },
+    };
+
+    const mockCallback = jest.fn();
+    const { getByText } = render(
+      <TutorialSlide slide={quizSlide} isActive={true} onQuizCorrect={mockCallback} />
+    );
+
+    expect(getByText('Test question?')).toBeTruthy();
+    expect(getByText('Option A')).toBeTruthy();
+    expect(getByText('Option B')).toBeTruthy();
+  });
+
+  it('does not render quiz when onQuizCorrect callback is not provided', () => {
+    const quizSlide: TutorialSlideData = {
+      ...baseSlide,
+      quiz: {
+        question: 'Test question?',
+        options: [
+          { text: 'Option A', isCorrect: false },
+          { text: 'Option B', isCorrect: true },
+        ],
+        feedbackCorrect: 'Correct!',
+        feedbackIncorrect: 'Wrong!',
+      },
+    };
+
+    const { queryByText } = render(
+      <TutorialSlide slide={quizSlide} isActive={true} />
+    );
+
+    expect(queryByText('Test question?')).toBeNull();
+  });
 });

@@ -5,11 +5,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
-import { CardsVisual, PlayersVisual, PointsVisual, RulesVisual } from './visuals';
+import { CardsVisual, PlayersVisual, PointsVisual, RulesVisual, SuitsVisual } from './visuals';
+import { QuizSection } from './QuizSection';
 
 interface TutorialSlideProps {
   slide: TutorialSlideData;
   isActive: boolean;
+  onQuizCorrect?: () => void;
 }
 
 const renderVisual = (visual: { type: string; data?: any }) => {
@@ -22,6 +24,8 @@ const renderVisual = (visual: { type: string; data?: any }) => {
       return <PointsVisual />;
     case 'rules':
       return <RulesVisual />;
+    case 'suits':
+      return <SuitsVisual />;
     default:
       return (
         <View style={styles.fallbackPlaceholder}>
@@ -31,7 +35,7 @@ const renderVisual = (visual: { type: string; data?: any }) => {
   }
 };
 
-export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive }) => {
+export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive, onQuizCorrect }) => {
   if (!isActive) return null;
 
   const textArray = Array.isArray(slide.text) ? slide.text : [slide.text];
@@ -66,6 +70,10 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
             </View>
           ))}
         </View>
+      )}
+
+      {slide.quiz && onQuizCorrect && (
+        <QuizSection quiz={slide.quiz} onCorrectAnswer={onQuizCorrect} />
       )}
     </ScrollView>
   );

@@ -29,6 +29,29 @@ export const basicTutorialSlides: TutorialSlide[] = [
   },
   {
     id: 'slide-3',
+    headline: 'Farben und Fehlfarbe',
+    text: [
+      'Im Doppelkopf gibt es vier Farben: \u2663 Kreuz, \u2660 Pik, \u2665 Herz und \u2666 Karo.',
+      'Aber Achtung: Nicht alle Karten einer Farbe geh\u00f6ren zur selben Gruppe! Damen und Buben sind immer Trumpf, egal welche Farbe. Alle \u2666 Karo-Karten sind im Normalspiel ebenfalls Trumpf.',
+      'Eine Fehlfarbe ist eine Farbe, die kein Trumpf ist. Wenn eine Fehlfarbe ausgespielt wird, gilt Farbzwang: Du musst diese Farbe bedienen, wenn du sie auf der Hand hast. Hast du sie nicht, darfst du Trumpf spielen.',
+    ],
+    highlightText: 'Beispiel: Spieler 1 spielt \u2665 Herz 10 (kein Trumpf) aus \u2013 alle m\u00fcssen \u2665 Herz bedienen. Wer kein \u2665 Herz hat, darf Trumpf spielen.',
+    visual: {
+      type: 'suits',
+    },
+    quiz: {
+      question: '\u2663 Kreuz 9 wird ausgespielt und ist kein Trumpf \u2013 was musst du tun?',
+      options: [
+        { text: 'Eine beliebige Karte spielen', isCorrect: false },
+        { text: 'Kreuz bedienen, falls m\u00f6glich', isCorrect: true },
+        { text: 'Immer Trumpf spielen', isCorrect: false },
+      ],
+      feedbackCorrect: 'Richtig! Bei einer Fehlfarbe gilt Farbzwang \u2013 du musst die Farbe bedienen, wenn du kannst.',
+      feedbackIncorrect: 'Nicht ganz. Denk an den Farbzwang: Wenn eine Fehlfarbe ausgespielt wird, musst du sie bedienen!',
+    },
+  },
+  {
+    id: 'slide-4',
     headline: '26 von 48 Karten sind Trumpf!',
     text: 'Trümpfe stechen alle anderen Karten.',
     highlightText: 'Die stärksten 5 Trümpfe:',
@@ -45,7 +68,7 @@ export const basicTutorialSlides: TutorialSlide[] = [
     }
   },
   {
-    id: 'slide-4',
+    id: 'slide-5',
     headline: 'Es geht um Punkte, nicht um Stiche!',
     text: 'Alle Karten zusammen = 240 Punkte. Re braucht 121+, Kontra reichen 120.',
     bulletPoints: [
@@ -61,7 +84,7 @@ export const basicTutorialSlides: TutorialSlide[] = [
     }
   },
   {
-    id: 'slide-5',
+    id: 'slide-6',
     headline: 'Die drei wichtigsten Regeln',
     text: 'Merke dir diese drei Grundregeln:',
     bulletPoints: [

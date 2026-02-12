@@ -166,9 +166,17 @@ export class IllusionGameEngine {
       this.gameState.completeTrick();
       this.trickNumber++;
 
+      console.log('[IllusionEngine] Trick completed:', {
+        trickNumber: this.trickNumber,
+        totalCompleted: this.gameState.completedTricks.length,
+        isFinished: this.trickNumber >= 12,
+      });
+
       // Check if game is finished (all 12 tricks)
       if (this.trickNumber >= 12) {
+        console.log('[IllusionEngine] Game FINISHED - Setting phase to FINISHED');
         this.gameState.setPhase(GamePhase.FINISHED);
+        console.log('[IllusionEngine] Phase set to:', this.gameState.phase);
       } else {
         // Winner leads next trick
         const winnerIndex = this.gameState.players.findIndex(p => p.id === winnerId);
@@ -198,7 +206,9 @@ export class IllusionGameEngine {
   }
 
   isFinished(): boolean {
-    return this.gameState.phase === GamePhase.FINISHED;
+    const finished = this.gameState.phase === GamePhase.FINISHED;
+    console.log('[IllusionEngine] isFinished():', finished, '(phase:', this.gameState.phase, ')');
+    return finished;
   }
 
   getCurrentPlayer(): Player {

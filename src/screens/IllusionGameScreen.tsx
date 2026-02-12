@@ -36,6 +36,11 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showGameOver, setShowGameOver] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+
+  // Debug: Monitor showGameOver state changes
+  useEffect(() => {
+    console.log('[IllusionScreen] showGameOver state changed to:', showGameOver);
+  }, [showGameOver]);
   const [currentHint, setCurrentHint] = useState<Hint | null>(null);
   const [illegalMoveError, setIllegalMoveError] = useState<{
     reason: string;
@@ -95,6 +100,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
     while (!engine.isHumanTurn() && !engine.isFinished()) {
       const currentPlayer = engine.getCurrentPlayer();
       const trickCardsBefore = engine.getGameState().currentTrick?.cards || [];
+      const completedTricksBefore = engine.getGameState().completedTricks.length;
 
       await new Promise(resolve => setTimeout(resolve, AI_MOVE_DELAY));
 
@@ -103,9 +109,9 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
 
       const stateAfter = engine.getGameState();
 
-      // Check if trick completed
+      // Check if trick completed (more robust check)
       const trickJustCompleted =
-        trickCardsBefore.length === 3 && stateAfter.currentTrick?.size === 0;
+        stateAfter.completedTricks.length > completedTricksBefore;
 
       if (trickJustCompleted && stateAfter.completedTricks.length > 0) {
         const completedTrick =
@@ -159,10 +165,13 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
         }
 
         // Check game over
+        console.log('[IllusionScreen] Checking if game finished after trick completion');
         if (engine.isFinished()) {
+          console.log('[IllusionScreen] Game is finished! Calling handleGameFinish()');
           handleGameFinish();
           return;
         }
+        console.log('[IllusionScreen] Game not finished, continuing');
 
         // Show before-play hint for next trick
         const nextTrickNum = engine.getTrickNumber();
@@ -188,6 +197,13 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     setIsProcessing(false);
+
+    // Check if game finished during AI turns
+    if (engine.isFinished()) {
+      console.log('[IllusionScreen] Game finished after AI turns completed');
+      handleGameFinish();
+      return;
+    }
 
     // After AI done, show hint for human's turn
     if (engine.isHumanTurn() && !engine.isFinished()) {
@@ -240,6 +256,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
 
     // Save trick state before playing
     const trickCardsBefore = gameState.currentTrick?.cards || [];
+    const completedTricksBefore = gameState.completedTricks.length;
     const playedCardRef = card;
 
     // Play the card
@@ -253,10 +270,10 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
 
     setSelectedCardId(null);
 
-    // Check if trick was completed by human's card
+    // Check if trick was completed by human's card (more robust check)
     const stateAfter = engine.getGameState();
     const trickJustCompleted =
-      trickCardsBefore.length === 3 && stateAfter.currentTrick?.size === 0;
+      stateAfter.completedTricks.length > completedTricksBefore;
 
     if (trickJustCompleted && stateAfter.completedTricks.length > 0) {
       const completedTrick =
@@ -298,10 +315,13 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
           return;
         }
 
+        console.log('[IllusionScreen] Checking if game finished after human card play');
         if (engine.isFinished()) {
+          console.log('[IllusionScreen] Game is finished! Calling handleGameFinish()');
           handleGameFinish();
           return;
         }
+        console.log('[IllusionScreen] Game not finished, continuing');
 
         // Process AI turns if needed
         if (!engine.isHumanTurn()) {
@@ -329,7 +349,9 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
    * Handle game completion.
    */
   const handleGameFinish = () => {
+    console.log('[IllusionScreen] handleGameFinish() called');
     setIllusionGamePlayed();
+    console.log('[IllusionScreen] setShowGameOver(true) called');
     setShowGameOver(true);
   };
 
@@ -341,7 +363,16 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
     setCurrentHint(null);
     setSelectedCardId(null);
 
-    if (cardToPlay && engine) {
+    if (!engine) return;
+
+    // Check if game is finished (e.g., after dismissing final trick hint)
+    if (engine.isFinished()) {
+      console.log('[IllusionScreen] Game finished after hint dismissed');
+      handleGameFinish();
+      return;
+    }
+
+    if (cardToPlay) {
       const result = engine.playHumanCard(cardToPlay);
       if (result.success) {
         setStateVersion(v => v + 1);
@@ -349,7 +380,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
           await processAITurns();
         }
       }
-    } else if (engine && !engine.isHumanTurn() && !engine.isFinished()) {
+    } else if (!engine.isHumanTurn() && !engine.isFinished()) {
       // Continue AI turns after after-trick hint
       await processAITurns();
     }
@@ -365,6 +396,8 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   const trickNumber = (gameState.completedTricks?.length ?? 0) + 1;
+
+  console.log('[IllusionScreen] Rendering with showGameOver=', showGameOver);
 
   return (
     <View style={styles.container}>

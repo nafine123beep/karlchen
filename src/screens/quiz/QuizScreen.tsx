@@ -40,8 +40,17 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Exit button */}
+      {/* Exit button and Skip Quiz button */}
       <View style={styles.exitRow}>
+        <Pressable
+          style={({ pressed }) => [styles.skipButton, pressed && styles.buttonPressed]}
+          onPress={() => {
+            // Skip to result screen with current answers
+            navigation.replace('QuizResult');
+          }}
+        >
+          <Text style={styles.skipButtonText}>Quiz überspringen</Text>
+        </Pressable>
         <Pressable
           style={({ pressed }) => [styles.exitButton, pressed && styles.buttonPressed]}
           onPress={() => navigation.navigate('Home')}
@@ -121,8 +130,22 @@ const styles = StyleSheet.create({
   },
   exitRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: 8,
+    gap: 8,
+  },
+  skipButton: {
+    backgroundColor: 'rgba(251, 191, 36, 0.3)',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(251, 191, 36, 0.5)',
+  },
+  skipButtonText: {
+    color: '#fbbf24',
+    fontSize: 13,
+    fontWeight: '600',
   },
   exitButton: {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',

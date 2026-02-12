@@ -32,6 +32,7 @@ export function checkTrumpBeatsSuit(context: HintContext): Hint | null {
     title: 'Trumpf sticht immer!',
     message: 'Ein Gegner hat bereits Trumpf gespielt. Deine Nicht-Trumpf-Karte kann diesen Stich nicht gewinnen, auch wenn sie hoch ist.',
     severity: 'info',
+    timing: 'preTactic',
     learnMoreKey: 'tutorial.trump.priority',
   };
 }

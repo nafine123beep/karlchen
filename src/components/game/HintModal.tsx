@@ -1,5 +1,9 @@
 /**
  * HintModal - Shows beginner hints during gameplay
+ *
+ * Enhancement: Added mute option for Learning Mode
+ * - Shows "Hinweise für dieses Spiel ausblenden" button
+ * - Only for non-rule hints (timing !== 'rule')
  */
 
 import React from 'react';
@@ -14,6 +18,9 @@ interface HintModalProps {
   hint: Hint | null;
   onDismiss: () => void;
   onLearnMore?: (learnMoreKey: string) => void;
+  // NEW: Mute option for Learning Mode
+  onMute?: () => void;
+  showMuteOption?: boolean;
 }
 
 export const HintModal: React.FC<HintModalProps> = ({
@@ -21,6 +28,8 @@ export const HintModal: React.FC<HintModalProps> = ({
   hint,
   onDismiss,
   onLearnMore,
+  onMute,
+  showMuteOption = false,
 }) => {
   if (!hint) return null;
 
@@ -53,6 +62,16 @@ export const HintModal: React.FC<HintModalProps> = ({
 
           {/* Message */}
           <Text style={styles.message}>{hint.message}</Text>
+
+          {/* NEW: Mute button (full-width, above other buttons) */}
+          {showMuteOption && onMute && (
+            <Pressable
+              style={styles.muteButton}
+              onPress={onMute}
+            >
+              <Text style={styles.muteButtonText}>🔇 Hinweise für dieses Spiel ausblenden</Text>
+            </Pressable>
+          )}
 
           {/* Buttons */}
           <View style={styles.buttonRow}>
@@ -152,6 +171,23 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  // NEW: Mute button styles
+  muteButton: {
+    width: '100%',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    alignItems: 'center',
+    backgroundColor: 'rgba(100, 100, 100, 0.3)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    marginBottom: 12,
+  },
+  muteButtonText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 13,
+    fontWeight: '500',
   },
 });
 

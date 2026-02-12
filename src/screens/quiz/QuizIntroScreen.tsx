@@ -17,6 +17,16 @@ const QuizIntroScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Exit button */}
+      <View style={styles.exitRow}>
+        <Pressable
+          style={({ pressed }) => [styles.exitButton, pressed && styles.buttonPressed]}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.exitButtonText}>Beenden</Text>
+        </Pressable>
+      </View>
+
       <View style={styles.content}>
         <Text style={styles.title}>Quiz</Text>
         <Text style={styles.subtitle}>
@@ -39,10 +49,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1e293b',
-    paddingTop: 80,
+    paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 24,
     justifyContent: 'space-between',
+  },
+  exitRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  exitButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+  },
+  exitButtonText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: '600',
   },
   content: {
     flex: 1,

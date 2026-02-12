@@ -40,6 +40,16 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Exit button */}
+      <View style={styles.exitRow}>
+        <Pressable
+          style={({ pressed }) => [styles.exitButton, pressed && styles.buttonPressed]}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.exitButtonText}>Beenden</Text>
+        </Pressable>
+      </View>
+
       {/* Progress badge */}
       <View style={styles.badge}>
         <Text style={styles.badgeText}>
@@ -108,6 +118,22 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 16,
+  },
+  exitRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 8,
+  },
+  exitButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+  },
+  exitButtonText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: '600',
   },
   badge: {
     alignSelf: 'center',

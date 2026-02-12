@@ -13,6 +13,7 @@ import QuizIntroScreen from '@/screens/quiz/QuizIntroScreen';
 import QuizScreen from '@/screens/quiz/QuizScreen';
 import QuizResultScreen from '@/screens/quiz/QuizResultScreen';
 import SettingsScreen from '@/screens/SettingsScreen';
+import IllusionGameScreen from '@/screens/IllusionGameScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   Quiz: undefined;
   QuizResult: undefined;
   Settings: undefined;
+  IllusionGame: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -80,6 +82,11 @@ export const AppNavigator: React.FC = () => {
       <Stack.Screen
         name="QuizResult"
         component={QuizResultScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="IllusionGame"
+        component={IllusionGameScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

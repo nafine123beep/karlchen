@@ -12,11 +12,13 @@ interface LearningStore {
   tutorialProgress: TutorialProgress;
   stats: LearningStats;
   showTips: boolean;
+  illusionGamePlayed: boolean;
 
   // Actions
   completeTutorialStep: (step: TutorialStep) => void;
   setCurrentTutorialStep: (step: TutorialStep) => void;
   resetTutorial: () => void;
+  setIllusionGamePlayed: () => void;
 
   updateStats: (gameResult: {
     won: boolean;
@@ -59,6 +61,7 @@ export const useLearningStore = create<LearningStore>()(
       tutorialProgress: initialTutorialProgress,
       stats: initialStats,
       showTips: true,
+      illusionGamePlayed: false,
 
       // Complete tutorial step
       completeTutorialStep: (step: TutorialStep) => {
@@ -147,6 +150,11 @@ export const useLearningStore = create<LearningStore>()(
         });
       },
 
+      // Mark illusion game as played
+      setIllusionGamePlayed: () => {
+        set({ illusionGamePlayed: true });
+      },
+
       // Set show tips
       setShowTips: (show: boolean) => {
         set({ showTips: show });
@@ -200,6 +208,7 @@ export const useLearningStore = create<LearningStore>()(
         tutorialProgress: state.tutorialProgress,
         stats: state.stats,
         showTips: state.showTips,
+        illusionGamePlayed: state.illusionGamePlayed,
       }),
     }
   )

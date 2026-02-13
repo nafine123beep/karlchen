@@ -1,12 +1,17 @@
 /**
- * Home Screen - Main menu and entry point
+ * Home Screen - Ornate game-themed main menu
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { useLearningStore } from '@/store/learningStore';
+import { FeltBackground } from '@/components/home/textures/FeltTexture';
+import { OrnateButton } from '@/components/home/OrnateButton';
+import { OrnateHeader } from '@/components/home/OrnateHeader';
+import { HOME_LAYOUT } from '@/theme/homeTheme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -15,125 +20,104 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const stats = useLearningStore(state => state.stats);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>🃏 Karlchen</Text>
-        <Text style={styles.subtitle}>Lerne Doppelkopf spielen</Text>
-      </View>
-
-      <View style={styles.menu}>
-        {/* TODO: Implement menu buttons */}
-        <Pressable
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('BasicTutorial')}
+    <FeltBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.buttonText}>📚 Tutorial starten</Text>
-          <Text style={styles.buttonSubtext}>
-            {tutorialProgress}% abgeschlossen
-          </Text>
-        </Pressable>
+          {/* Ornate Header */}
+          <OrnateHeader
+            title="🃏 Karlchen"
+            subtitle="Lerne Doppelkopf spielen"
+          />
 
-        <Pressable
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('QuizIntro')}
-        >
-          <Text style={styles.buttonText}>Quiz starten</Text>
-          <Text style={styles.buttonSubtext}>
-            Teste dein Regelwissen
-          </Text>
-        </Pressable>
+          {/* Top Row: 3 Buttons */}
+          <View style={styles.topRow}>
+            <OrnateButton
+              title="Spiel-Anleitung"
+              onPress={() => navigation.navigate('GameRules')}
+            />
+            <View style={styles.buttonGap} />
+            <OrnateButton
+              title="Tutorial"
+              subtitle={`${tutorialProgress}%`}
+              onPress={() => navigation.navigate('BasicTutorial')}
+            />
+            <View style={styles.buttonGap} />
+            <OrnateButton
+              title="Quiz"
+              onPress={() => navigation.navigate('QuizIntro')}
+            />
+          </View>
 
-        <Pressable
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('Game', { mode: 'practice' })}
-        >
-          <Text style={styles.buttonText}>🎮 Freies Spiel</Text>
-          <Text style={styles.buttonSubtext}>
-            Übe gegen KI-Gegner
-          </Text>
-        </Pressable>
+          {/* Center Featured Button */}
+          <OrnateButton
+            title="🎮 Freies Spiel"
+            subtitle="Übe gegen KI-Gegner"
+            variant="featured"
+            onPress={() => navigation.navigate('Game', { mode: 'practice' })}
+          />
 
-        <Pressable
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('Stats')}
-        >
-          <Text style={styles.buttonText}>📊 Statistiken</Text>
-          <Text style={styles.buttonSubtext}>
-            {stats.gamesPlayed} Spiele gespielt
-          </Text>
-        </Pressable>
+          {/* Bottom Row: 2 Buttons */}
+          <View style={styles.bottomRow}>
+            <OrnateButton
+              title="⚙️ Einstellungen"
+              subtitle="Lernhilfen"
+              onPress={() => navigation.navigate('Settings')}
+            />
+            <View style={styles.buttonGap} />
+            <OrnateButton
+              title="📊 Statistiken"
+              subtitle={`${stats.gamesPlayed} Spiele`}
+              onPress={() => navigation.navigate('Stats')}
+            />
+          </View>
 
-        <Pressable
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('Settings')}
-        >
-          <Text style={styles.buttonText}>⚙️ Einstellungen</Text>
-          <Text style={styles.buttonSubtext}>
-            Lernhilfen und Optionen
-          </Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Version 0.1.0</Text>
-      </View>
-    </View>
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Version 0.1.0</Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </FeltBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#f3f4f6',
   },
-  header: {
-    padding: 32,
-    alignItems: 'center',
-    backgroundColor: '#2563eb',
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#ffffff',
-    opacity: 0.9,
-  },
-  menu: {
+  scrollView: {
     flex: 1,
-    padding: 24,
-    gap: 16,
   },
-  menuButton: {
-    backgroundColor: '#ffffff',
-    padding: 24,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+  scrollContent: {
+    flexGrow: 1,
+    padding: HOME_LAYOUT.padding.screen,
   },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#1f2937',
-    marginBottom: 4,
+  topRow: {
+    flexDirection: 'row',
+    marginTop: 24,
   },
-  buttonSubtext: {
-    fontSize: 14,
-    color: '#6b7280',
+  bottomRow: {
+    flexDirection: 'row',
+    marginTop: 16,
+  },
+  buttonGap: {
+    width: HOME_LAYOUT.button.horizontal.gap,
   },
   footer: {
-    padding: 16,
+    marginTop: 32,
+    marginBottom: 16,
     alignItems: 'center',
   },
   footerText: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: 'rgba(255, 255, 255, 0.5)',
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });
 

@@ -14,6 +14,7 @@ import QuizScreen from '@/screens/quiz/QuizScreen';
 import QuizResultScreen from '@/screens/quiz/QuizResultScreen';
 import SettingsScreen from '@/screens/SettingsScreen';
 import IllusionGameScreen from '@/screens/IllusionGameScreen';
+import GameRulesScreen from '@/screens/GameRulesScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   QuizResult: undefined;
   Settings: undefined;
   IllusionGame: undefined;
+  GameRules: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -93,6 +95,11 @@ export const AppNavigator: React.FC = () => {
         name="Settings"
         component={SettingsScreen}
         options={{ title: 'Einstellungen' }}
+      />
+      <Stack.Screen
+        name="GameRules"
+        component={GameRulesScreen}
+        options={{ title: 'Spiel-Anleitung' }}
       />
     </Stack.Navigator>
   );

@@ -275,25 +275,6 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const trickNumber = (gameState.completedTricks?.length ?? 0) + 1;
 
-  // Determine if obligation banner should be shown
-  const obligationInfo = useMemo(() => {
-    if (!beginnerHintsEnabled || hintsMuted || !isPlayerTurn || !gameState || !humanPlayer) {
-      return null;
-    }
-
-    // Only show banner if there are cards in the trick (not leading)
-    const trickCards = gameState.currentTrick.getCards();
-    if (trickCards.length === 0) return null;
-
-    const requiredSuit = getRequiredSuit(gameState.currentTrick);
-    if (!requiredSuit) return null;
-
-    return {
-      suit: requiredSuit,
-      isTrump: requiredSuit === 'trump',
-    };
-  }, [beginnerHintsEnabled, hintsMuted, isPlayerTurn, gameState?.currentTrick, stateVersion]);
-
   return (
     <View style={styles.container}>
       {/* Score Board */}

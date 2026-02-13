@@ -6,7 +6,7 @@ import { Trick } from '@/engine/models/Trick';
 import { Card } from '@/engine/models/Card';
 import { PlayerId } from '@/types/game.types';
 import { Suit } from '@/types/card.types';
-import { compareTrumpCards } from './trumpLogic';
+import { compareTrumpCards, isDulle } from './trumpLogic';
 
 /**
  * Calculate the winner of a completed trick
@@ -32,7 +32,11 @@ export function calculateTrickWinner(trick: Trick): PlayerId | null {
   if (trumpCards.length > 0) {
     let highestTrump = trumpCards[0];
     trumpCards.forEach(card => {
-      if (compareTrumpCards(card, highestTrump) < 0) {
+      const cmp = compareTrumpCards(card, highestTrump);
+      if (cmp < 0) {
+        highestTrump = card;
+      } else if (cmp === 0 && isDulle(card)) {
+        // Second Dulle beats first Dulle
         highestTrump = card;
       }
     });
@@ -90,7 +94,11 @@ export function canBeat(card: Card, otherCard: Card, leadSuit: Suit | null): boo
 
   // Both trump: compare trump order
   if (card.isTrump && otherCard.isTrump) {
-    return compareTrumpCards(card, otherCard) < 0; // Lower order wins
+    const cmp = compareTrumpCards(card, otherCard);
+    if (cmp < 0) return true;
+    // Second Dulle beats first Dulle
+    if (cmp === 0 && isDulle(card)) return true;
+    return false;
   }
 
   // Both non-trump: must match lead suit to beat

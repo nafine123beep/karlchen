@@ -14,7 +14,7 @@ export interface IllusionHint {
 }
 
 export const ILLUSION_HINTS: IllusionHint[] = [
-  // Trick 0: First move - introduce trump concept
+  // Trick 0: First move - introduce Dulle
   {
     trickNumber: 0,
     timing: 'before_play',
@@ -22,7 +22,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       id: 'TRUMP_BEATS_SUIT',
       title: 'Dein erster Stich!',
       message:
-        'Du hast die Kreuz-Dame – den stärksten Trumpf im Spiel! Spiele sie aus, um den Stich sicher zu gewinnen. Trumpfkarten haben einen goldenen Rand.',
+        'Du hast die Herz-10 – die „Dulle", den stärksten Trumpf im Spiel! Spiele sie aus, um den Stich sicher zu gewinnen. Trumpfkarten haben einen goldenen Rand.',
       severity: 'info',
       timing: 'preTactic',
     },
@@ -105,17 +105,17 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       timing: 'preTactic',
     },
   },
-  // Trick 10: Trumping to win
+  // Trick 10: Opponent's Dulle wins
   {
     trickNumber: 10,
-    timing: 'before_play',
+    timing: 'after_trick',
     hint: {
       id: 'TRUMP_BEATS_SUIT',
-      title: 'Letzter Trumpfstich',
+      title: 'Die Dulle!',
       message:
-        'Du hast kein Herz mehr – spiele einen Trumpf, um den Stich zu gewinnen! Jeder Trumpf schlägt jede Fehlfarbe.',
-      severity: 'info',
-      timing: 'preTactic',
+        'Der Gegner hat die zweite Herz-10 (Dulle) gespielt – die stärkste Karte im Spiel! Dagegen kommt kein Trumpf an.',
+      severity: 'warn',
+      timing: 'feedback',
     },
   },
 ];

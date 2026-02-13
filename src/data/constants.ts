@@ -53,9 +53,10 @@ export const DEFAULT_TRUMP_SUIT = Suit.DIAMONDS;
  * Trump card counts
  */
 export const TRUMP_COUNTS = {
+  DULLES: 2, // Herz 10 × 2 copies
   QUEENS: 8, // 4 suits × 2 copies
   JACKS: 8, // 4 suits × 2 copies
-  DIAMONDS: 10, // 5 ranks × 2 copies (excluding Q, J which are already counted)
+  DIAMONDS: 8, // 4 ranks (A, 10, K, 9) × 2 copies (excluding Q, J which are already counted)
   TOTAL: 26,
 };
 

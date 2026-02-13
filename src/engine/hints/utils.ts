@@ -7,6 +7,7 @@ import { Trick } from '@/engine/models/Trick';
 import { Suit } from '@/types/card.types';
 import { Team } from '@/types/game.types';
 import { HintContext } from '@/types/hint.types';
+import { isDulle } from '@/engine/logic/trumpLogic';
 
 // German suit names
 export const SUIT_NAMES_DE: Record<Suit, string> = {
@@ -70,7 +71,10 @@ function beats(card1: Card, card2: Card, leadSuit?: Suit | null): boolean {
   if (card1.isTrump && card2.isTrump) {
     const order1 = card1.trumpOrder ?? 99;
     const order2 = card2.trumpOrder ?? 99;
-    return order1 < order2;
+    if (order1 < order2) return true;
+    // Second Dulle beats first Dulle
+    if (order1 === order2 && isDulle(card1)) return true;
+    return false;
   }
 
   // Trump beats non-trump

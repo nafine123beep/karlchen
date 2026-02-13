@@ -30,7 +30,7 @@ describe('calculateTrickWinner', () => {
       trick.addCard(createCard(Suit.HEARTS, Rank.NINE), 'player_0');
       trick.addCard(createCard(Suit.HEARTS, Rank.ACE), 'player_1');
       trick.addCard(createCard(Suit.HEARTS, Rank.KING), 'player_2');
-      trick.addCard(createCard(Suit.HEARTS, Rank.TEN), 'player_3');
+      trick.addCard(createCard(Suit.HEARTS, Rank.NINE, 2), 'player_3');
 
       expect(calculateTrickWinner(trick)).toBe('player_1'); // Ace wins
     });
@@ -41,10 +41,10 @@ describe('calculateTrickWinner', () => {
       trick.addCard(createCard(Suit.HEARTS, Rank.KING), 'player_1');
       // Spades Ace is higher rank but wrong suit
       trick.addCard(createCard(Suit.SPADES, Rank.ACE), 'player_2');
-      trick.addCard(createCard(Suit.HEARTS, Rank.TEN), 'player_3');
+      trick.addCard(createCard(Suit.HEARTS, Rank.ACE), 'player_3');
 
-      // player_3 (Ten of Hearts) or player_1 (King of Hearts) — Ten > King in Doppelkopf
-      expect(calculateTrickWinner(trick)).toBe('player_3'); // Ten beats King
+      // player_3 (Ace of Hearts) wins the Hearts trick
+      expect(calculateTrickWinner(trick)).toBe('player_3');
     });
 
     it('should not always pick the lead player', () => {
@@ -54,7 +54,7 @@ describe('calculateTrickWinner', () => {
 
       // Need 4 cards for complete trick
       trick.addCard(createCard(Suit.SPADES, Rank.ACE), 'player_2'); // wrong suit
-      trick.addCard(createCard(Suit.SPADES, Rank.TEN), 'player_3'); // wrong suit
+      trick.addCard(createCard(Suit.SPADES, Rank.NINE), 'player_3'); // wrong suit
 
       expect(calculateTrickWinner(trick)).toBe('player_1'); // NOT player_0
     });
@@ -64,7 +64,7 @@ describe('calculateTrickWinner', () => {
     it('should let trump card beat non-trump', () => {
       const trick = new Trick('player_0', 1);
       trick.addCard(createCard(Suit.HEARTS, Rank.ACE), 'player_0'); // non-trump, 11pts
-      trick.addCard(createCard(Suit.HEARTS, Rank.TEN), 'player_1'); // non-trump, 10pts
+      trick.addCard(createCard(Suit.HEARTS, Rank.KING), 'player_1'); // non-trump, 4pts
       // Diamond Nine is trump (lowest trump)
       trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_2'); // trump
       trick.addCard(createCard(Suit.SPADES, Rank.ACE), 'player_3'); // non-trump
@@ -74,13 +74,13 @@ describe('calculateTrickWinner', () => {
 
     it('should pick highest trump when multiple trumps played', () => {
       const trick = new Trick('player_0', 1);
-      // Diamond Nine (trump order 11) - lowest trump
+      // Diamond Nine (trump order 12) - lowest trump
       trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_0');
-      // Club Queen (trump order 0) - highest trump
+      // Club Queen (trump order 1) - highest queen
       trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1');
-      // Heart Jack (trump order 6)
+      // Heart Jack (trump order 7)
       trick.addCard(createCard(Suit.HEARTS, Rank.JACK), 'player_2');
-      // Diamond Ace (trump order 8)
+      // Diamond Ace (trump order 9)
       trick.addCard(createCard(Suit.DIAMONDS, Rank.ACE), 'player_3');
 
       expect(calculateTrickWinner(trick)).toBe('player_1'); // Club Queen wins
@@ -88,22 +88,50 @@ describe('calculateTrickWinner', () => {
 
     it('should pick higher trump between two queens', () => {
       const trick = new Trick('player_0', 1);
-      trick.addCard(createCard(Suit.DIAMONDS, Rank.QUEEN), 'player_0'); // order 3
-      trick.addCard(createCard(Suit.SPADES, Rank.QUEEN), 'player_1'); // order 1
-      trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_2'); // order 11
-      trick.addCard(createCard(Suit.DIAMONDS, Rank.KING), 'player_3'); // order 10
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.QUEEN), 'player_0'); // order 4
+      trick.addCard(createCard(Suit.SPADES, Rank.QUEEN), 'player_1'); // order 2
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_2'); // order 12
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.KING), 'player_3'); // order 11
 
       expect(calculateTrickWinner(trick)).toBe('player_1'); // Spades Queen > Diamonds Queen
+    });
+
+    it('should let Dulle (Herz 10) beat Kreuz-Dame', () => {
+      const trick = new Trick('player_0', 1);
+      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_0'); // order 1
+      trick.addCard(createCard(Suit.HEARTS, Rank.TEN), 'player_1'); // order 0 (Dulle!)
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_2'); // order 12
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.KING), 'player_3'); // order 11
+
+      expect(calculateTrickWinner(trick)).toBe('player_1'); // Dulle wins
+    });
+
+    it('should let second Dulle beat first Dulle', () => {
+      const trick = new Trick('player_0', 1);
+      trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 1), 'player_0'); // first Dulle (order 0)
+      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1');   // order 1
+      trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 2), 'player_2'); // second Dulle (order 0)
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_3'); // order 12
+
+      expect(calculateTrickWinner(trick)).toBe('player_2'); // Second Dulle wins!
     });
   });
 
   describe('initializeTrumpCards integration', () => {
+    it('should correctly mark Herz 10 as trump via initializeTrumpCards', () => {
+      const card = new Card(Suit.HEARTS, Rank.TEN, 1);
+      initializeTrumpCards([card]);
+
+      expect(card.isTrump).toBe(true);
+      expect(card.trumpOrder).toBe(0);
+    });
+
     it('should correctly mark Queens as trump via initializeTrumpCards', () => {
       const card = new Card(Suit.CLUBS, Rank.QUEEN, 1);
       initializeTrumpCards([card]);
 
       expect(card.isTrump).toBe(true);
-      expect(card.trumpOrder).toBe(0);
+      expect(card.trumpOrder).toBe(1);
     });
 
     it('should correctly mark Diamonds as trump via initializeTrumpCards', () => {
@@ -111,7 +139,7 @@ describe('calculateTrickWinner', () => {
       initializeTrumpCards([card]);
 
       expect(card.isTrump).toBe(true);
-      expect(card.trumpOrder).toBe(8);
+      expect(card.trumpOrder).toBe(9);
     });
 
     it('should NOT mark non-trump cards as trump', () => {

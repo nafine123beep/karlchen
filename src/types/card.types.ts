@@ -31,6 +31,7 @@ export interface ICard {
 
 // Trump-Reihenfolge (höher = stärker)
 export enum TrumpOrder {
+  HEARTS_TEN = 15,
   CLUBS_QUEEN = 14,
   SPADES_QUEEN = 13,
   HEARTS_QUEEN = 12,

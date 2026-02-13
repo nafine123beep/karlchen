@@ -25,7 +25,7 @@ export const TRUMP_EXPLANATIONS: Explanation[] = [
     longText:
       'In Doppelkopf sind Trümpfe besondere Karten, die stärker sind als normale Karten. ' +
       'Sie können jeden Stich gewinnen, egal welche Farbe ausgespielt wurde. ' +
-      'Zu den Trümpfen gehören: alle Damen, alle Buben und alle Karo-Karten.',
+      'Zu den Trümpfen gehören: die Herz-10 (Dulle), alle Damen, alle Buben und alle Karo-Karten.',
     example:
       'Wenn Herz ausgespielt wird, aber du Karo 9 (Trumpf) spielst, gewinnst du den Stich!',
   },
@@ -36,19 +36,21 @@ export const TRUMP_EXPLANATIONS: Explanation[] = [
     shortText: 'Nicht alle Trümpfe sind gleich stark!',
     longText:
       'Die Trumpf-Reihenfolge von hoch nach niedrig: ' +
-      '1. Kreuz-Dame (höchster Trumpf!) ' +
-      '2. Pik-Dame ' +
-      '3. Herz-Dame ' +
-      '4. Karo-Dame ' +
-      '5. Kreuz-Bube ' +
-      '6. Pik-Bube ' +
-      '7. Herz-Bube ' +
-      '8. Karo-Bube ' +
-      '9. Karo-Ass ' +
-      '10. Karo-10 ' +
-      '11. Karo-König ' +
-      '12. Karo-9 (niedrigster Trumpf)',
-    example: 'Kreuz-Dame schlägt alle anderen Trümpfe!',
+      '1. Herz-10 (Dulle – höchster Trumpf!) ' +
+      '2. Kreuz-Dame ' +
+      '3. Pik-Dame ' +
+      '4. Herz-Dame ' +
+      '5. Karo-Dame ' +
+      '6. Kreuz-Bube ' +
+      '7. Pik-Bube ' +
+      '8. Herz-Bube ' +
+      '9. Karo-Bube ' +
+      '10. Karo-Ass ' +
+      '11. Karo-10 ' +
+      '12. Karo-König ' +
+      '13. Karo-9 (niedrigster Trumpf). ' +
+      'Sonderregel: Die zweite Dulle schlägt die erste!',
+    example: 'Herz-10 schlägt alle anderen Trümpfe – sogar die Kreuz-Dame!',
   },
 ];
 
@@ -158,7 +160,7 @@ export const RULES_EXPLANATIONS: Explanation[] = [
       '3. Die höchste Karte gewinnt den Stich und alle Punkte ' +
       '4. Der Gewinner führt den nächsten Stich an',
     example:
-      'Spieler 1: Herz-10, Spieler 2: Herz-König, Du: Herz-Ass, Spieler 4: Herz-9 → Du gewinnst mit Herz-Ass!',
+      'Spieler 1: Herz-9, Spieler 2: Herz-König, Du: Herz-Ass, Spieler 4: Herz-9 → Du gewinnst mit Herz-Ass!',
   },
   {
     id: 'rules_announcement',

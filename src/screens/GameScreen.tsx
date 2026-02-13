@@ -13,10 +13,13 @@ import { PlayerHand } from '@/components/game/PlayerHand';
 import { IllegalMoveModal } from '@/components/game/IllegalMoveModal';
 import { GameOverModal } from '@/components/game/GameOverModal';
 import { HintModal } from '@/components/game/HintModal';
+import { ObligationBanner } from '@/components/game/ObligationBanner';
 import { validateMove } from '@/engine/logic/legalMoves';
 import { Team, GamePhase, PlayerId } from '@/types/game.types';
 import { getHint } from '@/engine/hints/HintEngine';
+import { getFeedbackHint } from '@/engine/hints/FeedbackHintEngine';
 import { checkFollowSuitOrTrump } from '@/engine/hints/triggers/followSuitOrTrump';
+import { getRequiredSuit } from '@/engine/hints/utils';
 import { useHintsStore } from '@/store/hintsStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { Hint } from '@/types/hint.types';
@@ -55,6 +58,9 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
   // Hints settings
   const beginnerHintsEnabled = useSettingsStore(state => state.beginnerHintsEnabled);
+  const hintsMuted = useHintsStore(state => state.hintsMuted);
+  const muteHints = useHintsStore(state => state.muteHints);
+  const onPlayerTurnStart = useHintsStore(state => state.onPlayerTurnStart);
 
   // Start game on mount
   useEffect(() => {
@@ -74,6 +80,35 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
       setShowGameOver(true);
     }
   }, [gameState?.phase]);
+
+  // Track player turn changes for hint anti-spam
+  useEffect(() => {
+    if (isPlayerTurn && beginnerHintsEnabled && !hintsMuted) {
+      onPlayerTurnStart();
+    }
+  }, [isPlayerTurn, beginnerHintsEnabled, hintsMuted, onPlayerTurnStart]);
+
+  // Check for feedback hints after trick completion
+  useEffect(() => {
+    if (!beginnerHintsEnabled || hintsMuted || !gameState || !humanPlayer) return;
+
+    // Only check when trick animation completes
+    if (!isAnimatingTrickWin && gameState.completedTricks.length > 0) {
+      const lastTrick = gameState.completedTricks[gameState.completedTricks.length - 1];
+
+      // Check if we haven't already shown feedback for this trick
+      // (use trick index as a simple check)
+      const feedbackHint = getFeedbackHint({
+        completedTrick: lastTrick,
+        humanPlayerId: humanPlayer.id,
+        trickIndex: gameState.completedTricks.length - 1,
+      });
+
+      if (feedbackHint) {
+        setCurrentHint(feedbackHint);
+      }
+    }
+  }, [isAnimatingTrickWin, gameState?.completedTricks.length, beginnerHintsEnabled, hintsMuted]);
 
   // Get human player
   const humanPlayer = useMemo(() => {
@@ -143,7 +178,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     }
 
     // Check for hints if enabled (BEFORE playing card)
-    if (beginnerHintsEnabled) {
+    if (beginnerHintsEnabled && !hintsMuted) {
       try {
         const trickCards = gameState.currentTrick.getCards();
         if (__DEV__) {
@@ -221,6 +256,25 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const trickNumber = (gameState.completedTricks?.length ?? 0) + 1;
 
+  // Determine if obligation banner should be shown
+  const obligationInfo = useMemo(() => {
+    if (!beginnerHintsEnabled || hintsMuted || !isPlayerTurn || !gameState || !humanPlayer) {
+      return null;
+    }
+
+    // Only show banner if there are cards in the trick (not leading)
+    const trickCards = gameState.currentTrick.getCards();
+    if (trickCards.length === 0) return null;
+
+    const requiredSuit = getRequiredSuit(gameState.currentTrick);
+    if (!requiredSuit) return null;
+
+    return {
+      suit: requiredSuit,
+      isTrump: requiredSuit === 'trump',
+    };
+  }, [beginnerHintsEnabled, hintsMuted, isPlayerTurn, gameState?.currentTrick, stateVersion]);
+
   return (
     <View style={styles.container}>
       {/* Score Board */}
@@ -265,6 +319,11 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         <View style={styles.thinkingIndicator}>
           <Text style={styles.thinkingText}>KI denkt nach...</Text>
         </View>
+      )}
+
+      {/* Obligation Banner (Proactive Rule Hint) */}
+      {obligationInfo && (
+        <ObligationBanner suit={obligationInfo.suit} isTrump={obligationInfo.isTrump} />
       )}
 
       {/* Player's Hand */}
@@ -327,6 +386,12 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
           // navigation.navigate('BasicTutorial', { scrollTo: key });
           console.log('Learn more:', key);
         }}
+        onMute={() => {
+          muteHints();
+          setCurrentHint(null);
+          setSelectedCardId(null);
+        }}
+        showMuteOption={currentHint?.timing !== 'rule'}
       />
     </View>
   );

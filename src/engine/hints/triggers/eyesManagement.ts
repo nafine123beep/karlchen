@@ -40,5 +40,6 @@ export function checkEyesManagement(context: HintContext): Hint | null {
     title: 'Augen abwerfen?',
     message: 'Du wirfst eine wertvolle Karte (10 oder Ass) in einen Stich ab, den du nicht gewinnst. Überlege, ob du eine niedrigere Karte spielen kannst.',
     severity: 'info',
+    timing: 'preTactic',
   };
 }

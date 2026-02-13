@@ -24,6 +24,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Du hast die Kreuz-Dame – den stärksten Trumpf im Spiel! Spiele sie aus, um den Stich sicher zu gewinnen. Trumpfkarten haben einen goldenen Rand.',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 1: Teach suit play
@@ -36,6 +37,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Spiele eine Fehlfarbe (nicht Trumpf) aus. Die anderen Spieler müssen die gleiche Farbe bedienen – das nennt man Farbzwang.',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 2: Teach trumping when void
@@ -48,6 +50,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Kreuz wurde ausgespielt, aber du hast kein Kreuz mehr. Du darfst jetzt eine beliebige Karte spielen – mit einem Trumpf kannst du den Stich gewinnen!',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 3: Reinforce suit play with Ace
@@ -60,6 +63,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Spiele dein Pik-Ass aus. Bei Fehlfarben gewinnt die höchste Karte den Stich – und das Ass ist die höchste!',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 4: After opponent trumps your card
@@ -72,6 +76,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Dein Gegner hatte kein Pik und hat mit Trumpf gestochen. Trumpf schlägt immer Fehlfarben – auch wenn deine Karte hoch war!',
       severity: 'warn',
+      timing: 'feedback',
     },
   },
   // Trick 5: Teach trump hierarchy (Queen > Jack)
@@ -84,6 +89,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Ein Bube (Trumpf) wurde gespielt. Deine Damen sind stärker als alle Buben! Spiele eine Dame, um den Stich zu gewinnen.',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 7: Teach Farbzwang when following suit
@@ -96,6 +102,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Herz wurde ausgespielt. Du hast Herz-Karten, also musst du Herz bedienen. Das ist die Bedienpflicht (Farbzwang).',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
   // Trick 10: Trumping to win
@@ -108,6 +115,7 @@ export const ILLUSION_HINTS: IllusionHint[] = [
       message:
         'Du hast kein Herz mehr – spiele einen Trumpf, um den Stich zu gewinnen! Jeder Trumpf schlägt jede Fehlfarbe.',
       severity: 'info',
+      timing: 'preTactic',
     },
   },
 ];

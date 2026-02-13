@@ -51,5 +51,6 @@ export function checkSaveHighTrumps(context: HintContext): Hint | null {
     message: 'Du könntest diesen Stich auch mit einem niedrigeren Trumpf gewinnen. Spare hohe Trümpfe für wichtigere Stiche.',
     severity: 'info',
     learnMoreKey: 'tutorial.strategy.trumps',
+    timing: 'preTactic',
   };
 }

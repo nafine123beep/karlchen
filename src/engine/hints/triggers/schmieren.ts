@@ -38,5 +38,6 @@ export function checkSchmieren(context: HintContext): Hint | null {
     message: 'Dein Partner gewinnt gerade diesen Stich. Du könntest "schmieren" - eine wertvolle Karte (10, Ass) hinzufügen, um mehr Punkte für euer Team zu holen.',
     severity: 'info',
     learnMoreKey: 'tutorial.strategy.schmieren',
+    timing: 'preTactic',
   };
 }

@@ -33,5 +33,6 @@ export function checkFoxProtection(context: HintContext): Hint | null {
     message: 'Der Karo-Ass (Fuchs) bringt Extrapunkte für die Gegner, wenn sie ihn fangen. Versuche ihn zu schützen oder nur in Stichen zu spielen, die du gewinnst.',
     severity: 'warn',
     learnMoreKey: 'tutorial.special.fox',
+    timing: 'preTactic',
   };
 }

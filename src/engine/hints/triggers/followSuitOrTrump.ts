@@ -24,6 +24,7 @@ export function checkFollowSuitOrTrump(context: HintContext): Hint | null {
       message: 'In Doppelkopf gilt Bedienzwang: Wenn Trumpf angespielt wurde und du noch Trumpfkarten hast, musst du eine davon spielen.',
       severity: 'warn',
       learnMoreKey: 'tutorial.rules.following',
+      timing: 'rule',
     };
   } else if (requiredSuit) {
     const suitName = SUIT_NAMES_DE[requiredSuit];
@@ -33,6 +34,7 @@ export function checkFollowSuitOrTrump(context: HintContext): Hint | null {
       message: `In Doppelkopf gilt Bedienzwang: Wenn ${suitName} angespielt wurde und du noch ${suitName}-Karten hast, musst du eine davon spielen.`,
       severity: 'warn',
       learnMoreKey: 'tutorial.rules.following',
+      timing: 'rule',
     };
   }
 

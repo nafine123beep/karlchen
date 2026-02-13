@@ -31,6 +31,7 @@ export function checkKarlchenLateGame(context: HintContext): Hint | null {
       message: 'Du hast noch einen Kreuz-Buben. Wenn du damit den letzten Stich gewinnst, gibt das einen Bonuspunkt ("Karlchen fängt den letzten Stich").',
       severity: 'info',
       learnMoreKey: 'tutorial.special.karlchen',
+      timing: 'preTactic',
     };
   }
 
@@ -42,6 +43,7 @@ export function checkKarlchenLateGame(context: HintContext): Hint | null {
       message: 'Du hast noch einen Kreuz-Buben. Überlege, ob du ihn für den letzten Stich aufheben möchtest (Bonuspunkt "Karlchen").',
       severity: 'info',
       learnMoreKey: 'tutorial.special.karlchen',
+      timing: 'preTactic',
     };
   }
 

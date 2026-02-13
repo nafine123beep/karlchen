@@ -47,10 +47,10 @@ export class GameEngine {
   private initialize(config?: GameEngineConfig): void {
     // TODO: Implement game initialization
     const playerNames: [string, string, string, string] = config?.playerNames ?? [
-      'You',
-      'AI 1',
-      'AI 2',
-      'AI 3',
+      'Du',
+      'Ben',
+      'Anna',
+      'Clara',
     ];
 
     // Initialize players

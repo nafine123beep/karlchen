@@ -26,7 +26,9 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
   onStartRealGame,
   onGoHome,
 }) => {
-  console.log('[IllusionGameOverModal] Rendering with visible=', visible);
+  if (__DEV__) {
+    console.log('[IllusionGameOverModal] Rendering with visible=', visible);
+  }
 
   return (
     <Modal visible={visible} transparent animationType="fade">
@@ -72,7 +74,9 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
                 pressed && styles.buttonPressed,
               ]}
               onPress={() => {
-                console.log('[IllusionGameOverModal] "Echtes Spiel starten" pressed');
+                if (__DEV__) {
+                  console.log('[IllusionGameOverModal] "Echtes Spiel starten" pressed');
+                }
                 onStartRealGame();
               }}
             >
@@ -84,7 +88,9 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
                 pressed && styles.buttonPressed,
               ]}
               onPress={() => {
-                console.log('[IllusionGameOverModal] "Zurück zum Menü" pressed');
+                if (__DEV__) {
+                  console.log('[IllusionGameOverModal] "Zurück zum Menü" pressed');
+                }
                 onGoHome();
               }}
             >

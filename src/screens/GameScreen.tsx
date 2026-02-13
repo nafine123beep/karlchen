@@ -19,7 +19,7 @@ import { Team, GamePhase, PlayerId } from '@/types/game.types';
 import { getHint } from '@/engine/hints/HintEngine';
 import { getFeedbackHint } from '@/engine/hints/FeedbackHintEngine';
 import { checkFollowSuitOrTrump } from '@/engine/hints/triggers/followSuitOrTrump';
-import { getRequiredSuit } from '@/engine/hints/utils';
+import { getRequiredSuit, SUIT_NAMES_DE } from '@/engine/hints/utils';
 import { useHintsStore } from '@/store/hintsStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { Hint } from '@/types/hint.types';
@@ -149,8 +149,13 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     const requiredSuit = getRequiredSuit(gameState.currentTrick);
     if (!requiredSuit) return null;
 
+    // Übersetze Suit-Namen ins Deutsche
+    const suitNameDE = requiredSuit === 'trump'
+      ? 'Trumpf'
+      : SUIT_NAMES_DE[requiredSuit];
+
     return {
-      suit: requiredSuit,
+      suit: suitNameDE,
       isTrump: requiredSuit === 'trump',
     };
   }, [beginnerHintsEnabled, hintsMuted, isPlayerTurn, gameState, humanPlayer, stateVersion]);

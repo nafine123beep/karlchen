@@ -62,7 +62,7 @@ export const AppNavigator: React.FC = () => {
       <Stack.Screen
         name="Game"
         component={GameScreen}
-        options={{ title: 'Spiel', headerBackVisible: false }}
+        options={{ title: 'Karlchen - Freies Spiel', headerBackVisible: false }}
       />
       <Stack.Screen
         name="Stats"

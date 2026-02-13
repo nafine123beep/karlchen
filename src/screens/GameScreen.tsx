@@ -136,6 +136,13 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     return names;
   }, [gameState?.players]);
 
+  // Get current player name for "thinking" indicator
+  const currentPlayerName = useMemo(() => {
+    if (!gameState) return 'KI';
+    const currentPlayer = gameState.getCurrentPlayer();
+    return currentPlayer?.name || 'KI';
+  }, [gameState, stateVersion]);
+
   // Determine if obligation banner should be shown (must be before early return)
   const obligationInfo = useMemo(() => {
     if (!beginnerHintsEnabled || hintsMuted || !isPlayerTurn || !gameState || !humanPlayer) {
@@ -322,7 +329,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
       {/* AI Thinking Indicator */}
       {isProcessing && !isPlayerTurn && (
         <View style={styles.thinkingIndicator}>
-          <Text style={styles.thinkingText}>KI denkt nach...</Text>
+          <Text style={styles.thinkingText}>{currentPlayerName} denkt nach...</Text>
         </View>
       )}
 

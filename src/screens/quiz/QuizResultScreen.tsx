@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { useQuizStore } from '@/store/quizStore';
-import { useLearningStore } from '@/store/learningStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'QuizResult'>;
 
@@ -17,7 +16,6 @@ function getResultMessage(correct: number, total: number): string {
 const QuizResultScreen: React.FC<Props> = ({ navigation }) => {
   const getScore = useQuizStore(state => state.getScore);
   const startQuiz = useQuizStore(state => state.startQuiz);
-  const illusionGamePlayed = useLearningStore(state => state.illusionGamePlayed);
   const { correct, total } = getScore();
   const message = getResultMessage(correct, total);
 
@@ -40,22 +38,14 @@ const QuizResultScreen: React.FC<Props> = ({ navigation }) => {
 
       <View style={styles.buttonRow}>
         {/* Illusion Game Button */}
-        {!illusionGamePlayed ? (
-          <Pressable
-            style={({ pressed }) => [styles.illusionButton, pressed && styles.buttonPressed]}
-            onPress={() => navigation.replace('IllusionGame')}
-          >
-            <Text style={styles.illusionButtonText}>
-              Ein Übungsspiel spielen (mit offenen Karten)
-            </Text>
-          </Pressable>
-        ) : (
-          <View style={styles.illusionButtonDisabled}>
-            <Text style={styles.illusionButtonDisabledText}>
-              Übungsspiel bereits gespielt
-            </Text>
-          </View>
-        )}
+        <Pressable
+          style={({ pressed }) => [styles.illusionButton, pressed && styles.buttonPressed]}
+          onPress={() => navigation.replace('IllusionGame')}
+        >
+          <Text style={styles.illusionButtonText}>
+            Ein Übungsspiel spielen (mit offenen Karten)
+          </Text>
+        </Pressable>
 
         <Pressable
           style={({ pressed }) => [styles.secondaryButton, pressed && styles.buttonPressed]}

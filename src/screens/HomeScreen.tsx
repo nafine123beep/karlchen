@@ -53,12 +53,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           </View>
 
           {/* Center Featured Button */}
-          <OrnateButton
-            title="🎮 Freies Spiel"
-            subtitle="Übe gegen KI-Gegner"
-            variant="featured"
-            onPress={() => navigation.navigate('Game', { mode: 'practice' })}
-          />
+          <View style={styles.featuredContainer}>
+            <OrnateButton
+              title="🎮 Freies Spiel"
+              subtitle="Übe gegen KI-Gegner"
+              variant="featured"
+              onPress={() => navigation.navigate('Game', { mode: 'practice' })}
+            />
+          </View>
 
           {/* Bottom Row: 2 Buttons */}
           <View style={styles.bottomRow}>
@@ -99,6 +101,10 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: 'row',
     marginTop: 24,
+  },
+  featuredContainer: {
+    alignItems: 'center',
+    width: '100%',
   },
   bottomRow: {
     flexDirection: 'row',

@@ -3,8 +3,8 @@
  * Decorative wooden button with gold ornamental border
  */
 
-import React from 'react';
-import { Pressable, Text, View, StyleSheet, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, Text, View, StyleSheet, ViewStyle, LayoutChangeEvent } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -33,6 +33,12 @@ export const OrnateButton: React.FC<OrnateButtonProps> = ({
 }) => {
   const scale = useSharedValue(1);
   const isFeatured = variant === 'featured';
+  const [layout, setLayout] = useState({ width: 0, height: 0 });
+
+  const handleLayout = (e: LayoutChangeEvent) => {
+    const { width, height } = e.nativeEvent.layout;
+    setLayout({ width, height });
+  };
 
   // Animated press effect
   const animatedStyle = useAnimatedStyle(() => ({
@@ -73,7 +79,7 @@ export const OrnateButton: React.FC<OrnateButtonProps> = ({
         accessibilityRole="button"
         accessibilityLabel={title}
       >
-        <View style={styles.background}>
+        <View style={styles.background} onLayout={handleLayout}>
           {/* Wood texture background */}
           <View style={StyleSheet.absoluteFill}>
             <WoodTexture width="100%" height="100%" />
@@ -83,12 +89,14 @@ export const OrnateButton: React.FC<OrnateButtonProps> = ({
           <View style={styles.overlay} />
 
           {/* Gold decorative border */}
-          <GoldBorder
-            width="100%"
-            height="100%"
-            borderRadius={HOME_LAYOUT.button.horizontal.borderRadius}
-            showCornerOrnaments={isFeatured}
-          />
+          {layout.width > 0 && (
+            <GoldBorder
+              width={layout.width}
+              height={layout.height}
+              borderRadius={isFeatured ? HOME_LAYOUT.button.featured.borderRadius : HOME_LAYOUT.button.horizontal.borderRadius}
+              showCornerOrnaments={isFeatured}
+            />
+          )}
 
           {/* Text content */}
           <View style={styles.content}>
@@ -127,6 +135,8 @@ const styles = StyleSheet.create({
     height: HOME_LAYOUT.button.featured.height,
     borderRadius: HOME_LAYOUT.button.featured.borderRadius,
     marginVertical: HOME_LAYOUT.button.featured.marginVertical,
+    width: '90%', // Centered button takes 90% of container width
+    alignSelf: 'center',
   },
   pressable: {
     flex: 1,

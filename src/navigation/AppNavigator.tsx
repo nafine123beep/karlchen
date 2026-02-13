@@ -49,7 +49,7 @@ export const AppNavigator: React.FC = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Karlchen - Doppelkopf Lernen' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="BasicTutorial"

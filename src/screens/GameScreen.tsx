@@ -81,6 +81,11 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     }
   }, [gameState?.phase]);
 
+  // Get human player (must be before effects that depend on it)
+  const humanPlayer = useMemo(() => {
+    return gameState?.players.find(p => p.isHuman);
+  }, [gameState?.players]);
+
   // Track player turn changes for hint anti-spam
   useEffect(() => {
     if (isPlayerTurn && beginnerHintsEnabled && !hintsMuted) {
@@ -108,12 +113,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         setCurrentHint(feedbackHint);
       }
     }
-  }, [isAnimatingTrickWin, gameState?.completedTricks.length, beginnerHintsEnabled, hintsMuted]);
-
-  // Get human player
-  const humanPlayer = useMemo(() => {
-    return gameState?.players.find(p => p.isHuman);
-  }, [gameState?.players]);
+  }, [isAnimatingTrickWin, gameState?.completedTricks.length, beginnerHintsEnabled, hintsMuted, humanPlayer]);
 
   // Get current trick cards for display
   // stateVersion as dependency ensures recomputation when cards are added
@@ -135,6 +135,25 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     });
     return names;
   }, [gameState?.players]);
+
+  // Determine if obligation banner should be shown (must be before early return)
+  const obligationInfo = useMemo(() => {
+    if (!beginnerHintsEnabled || hintsMuted || !isPlayerTurn || !gameState || !humanPlayer) {
+      return null;
+    }
+
+    // Only show banner if there are cards in the trick (not leading)
+    const trickCards = gameState.currentTrick.getCards();
+    if (trickCards.length === 0) return null;
+
+    const requiredSuit = getRequiredSuit(gameState.currentTrick);
+    if (!requiredSuit) return null;
+
+    return {
+      suit: requiredSuit,
+      isTrump: requiredSuit === 'trump',
+    };
+  }, [beginnerHintsEnabled, hintsMuted, isPlayerTurn, gameState, humanPlayer, stateVersion]);
 
   // Handle card selection and play
   const handleCardPress = async (cardId: string) => {

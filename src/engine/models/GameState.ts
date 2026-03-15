@@ -36,10 +36,8 @@ export class GameState {
 
   /**
    * Initialize players for the game
-   * TODO: Called during setup
    */
   initializePlayers(playerNames: [string, string, string, string]): void {
-    // TODO: Create 4 players
     this.players = playerNames.map((name, index) =>
       new Player(`player_${index}`, name, index === 0) // Player 0 is human
     );
@@ -68,10 +66,8 @@ export class GameState {
 
   /**
    * Start a new trick
-   * TODO: Called after previous trick is completed
    */
   startNewTrick(): void {
-    // TODO: Implement new trick creation
     const trickNumber = this.completedTricks.length + 1;
     const leadPlayer = this.currentTrick.winnerId ?? `player_${this.currentPlayerIndex}`;
     this.currentTrick = new Trick(leadPlayer, trickNumber);
@@ -108,15 +104,6 @@ export class GameState {
   }
 
   /**
-   * Update scores based on completed tricks
-   * TODO: Should be called by scoreLogic
-   */
-  updateScores(): void {
-    // TODO: Calculate scores from completed tricks
-    // This will be implemented in scoreLogic.ts
-  }
-
-  /**
    * Transition to next game phase
    */
   setPhase(phase: GamePhase): void {
@@ -144,7 +131,6 @@ export class GameState {
    * Create GameState from data object
    */
   static fromData(data: GameStateData): GameState {
-    // TODO: Implement full deserialization
     const gameState = new GameState(data.id);
     gameState.phase = data.phase;
     gameState.players = data.players.map((pd: PlayerData) => Player.fromData(pd));

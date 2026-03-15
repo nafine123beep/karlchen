@@ -100,6 +100,7 @@ export const useHintsStore = create<HintsStore>((set, get) => ({
       hintsShownThisTrick: 0,
       currentTrickIndex: state.currentTrickIndex + 1,
       feedbackShownThisTrick: false, // NEW: Reset feedback flag
+      lastHintTimestamp: null, // Reset cooldown for new trick
     }));
   },
 

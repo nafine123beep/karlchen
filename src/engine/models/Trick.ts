@@ -26,10 +26,8 @@ export class Trick {
 
   /**
    * Add a card to this trick
-   * TODO: Validate that trick is not already complete
    */
   addCard(card: Card, playerId: PlayerId): boolean {
-    // TODO: Implement card adding with validation
     if (this.playedCards.length >= 4) {
       return false; // Trick already complete
     }
@@ -54,7 +52,7 @@ export class Trick {
 
   /**
    * Get the suit that was led
-   * TODO: Returns null if lead card is trump
+   * Returns null if lead card is trump (trump has no "lead suit")
    */
   getLeadSuit(): Suit | null {
     const leadCard = this.getLeadCard();
@@ -86,16 +84,13 @@ export class Trick {
 
   /**
    * Calculate total point value of this trick
-   * TODO: Sum up card values
    */
   getTotalValue(): number {
-    // TODO: Implement value calculation
     return this.playedCards.reduce((sum, pc) => sum + pc.card.value, 0);
   }
 
   /**
    * Determine winner of this trick
-   * TODO: This should be called by trickLogic, not internally
    */
   setWinner(playerId: PlayerId): void {
     this.winnerId = playerId;
@@ -116,6 +111,13 @@ export class Trick {
   }
 
   /**
+   * Get the trick number (1-based, extracted from id)
+   */
+  get trickNumber(): number {
+    return parseInt(this.id.split('_')[1]);
+  }
+
+  /**
    * Convert to plain data object
    */
   toData(): TrickData {
@@ -132,10 +134,8 @@ export class Trick {
 
   /**
    * Create Trick from data object
-   * TODO: Requires card lookup from game state
    */
   static fromData(data: TrickData, cardLookup: Map<string, Card>): Trick {
-    // TODO: Implement deserialization
     const trickNumber = parseInt(data.id.split('_')[1]);
     const trick = new Trick(data.leadPlayerId, trickNumber);
 

@@ -23,6 +23,8 @@ import {
   calculateCurrentScore,
   detectFoxCatch,
   detectKarlchen,
+  detectKarlchenCaught,
+  detectFoxLastTrick,
   detectDoppelkopfTrick,
 } from './logic/scoreLogic';
 import { validateMove, getLegalMoves } from './logic/legalMoves';
@@ -42,10 +44,8 @@ export class GameEngine {
 
   /**
    * Initialize a new game
-   * TODO: Set up deck, deal cards, assign teams
    */
   private initialize(config?: GameEngineConfig): void {
-    // TODO: Implement game initialization
     const playerNames: [string, string, string, string] = config?.playerNames ?? [
       'Du',
       'Ben',
@@ -84,16 +84,13 @@ export class GameEngine {
    * Start the playing phase
    */
   startPlaying(): void {
-    // TODO: Transition to playing phase
     this.gameState.setPhase(GamePhase.PLAYING);
   }
 
   /**
    * Play a card for the current player
-   * TODO: Main action - validate, execute, advance game
    */
   playCard(cardId: string): { success: boolean; error?: string } {
-    // TODO: Implement card playing
     const currentPlayer = this.gameState.getCurrentPlayer();
     const card = currentPlayer.hand.find(c => c.id === cardId);
 
@@ -186,6 +183,18 @@ export class GameEngine {
       this.gameState.specialPoints.karlchen = karlchen;
     }
 
+    // Check for Karlchen caught (opponent captures Club Jack in trick 12)
+    const karlchenCaught = detectKarlchenCaught(trick, trickNumber, winnerId, this.gameState.players);
+    if (karlchenCaught) {
+      this.gameState.specialPoints.karlchenCaught = karlchenCaught;
+    }
+
+    // Check for Fox in last trick (winning trick 12 with Karo-Ass)
+    const foxLastTrick = detectFoxLastTrick(trick, trickNumber, winnerId, this.gameState.players);
+    if (foxLastTrick) {
+      this.gameState.specialPoints.foxLastTrick = foxLastTrick;
+    }
+
     // Check for Doppelkopf trick (40+ points)
     const doppelkopf = detectDoppelkopfTrick(trick, winnerId, this.gameState.players);
     if (doppelkopf) {
@@ -200,7 +209,6 @@ export class GameEngine {
    * Finish the game and calculate final scores
    */
   private finishGame(): void {
-    // TODO: Calculate final scores and special points
     this.gameState.setPhase(GamePhase.SCORING);
 
     const finalScore = calculateFinalScore(this.gameState);
@@ -233,7 +241,6 @@ export class GameEngine {
    * Announce Re or Kontra for a player
    */
   announceTeam(playerId: PlayerId, team: Team): { success: boolean; error?: string } {
-    // TODO: Implement announcement
     const player = this.gameState.getPlayer(playerId);
     if (!player) {
       return { success: false, error: 'Player not found' };

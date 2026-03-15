@@ -47,10 +47,8 @@ export class AIPlayer {
 
   /**
    * Make AI decision for card to play
-   * TODO: Returns card after thinking delay
    */
   async makeMove(gameState: GameState): Promise<Card | null> {
-    // TODO: Implement AI move with delay
     // Simulate thinking time
     await this.sleep(this.thinkingDelay);
 
@@ -104,7 +102,6 @@ export class AIPlayer {
    * Decide whether to announce Re/Kontra
    */
   async decideAnnouncement(gameState: GameState): Promise<Team | null> {
-    // TODO: Implement announcement decision
     await this.sleep(this.thinkingDelay / 2);
 
     if (!canAnnounce(this.player, gameState)) return null;

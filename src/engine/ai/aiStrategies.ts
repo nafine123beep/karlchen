@@ -18,10 +18,8 @@ import { getPartner, areTeammates } from '@/engine/logic/teamLogic';
 
 /**
  * Select a card to play using medium-level strategy
- * TODO: Implement AI decision logic
  */
 export function selectCardToPlay(player: Player, gameState: GameState): Card | null {
-  // TODO: Implement AI card selection
   const legalMoves = getLegalMoves(player, gameState.currentTrick);
 
   if (legalMoves.length === 0) return null;
@@ -44,7 +42,6 @@ export function selectCardToPlay(player: Player, gameState: GameState): Card | n
  * Strategy: Play high trump or high non-trump to win
  */
 function selectLeadCard(player: Player, gameState: GameState, legalMoves: Card[]): Card {
-  // TODO: Implement lead card selection
   // Prefer high trump cards
   const trumpCards = legalMoves.filter(card => card.isTrump);
   if (trumpCards.length > 0) {
@@ -60,7 +57,6 @@ function selectLeadCard(player: Player, gameState: GameState, legalMoves: Card[]
  * Strategy: Win if possible, otherwise play low
  */
 function selectFollowCard(player: Player, gameState: GameState, legalMoves: Card[]): Card {
-  // TODO: Implement follow card selection
   const currentWinner = getCurrentWinningPlayer(gameState.currentTrick);
   const partner = getPartner(player, gameState);
 
@@ -87,7 +83,6 @@ function selectFollowCard(player: Player, gameState: GameState, legalMoves: Card
  * Select highest value card from options
  */
 function selectHighestCard(cards: Card[]): Card {
-  // TODO: Implement highest card selection
   if (cards.length === 0) throw new Error('No cards to select from');
 
   // For trump cards, use trump order (lower = higher)
@@ -108,7 +103,6 @@ function selectHighestCard(cards: Card[]): Card {
  * Select lowest value card from options
  */
 function selectLowestCard(cards: Card[]): Card {
-  // TODO: Implement lowest card selection
   if (cards.length === 0) throw new Error('No cards to select from');
 
   // For trump cards, use trump order (higher = lower)
@@ -130,7 +124,6 @@ function selectLowestCard(cards: Card[]): Card {
  * Higher is better
  */
 export function evaluateCardStrength(card: Card): number {
-  // TODO: Implement card strength evaluation
   if (card.isTrump) {
     // Trump cards: lower order = higher strength
     const trumpOrder = card.trumpOrder ?? 99;
@@ -143,10 +136,8 @@ export function evaluateCardStrength(card: Card): number {
 
 /**
  * Check if we should announce Re/Kontra
- * TODO: Basic strategy - announce if we have strong hand
  */
 export function shouldAnnounce(player: Player, gameState: GameState): boolean {
-  // TODO: Implement announcement decision
   // Count trump cards and high value cards
   const trumpCount = player.getTrumpCards().length;
   const highValueCards = player.hand.filter(card => card.value >= 10).length;

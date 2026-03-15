@@ -14,10 +14,8 @@ import { Suit, Rank } from '@/types/card.types';
 
 /**
  * Assign teams to all players based on their cards
- * TODO: Check for Queens of Clubs
  */
 export function assignTeams(gameState: GameState): void {
-  // TODO: Implement team assignment
   gameState.players.forEach(player => {
     player.team = determinePlayerTeam(player);
   });
@@ -27,7 +25,6 @@ export function assignTeams(gameState: GameState): void {
  * Determine a single player's team based on their cards
  */
 export function determinePlayerTeam(player: Player): Team {
-  // TODO: Implement team determination
   // Check if player has Queen of Clubs
   const hasQueenOfClubs = player.hand.some(
     card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS
@@ -73,10 +70,8 @@ export function areTeammates(player1: Player, player2: Player): boolean {
 
 /**
  * Check if player has announced Re or Kontra
- * TODO: Announcements can only be made before 11th card
  */
 export function canAnnounce(player: Player, gameState: GameState): boolean {
-  // TODO: Implement announcement rules
   // Can't announce if already announced
   if (player.hasAnnounced) return false;
 
@@ -94,7 +89,6 @@ export function canAnnounce(player: Player, gameState: GameState): boolean {
  * Handle player announcement
  */
 export function announceTeam(player: Player, team: Team, gameState: GameState): boolean {
-  // TODO: Implement announcement handling
   if (!canAnnounce(player, gameState)) return false;
 
   // Verify team matches player's actual team
@@ -127,7 +121,6 @@ export function isTeamRevealed(player: Player, gameState: GameState): boolean {
   if (partner?.hasAnnounced) return true;
 
   // Team is revealed if Queen of Clubs has been played
-  // TODO: Check if any Queen of Clubs has been played
   const queenOfClubsPlayed = gameState.completedTricks.some(trick =>
     trick.getCards().some(card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS)
   );

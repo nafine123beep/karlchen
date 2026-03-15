@@ -59,7 +59,7 @@ export const basicTutorialSlides: TutorialSlide[] = [
   {
     id: 'slide-5',
     headline: 'Es geht um Punkte, nicht um Stiche!',
-    text: 'Alle Karten zusammen = 240 Punkte. Re braucht 121+, Kontra reichen 120.',
+    text: 'Alle Karten zusammen = 240 Punkte. Re braucht mindestens 121 Punkte zum Sieg. Bei 120:120 gewinnt Kontra.',
     bulletPoints: [
       'Ass = 11 Punkte',
       '10 = 10 Punkte',

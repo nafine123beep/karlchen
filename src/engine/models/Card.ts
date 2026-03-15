@@ -39,19 +39,17 @@ export class Card {
 
   /**
    * Set this card as trump with specific ordering
-   * TODO: Called by trump logic during game initialization
    */
   setTrump(order: number): void {
-    // TODO: Implement trump setting
     this.isTrump = true;
     this.trumpOrder = order;
   }
 
   /**
-   * Compare this card to another for sorting/winning
-   * TODO: Implement comparison logic (trump vs non-trump, rank ordering)
+   * Compare this card to another by rank strength (non-trump only).
+   * Returns positive if this card is stronger, negative if weaker, 0 if equal.
    */
-  compareTo(other: Card, leadSuit?: Suit): number {
+  compareTo(other: Card): number {
     const RANK_STRENGTH: Record<Rank, number> = {
       [Rank.ACE]: 5,
       [Rank.TEN]: 4,
@@ -81,7 +79,6 @@ export class Card {
    * Create Card instance from data object
    */
   static fromData(data: CardData): Card {
-    // TODO: Implement deserialization
     // Parse copyNumber from id, reconstruct card
     const copyNumber = data.id.endsWith('_1') ? 1 : 2;
     const card = new Card(data.suit, data.rank, copyNumber as 1 | 2);

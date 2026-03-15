@@ -28,16 +28,13 @@ export class Player {
 
   /**
    * Add cards to player's hand
-   * TODO: Usually called during dealing phase
    */
   receiveCards(cards: Card[]): void {
-    // TODO: Implement card receiving
     this.hand.push(...cards);
   }
 
   /**
    * Play a card from hand
-   * TODO: Remove card from hand and return it
    */
   playCard(cardId: string): Card | null {
     const card = this.hand.find(c => c.id === cardId);
@@ -56,10 +53,8 @@ export class Player {
 
   /**
    * Get all cards of specific suit
-   * TODO: Used for legal move validation
    */
   getCardsOfSuit(suit: Suit): Card[] {
-    // TODO: Implement suit filtering
     return this.hand.filter(card => card.suit === suit && !card.isTrump);
   }
 
@@ -72,29 +67,14 @@ export class Player {
 
   /**
    * Announce Re or Kontra
-   * TODO: Only possible before 11th trick, with specific cards
    */
   announceTeam(team: Team.RE | Team.CONTRA): boolean {
-    // TODO: Implement announcement validation
     // Check if player has required cards for announcement
     if (this.hasAnnounced) return false;
 
     this.team = team;
     this.hasAnnounced = true;
     return true;
-  }
-
-  /**
-   * Determine team based on cards (Queens of Clubs = Re)
-   * TODO: Implement team detection logic
-   */
-  determineTeamFromCards(): Team {
-    // TODO: Check for Queens of Clubs
-    // If player has at least one Queen of Clubs, they're Re
-    const hasQueenOfClubs = this.hand.some(
-      card => card.rank === 'Q' && card.suit === 'clubs'
-    );
-    return hasQueenOfClubs ? Team.RE : Team.CONTRA;
   }
 
   /**
@@ -133,10 +113,8 @@ export class Player {
 
   /**
    * Sort hand by trump order and suit
-   * TODO: Helpful for UI display
    */
   sortHand(): void {
-    // TODO: Implement hand sorting
     // Trump cards first (by trumpOrder), then by suit and rank
     this.hand.sort((a, b) => {
       if (a.isTrump && !b.isTrump) return -1;

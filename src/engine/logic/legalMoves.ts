@@ -12,13 +12,12 @@ import { Card } from '@/engine/models/Card';
 import { Trick } from '@/engine/models/Trick';
 import { Player } from '@/engine/models/Player';
 import { Suit } from '@/types/card.types';
+import { getCurrentWinningCard, canBeat } from './trickLogic';
 
 /**
  * Get all legal cards a player can play
- * TODO: Implement Doppelkopf Bedienzwang (must-follow) rules
  */
 export function getLegalMoves(player: Player, currentTrick: Trick): Card[] {
-  // TODO: Implement legal move detection
   const hand = player.hand;
 
   // First card of trick: any card is legal
@@ -91,21 +90,21 @@ export function hasSuit(player: Player, suit: Suit | 'trump'): boolean {
 }
 
 /**
- * Get all cards that can potentially win the current trick
- * TODO: Useful for AI decision making
+ * Get all legal cards that can beat the current winning card in the trick.
+ * If leading, all legal moves are returned.
  */
 export function getWinningMoves(player: Player, currentTrick: Trick): Card[] {
-  // TODO: Implement winning move detection
   const legalMoves = getLegalMoves(player, currentTrick);
 
   if (currentTrick.size === 0) {
-    // Any card can "win" if we're leading
     return legalMoves;
   }
 
-  // TODO: Filter for cards that can beat current winning card
-  // This requires implementing card comparison logic
-  return legalMoves;
+  const winningCard = getCurrentWinningCard(currentTrick);
+  if (!winningCard) return legalMoves;
+
+  const leadSuit = currentTrick.getLeadSuit();
+  return legalMoves.filter(card => canBeat(card, winningCard, leadSuit));
 }
 
 /**

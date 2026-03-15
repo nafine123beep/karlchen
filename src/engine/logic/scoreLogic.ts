@@ -33,10 +33,8 @@ export interface GameScore {
 
 /**
  * Calculate final score after game completion
- * TODO: Implement full Doppelkopf scoring
  */
 export function calculateFinalScore(gameState: GameState): GameScore {
-  // TODO: Implement score calculation
   const { rePoints, kontraPoints } = calculateTeamPoints(gameState);
 
   // Determine winner (need 121 to win, 120 is a tie)
@@ -63,7 +61,6 @@ export function calculateFinalScore(gameState: GameState): GameScore {
  * Calculate card points for each team from completed tricks
  */
 export function calculateTeamPoints(gameState: GameState): { rePoints: number; kontraPoints: number } {
-  // TODO: Implement team point calculation
   let rePoints = 0;
   let kontraPoints = 0;
 
@@ -98,7 +95,6 @@ function calculateSpecialPoints(
   against30?: Team;
   schwarz?: Team;
 } {
-  // TODO: Implement special points
   const specialPoints: {
     against90?: Team;
     against60?: Team;
@@ -135,7 +131,6 @@ function calculateGameValue(
     schwarz?: Team;
   }
 ): number {
-  // TODO: Implement game value calculation
   let value = 1; // Base game
 
   // Add special points
@@ -165,7 +160,6 @@ export function calculateCurrentScore(gameState: GameState): { re: number; kontr
 
 /**
  * Check if a team has announced a specific level
- * TODO: Used for announcements (Re, No 90, etc.)
  */
 export function hasTeamAnnounced(gameState: GameState, team: Team): boolean {
   const teamPlayers = gameState.getPlayersOnTeam(team);
@@ -181,10 +175,8 @@ export function getPointsNeededToWin(currentPoints: number): number {
 
 /**
  * Check if game is mathematically decided
- * TODO: Can one team no longer win?
  */
 export function isGameDecided(rePoints: number, kontraPoints: number, tricksRemaining: number): boolean {
-  // TODO: Implement game decided logic
   // Maximum points remaining
   const maxPointsRemaining = tricksRemaining * 30; // Approximate max per trick
 
@@ -252,6 +244,66 @@ export function detectKarlchen(
   if (!winningCard) return null;
 
   if (winningCard.suit === Suit.CLUBS && winningCard.rank === Rank.JACK) {
+    return {
+      team: winner.team,
+      playerId: winnerId,
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Detect if Karlchen was caught (opponent captures Kreuz-Bube in last trick)
+ * The catching team gets the bonus point instead of the Karlchen player
+ */
+export function detectKarlchenCaught(
+  trick: Trick,
+  trickNumber: number,
+  winnerId: PlayerId,
+  players: Player[]
+): { caughtByTeam: Team; fromPlayerId: PlayerId } | null {
+  if (trickNumber !== 12) return null;
+
+  const winner = players.find(p => p.id === winnerId);
+  if (!winner) return null;
+
+  // Check if any non-winning player played a Club Jack
+  for (const playedCard of trick.cards) {
+    const card = playedCard.card;
+    if (card.suit === Suit.CLUBS && card.rank === Rank.JACK && playedCard.playerId !== winnerId) {
+      const karlchenPlayer = players.find(p => p.id === playedCard.playerId);
+      if (karlchenPlayer && karlchenPlayer.team !== winner.team) {
+        return {
+          caughtByTeam: winner.team,
+          fromPlayerId: playedCard.playerId,
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Detect if the last trick was won with a Fox (Karo-Ass)
+ * Winning trick 12 with a Fox gives an extra point
+ */
+export function detectFoxLastTrick(
+  trick: Trick,
+  trickNumber: number,
+  winnerId: PlayerId,
+  players: Player[]
+): { team: Team; playerId: PlayerId } | null {
+  if (trickNumber !== 12) return null;
+
+  const winner = players.find(p => p.id === winnerId);
+  if (!winner) return null;
+
+  const winningCard = trick.getCardByPlayer(winnerId);
+  if (!winningCard) return null;
+
+  if (winningCard.suit === Suit.DIAMONDS && winningCard.rank === Rank.ACE) {
     return {
       team: winner.team,
       playerId: winnerId,

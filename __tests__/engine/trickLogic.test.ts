@@ -115,6 +115,16 @@ describe('calculateTrickWinner', () => {
 
       expect(calculateTrickWinner(trick)).toBe('player_2'); // Second Dulle wins!
     });
+
+    it('should let FIRST Dulle win in the last trick (trick 12)', () => {
+      const trick = new Trick('player_0', 12); // last trick!
+      trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 1), 'player_0'); // first Dulle
+      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1');   // order 1
+      trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 2), 'player_2'); // second Dulle
+      trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_3'); // order 12
+
+      expect(calculateTrickWinner(trick)).toBe('player_0'); // First Dulle wins in last trick!
+    });
   });
 
   describe('initializeTrumpCards integration', () => {

@@ -107,11 +107,33 @@ export const SCORING_EXPLANATIONS: Explanation[] = [
     shortText: 'Gewinne mit hohem Vorsprung für Extra-Punkte!',
     longText:
       'Neben dem Grundspiel (1 Punkt) gibt es Extra-Punkte: ' +
-      'Gegen 90 (+1): Gegner unter 90 Punkte ' +
-      'Gegen 60 (+1): Gegner unter 60 Punkte ' +
-      'Gegen 30 (+1): Gegner unter 30 Punkte ' +
-      'Schwarz (+1): Gegner macht keinen Stich',
+      'Gegen 90 (+1): Gegner unter 90 Punkte. ' +
+      'Gegen 60 (+1): Gegner unter 60 Punkte. ' +
+      'Gegen 30 (+1): Gegner unter 30 Punkte. ' +
+      'Schwarz (+1): Gegner macht keinen Stich.',
     example: 'Gewinnst du mit 180:60 Punkten, bekommst du: 1 (gewonnen) + 1 (gegen 90) + 1 (gegen 60) = 3 Punkte!',
+  },
+  {
+    id: 'fuchs',
+    category: TipCategory.Scoring,
+    title: 'Der Fuchs (Karo-Ass)',
+    shortText: 'Das Karo-Ass ist der Fuchs – pass auf ihn auf!',
+    longText:
+      'Jedes Karo-Ass heißt „Fuchs". Wenn die gegnerische Partei deinen Fuchs in einem Stich fängt, ' +
+      'bekommt sie einen Sonderpunkt (+1). Wenn du den letzten Stich mit einem Fuchs gewinnst, ' +
+      'gibt es ebenfalls einen Sonderpunkt (+1). Versuche also, deinen Fuchs bei deinem Partner oder dir selbst zu halten!',
+    example: 'Der Gegner gewinnt einen Stich, in dem dein Karo-Ass liegt? +1 Sonderpunkt für den Gegner!',
+  },
+  {
+    id: 'karlchen',
+    category: TipCategory.Scoring,
+    title: 'Karlchen (Kreuz-Bube)',
+    shortText: 'Den letzten Stich mit dem Kreuz-Buben gewinnen = Sonderpunkt!',
+    longText:
+      'Der Kreuz-Bube heißt „Karlchen". Wer den letzten Stich (Stich 12) mit Karlchen gewinnt, ' +
+      'bekommt einen Sonderpunkt (+1). Aber Vorsicht: Wird Karlchen im letzten Stich vom Gegner gefangen, ' +
+      'bekommt stattdessen der Gegner den Punkt.',
+    example: 'Du spielst den Kreuz-Buben im letzten Stich und gewinnst? +1 Punkt! Aber der Gegner sticht mit einer Dame? Dann bekommt er den Punkt.',
   },
 ];
 

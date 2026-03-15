@@ -10,7 +10,6 @@ import { compareTrumpCards, isDulle } from './trumpLogic';
 
 /**
  * Calculate the winner of a completed trick
- * TODO: Implement Doppelkopf trick winner logic
  *
  * Rules:
  * 1. Highest trump wins (if any trump played)
@@ -18,7 +17,6 @@ import { compareTrumpCards, isDulle } from './trumpLogic';
  * 3. Cards not matching lead suit cannot win (unless trump)
  */
 export function calculateTrickWinner(trick: Trick): PlayerId | null {
-  // TODO: Implement trick winner calculation
   if (!trick.isComplete()) return null;
 
   const cards = trick.getCards();
@@ -30,13 +28,14 @@ export function calculateTrickWinner(trick: Trick): PlayerId | null {
 
   // If any trump cards, highest trump wins
   if (trumpCards.length > 0) {
+    const isLastTrick = trick.trickNumber === 12;
     let highestTrump = trumpCards[0];
     trumpCards.forEach(card => {
       const cmp = compareTrumpCards(card, highestTrump);
       if (cmp < 0) {
         highestTrump = card;
-      } else if (cmp === 0 && isDulle(card)) {
-        // Second Dulle beats first Dulle
+      } else if (cmp === 0 && isDulle(card) && !isLastTrick) {
+        // Second Dulle beats first Dulle (except in last trick)
         highestTrump = card;
       }
     });
@@ -52,7 +51,7 @@ export function calculateTrickWinner(trick: Trick): PlayerId | null {
     if (leadSuitCards.length > 0) {
       let highestCard = leadSuitCards[0];
       leadSuitCards.forEach(card => {
-        if (card.compareTo(highestCard, leadSuit) > 0) {
+        if (card.compareTo(highestCard) > 0) {
           highestCard = card;
         }
       });
@@ -68,10 +67,8 @@ export function calculateTrickWinner(trick: Trick): PlayerId | null {
 
 /**
  * Validate if a trick is properly formed
- * TODO: Check that all 4 cards follow the rules
  */
 export function validateTrick(trick: Trick): boolean {
-  // TODO: Implement trick validation
   // Check that trick has exactly 4 cards
   if (!trick.isComplete()) return false;
 
@@ -86,8 +83,7 @@ export function validateTrick(trick: Trick): boolean {
 /**
  * Check if a card can beat another card in a trick context
  */
-export function canBeat(card: Card, otherCard: Card, leadSuit: Suit | null): boolean {
-  // TODO: Implement beat logic
+export function canBeat(card: Card, otherCard: Card, leadSuit: Suit | null, isLastTrick: boolean = false): boolean {
   // Trump always beats non-trump
   if (card.isTrump && !otherCard.isTrump) return true;
   if (!card.isTrump && otherCard.isTrump) return false;
@@ -96,14 +92,14 @@ export function canBeat(card: Card, otherCard: Card, leadSuit: Suit | null): boo
   if (card.isTrump && otherCard.isTrump) {
     const cmp = compareTrumpCards(card, otherCard);
     if (cmp < 0) return true;
-    // Second Dulle beats first Dulle
-    if (cmp === 0 && isDulle(card)) return true;
+    // Second Dulle beats first Dulle (except in last trick)
+    if (cmp === 0 && isDulle(card) && !isLastTrick) return true;
     return false;
   }
 
   // Both non-trump: must match lead suit to beat
   if (leadSuit && card.suit === leadSuit && otherCard.suit === leadSuit) {
-    return card.compareTo(otherCard, leadSuit) > 0;
+    return card.compareTo(otherCard) > 0;
   }
 
   // Card not matching lead suit cannot beat
@@ -119,9 +115,10 @@ export function getCurrentWinningCard(trick: Trick): Card | null {
 
   let winningCard = cards[0];
   const leadSuit = trick.getLeadSuit();
+  const isLastTrick = trick.trickNumber === 12;
 
   cards.forEach(card => {
-    if (canBeat(card, winningCard, leadSuit)) {
+    if (canBeat(card, winningCard, leadSuit, isLastTrick)) {
       winningCard = card;
     }
   });

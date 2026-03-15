@@ -104,5 +104,7 @@ export interface SpecialPoints {
   // Doppelkopf specials
   foxesCaught?: Array<{ caughtByTeam: Team; fromPlayerId: PlayerId }>;
   karlchen?: { team: Team; playerId: PlayerId };
+  karlchenCaught?: { caughtByTeam: Team; fromPlayerId: PlayerId };
+  foxLastTrick?: { team: Team; playerId: PlayerId };
   doppelkopfTricks?: Array<{ team: Team; playerId: PlayerId; points: number }>;
 }

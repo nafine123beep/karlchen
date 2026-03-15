@@ -59,21 +59,21 @@ export function getCurrentWinningPlayer(trick: Trick): string | null {
 /**
  * Check if card can beat winningCard
  */
-export function canBeat(card: Card, winningCard: Card, leadSuit?: Suit | null): boolean {
-  return beats(card, winningCard, leadSuit);
+export function canBeat(card: Card, winningCard: Card, leadSuit?: Suit | null, isLastTrick: boolean = false): boolean {
+  return beats(card, winningCard, leadSuit, isLastTrick);
 }
 
 /**
  * Determine if card1 beats card2 following Doppelkopf rules
  */
-function beats(card1: Card, card2: Card, leadSuit?: Suit | null): boolean {
+function beats(card1: Card, card2: Card, leadSuit?: Suit | null, isLastTrick: boolean = false): boolean {
   // Both trump: compare trump order (lower order = stronger)
   if (card1.isTrump && card2.isTrump) {
     const order1 = card1.trumpOrder ?? 99;
     const order2 = card2.trumpOrder ?? 99;
     if (order1 < order2) return true;
-    // Second Dulle beats first Dulle
-    if (order1 === order2 && isDulle(card1)) return true;
+    // Second Dulle beats first Dulle (except in last trick)
+    if (order1 === order2 && isDulle(card1) && !isLastTrick) return true;
     return false;
   }
 

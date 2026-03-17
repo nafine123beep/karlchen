@@ -24,20 +24,14 @@ const SIZE_MULTIPLIERS = {
   large: 1.3,
 };
 
-export const CardBack: React.FC<CardBackProps> = ({
-  size = 'medium',
-  rotation = 0,
-}) => {
+export const CardBack: React.FC<CardBackProps> = ({ size = 'medium', rotation = 0 }) => {
   const sizeMultiplier = SIZE_MULTIPLIERS[size];
   const width = CARD_WIDTH * sizeMultiplier;
   const height = CARD_HEIGHT * sizeMultiplier;
 
   return (
     <Animated.View
-      style={[
-        styles.container,
-        { width, height, transform: [{ rotate: `${rotation}deg` }] },
-      ]}
+      style={[styles.container, { width, height, transform: [{ rotate: `${rotation}deg` }] }]}
     >
       <Svg width={width} height={height} viewBox={`0 0 ${CARD_WIDTH} ${CARD_HEIGHT}`}>
         <Defs>
@@ -113,21 +107,9 @@ export const CardBack: React.FC<CardBackProps> = ({
         {/* Center decoration - Karlchen logo placeholder */}
         <G transform={`translate(${CARD_WIDTH / 2}, ${CARD_HEIGHT / 2})`}>
           {/* Outer circle */}
-          <Circle
-            r={16}
-            fill="none"
-            stroke="#f59e0b"
-            strokeWidth={1.5}
-            opacity={0.8}
-          />
+          <Circle r={16} fill="none" stroke="#f59e0b" strokeWidth={1.5} opacity={0.8} />
           {/* Inner circle */}
-          <Circle
-            r={10}
-            fill="#1e3a5f"
-            stroke="#f59e0b"
-            strokeWidth={1}
-            opacity={0.9}
-          />
+          <Circle r={10} fill="#1e3a5f" stroke="#f59e0b" strokeWidth={1} opacity={0.9} />
           {/* K letter for Karlchen */}
           <Path
             d="M-4 -6 L-4 6 M-4 0 L4 -6 M-4 0 L4 6"

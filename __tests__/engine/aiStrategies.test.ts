@@ -80,7 +80,7 @@ describe('aiStrategies', () => {
 
       // Give player a mix of trump and non-trump
       const trumpCard = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1); // Kreuz-Dame, order 1
-      const nonTrumpCard = new Card(Suit.SPADES, Rank.ACE, 1);   // 11 points but not trump
+      const nonTrumpCard = new Card(Suit.SPADES, Rank.ACE, 1); // 11 points but not trump
 
       player.receiveCards([nonTrumpCard, trumpCard]);
 
@@ -95,8 +95,8 @@ describe('aiStrategies', () => {
 
       gs.currentTrick = new Trick('player_1', 1);
 
-      const lowTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12);  // order 12 (low)
-      const highTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1);    // order 1 (high)
+      const lowTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12); // order 12 (low)
+      const highTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1); // order 1 (high)
 
       player.receiveCards([lowTrump, highTrump]);
 
@@ -112,8 +112,8 @@ describe('aiStrategies', () => {
 
       gs.currentTrick = new Trick('player_1', 1);
 
-      const lowCard = new Card(Suit.SPADES, Rank.NINE, 1);   // value 0
-      const highCard = new Card(Suit.SPADES, Rank.ACE, 1);    // value 11
+      const lowCard = new Card(Suit.SPADES, Rank.NINE, 1); // value 0
+      const highCard = new Card(Suit.SPADES, Rank.ACE, 1); // value 11
 
       player.receiveCards([lowCard, highCard]);
 
@@ -147,7 +147,7 @@ describe('aiStrategies', () => {
 
       // Now player_1 (RE) must follow — partner player_3 is currently winning
       const player = gs.players[1];
-      const highTrump = makeTrump(Suit.SPADES, Rank.QUEEN, 1, 2);  // order 2
+      const highTrump = makeTrump(Suit.SPADES, Rank.QUEEN, 1, 2); // order 2
       const lowTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12); // order 12
 
       player.receiveCards([highTrump, lowTrump]);
@@ -174,7 +174,7 @@ describe('aiStrategies', () => {
 
       // Player 1 (RE) should try to win
       const player = gs.players[1];
-      const winningTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1);   // can beat
+      const winningTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1); // can beat
       const losingTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12); // cannot beat
 
       player.receiveCards([losingTrump, winningTrump]);
@@ -227,8 +227,8 @@ describe('aiStrategies', () => {
     });
 
     it('should give higher trumps a higher score than lower trumps', () => {
-      const highTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1);    // order 1
-      const lowTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12);  // order 12
+      const highTrump = makeTrump(Suit.CLUBS, Rank.QUEEN, 1, 1); // order 1
+      const lowTrump = makeTrump(Suit.DIAMONDS, Rank.NINE, 1, 12); // order 12
 
       const highScore = evaluateCardStrength(highTrump);
       const lowScore = evaluateCardStrength(lowTrump);
@@ -237,7 +237,7 @@ describe('aiStrategies', () => {
     });
 
     it('should score non-trump cards based on their point value', () => {
-      const ace = new Card(Suit.SPADES, Rank.ACE, 1);   // value 11
+      const ace = new Card(Suit.SPADES, Rank.ACE, 1); // value 11
       const nine = new Card(Suit.SPADES, Rank.NINE, 1); // value 0
 
       const aceScore = evaluateCardStrength(ace);
@@ -293,11 +293,11 @@ describe('aiStrategies', () => {
       // Give player 5 high-value non-trump cards (Aces=11, Tens=10)
       // Note: Hearts Ten is trump (Dulle), so avoid it
       player.receiveCards([
-        new Card(Suit.SPADES, Rank.ACE, 1),    // value 11
-        new Card(Suit.SPADES, Rank.ACE, 2),    // value 11
-        new Card(Suit.CLUBS, Rank.ACE, 1),     // value 11
-        new Card(Suit.CLUBS, Rank.ACE, 2),     // value 11
-        new Card(Suit.HEARTS, Rank.ACE, 1),    // value 11
+        new Card(Suit.SPADES, Rank.ACE, 1), // value 11
+        new Card(Suit.SPADES, Rank.ACE, 2), // value 11
+        new Card(Suit.CLUBS, Rank.ACE, 1), // value 11
+        new Card(Suit.CLUBS, Rank.ACE, 2), // value 11
+        new Card(Suit.HEARTS, Rank.ACE, 1), // value 11
       ]);
 
       expect(shouldAnnounce(player, gs)).toBe(true);
@@ -309,10 +309,10 @@ describe('aiStrategies', () => {
 
       // Give player only low non-trump cards
       player.receiveCards([
-        new Card(Suit.SPADES, Rank.NINE, 1),  // value 0
-        new Card(Suit.SPADES, Rank.KING, 1),  // value 4
-        new Card(Suit.HEARTS, Rank.NINE, 1),  // value 0
-        new Card(Suit.HEARTS, Rank.KING, 1),  // value 4
+        new Card(Suit.SPADES, Rank.NINE, 1), // value 0
+        new Card(Suit.SPADES, Rank.KING, 1), // value 4
+        new Card(Suit.HEARTS, Rank.NINE, 1), // value 0
+        new Card(Suit.HEARTS, Rank.KING, 1), // value 4
       ]);
 
       expect(shouldAnnounce(player, gs)).toBe(false);

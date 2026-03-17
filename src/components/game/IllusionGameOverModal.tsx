@@ -41,9 +41,7 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
           <View style={styles.header}>
             <Text style={styles.headerIcon}>🎓</Text>
             <Text style={styles.headerTitle}>Gut gemacht!</Text>
-            <Text style={styles.headerSubtitle}>
-              Du hast das Übungsspiel abgeschlossen.
-            </Text>
+            <Text style={styles.headerSubtitle}>Du hast das Übungsspiel abgeschlossen.</Text>
           </View>
 
           {/* Section 1: What you learned */}
@@ -61,18 +59,15 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Nächster Schritt:</Text>
             <Text style={styles.nextStepText}>
-              Jetzt bist du bereit für ein echtes Spiel! Die Karten werden
-              zufällig verteilt und die KI-Gegner spielen strategisch.
+              Jetzt bist du bereit für ein echtes Spiel! Die Karten werden zufällig verteilt und die
+              KI-Gegner spielen strategisch.
             </Text>
           </View>
 
           {/* Buttons */}
           <View style={styles.buttonRow}>
             <Pressable
-              style={({ pressed }) => [
-                styles.primaryButton,
-                pressed && styles.buttonPressed,
-              ]}
+              style={({ pressed }) => [styles.primaryButton, pressed && styles.buttonPressed]}
               onPress={() => {
                 if (__DEV__) {
                   console.log('[IllusionGameOverModal] "Echtes Spiel starten" pressed');
@@ -83,10 +78,7 @@ export const IllusionGameOverModal: React.FC<IllusionGameOverModalProps> = ({
               <Text style={styles.primaryButtonText}>Echtes Spiel starten</Text>
             </Pressable>
             <Pressable
-              style={({ pressed }) => [
-                styles.secondaryButton,
-                pressed && styles.buttonPressed,
-              ]}
+              style={({ pressed }) => [styles.secondaryButton, pressed && styles.buttonPressed]}
               onPress={() => {
                 if (__DEV__) {
                   console.log('[IllusionGameOverModal] "Zurück zum Menü" pressed');

@@ -7,10 +7,7 @@ import { Hint } from '@/types/hint.types';
 import { Trick } from '@/engine/models/Trick';
 import { Rank } from '@/types/card.types';
 
-export function checkLostHighTrump(
-  completedTrick: Trick,
-  humanPlayerId: string
-): Hint | null {
+export function checkLostHighTrump(completedTrick: Trick, humanPlayerId: string): Hint | null {
   const playerCard = completedTrick.getCardByPlayer(humanPlayerId);
   if (!playerCard) return null;
 
@@ -28,7 +25,8 @@ export function checkLostHighTrump(
   return {
     id: 'FEEDBACK_LOST_HIGH_TRUMP',
     title: 'Hohen Trumpf verloren',
-    message: 'Du hast einen wertvollen hohen Trumpf in diesem Stich verloren. Manchmal ist es besser, niedrigere Trumpfkarten zu spielen und die hohen für später aufzusparen.',
+    message:
+      'Du hast einen wertvollen hohen Trumpf in diesem Stich verloren. Manchmal ist es besser, niedrigere Trumpfkarten zu spielen und die hohen für später aufzusparen.',
     severity: 'info',
     timing: 'feedback',
     learnMoreKey: 'tutorial.trump.conservation',

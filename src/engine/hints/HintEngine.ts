@@ -23,12 +23,12 @@ export function getHint(context: HintContext): Hint | null {
   // Note: FOLLOW_SUIT_OR_TRUMP is handled directly in GameScreen
   // (before validation, in the illegal move path)
   const triggers = [
-    checkTrumpBeatsSuit,          // Common beginner mistake
-    checkSaveHighTrumps,          // Trump strategy
-    checkFoxProtection,           // Special card protection
-    checkEyesManagement,          // Point management
-    checkSchmieren,               // Team strategy (rare due to conservative teammate check)
-    checkKarlchenLateGame,        // Endgame bonus
+    checkTrumpBeatsSuit, // Common beginner mistake
+    checkSaveHighTrumps, // Trump strategy
+    checkFoxProtection, // Special card protection
+    checkEyesManagement, // Point management
+    checkSchmieren, // Team strategy (rare due to conservative teammate check)
+    checkKarlchenLateGame, // Endgame bonus
   ];
 
   for (const trigger of triggers) {

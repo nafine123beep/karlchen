@@ -109,7 +109,7 @@ describe('calculateTrickWinner', () => {
     it('should let second Dulle beat first Dulle', () => {
       const trick = new Trick('player_0', 1);
       trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 1), 'player_0'); // first Dulle (order 0)
-      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1');   // order 1
+      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1'); // order 1
       trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 2), 'player_2'); // second Dulle (order 0)
       trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_3'); // order 12
 
@@ -119,7 +119,7 @@ describe('calculateTrickWinner', () => {
     it('should let FIRST Dulle win in the last trick (trick 12)', () => {
       const trick = new Trick('player_0', 12); // last trick!
       trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 1), 'player_0'); // first Dulle
-      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1');   // order 1
+      trick.addCard(createCard(Suit.CLUBS, Rank.QUEEN), 'player_1'); // order 1
       trick.addCard(createCard(Suit.HEARTS, Rank.TEN, 2), 'player_2'); // second Dulle
       trick.addCard(createCard(Suit.DIAMONDS, Rank.NINE), 'player_3'); // order 12
 

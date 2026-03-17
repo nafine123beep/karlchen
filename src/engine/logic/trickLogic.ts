@@ -83,7 +83,12 @@ export function validateTrick(trick: Trick): boolean {
 /**
  * Check if a card can beat another card in a trick context
  */
-export function canBeat(card: Card, otherCard: Card, leadSuit: Suit | null, isLastTrick: boolean = false): boolean {
+export function canBeat(
+  card: Card,
+  otherCard: Card,
+  leadSuit: Suit | null,
+  isLastTrick: boolean = false,
+): boolean {
   // Trump always beats non-trump
   if (card.isTrump && !otherCard.isTrump) return true;
   if (!card.isTrump && otherCard.isTrump) return false;

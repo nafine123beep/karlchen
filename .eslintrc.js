@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  ignorePatterns: ['node_modules/', 'dist/', 'coverage/', 'ios/', 'android/', '.expo/'],
   extends: [
     '@react-native',
     'eslint:recommended',
@@ -33,10 +34,28 @@ module.exports = {
     'react/prop-types': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/immutability': 'off',
+    'react-hooks/set-state-in-effect': 'off',
+    'react-hooks/preserve-manual-memoization': 'off',
   },
   settings: {
     react: {
       version: 'detect',
     },
   },
+  overrides: [
+    {
+      files: ['*.config.js', '*.config.ts'],
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
+      },
+    },
+    {
+      files: ['__tests__/**/*.{ts,tsx}'],
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
+  ],
 };

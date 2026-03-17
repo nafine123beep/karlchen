@@ -16,9 +16,7 @@ const mockQuiz: TutorialQuiz = {
 
 describe('QuizSection', () => {
   it('renders question and all options', () => {
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />);
 
     expect(getByText('Was ist richtig?')).toBeTruthy();
     expect(getByText('Falsche Antwort A')).toBeTruthy();
@@ -28,9 +26,7 @@ describe('QuizSection', () => {
 
   it('calls onCorrectAnswer when correct option is selected', () => {
     const onCorrect = jest.fn();
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />);
 
     fireEvent.press(getByText('Richtige Antwort B'));
 
@@ -39,9 +35,7 @@ describe('QuizSection', () => {
 
   it('does not call onCorrectAnswer when wrong option is selected', () => {
     const onCorrect = jest.fn();
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />);
 
     fireEvent.press(getByText('Falsche Antwort A'));
 
@@ -49,9 +43,7 @@ describe('QuizSection', () => {
   });
 
   it('shows correct feedback on correct answer', () => {
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />);
 
     fireEvent.press(getByText('Richtige Antwort B'));
 
@@ -59,9 +51,7 @@ describe('QuizSection', () => {
   });
 
   it('shows incorrect feedback and retry button on wrong answer', () => {
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />);
 
     fireEvent.press(getByText('Falsche Antwort A'));
 
@@ -71,9 +61,7 @@ describe('QuizSection', () => {
 
   it('resets state on retry and allows re-selection', () => {
     const onCorrect = jest.fn();
-    const { getByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />
-    );
+    const { getByText } = render(<QuizSection quiz={mockQuiz} onCorrectAnswer={onCorrect} />);
 
     // Wrong answer
     fireEvent.press(getByText('Falsche Antwort A'));
@@ -90,7 +78,7 @@ describe('QuizSection', () => {
 
   it('does not show retry button on correct answer', () => {
     const { getByText, queryByText } = render(
-      <QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />
+      <QuizSection quiz={mockQuiz} onCorrectAnswer={jest.fn()} />,
     );
 
     fireEvent.press(getByText('Richtige Antwort B'));

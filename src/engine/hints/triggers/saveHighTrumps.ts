@@ -48,7 +48,8 @@ export function checkSaveHighTrumps(context: HintContext): Hint | null {
   return {
     id: 'SAVE_HIGH_TRUMPS',
     title: 'Hohen Trumpf sparen?',
-    message: 'Du könntest diesen Stich auch mit einem niedrigeren Trumpf gewinnen. Spare hohe Trümpfe für wichtigere Stiche.',
+    message:
+      'Du könntest diesen Stich auch mit einem niedrigeren Trumpf gewinnen. Spare hohe Trümpfe für wichtigere Stiche.',
     severity: 'info',
     learnMoreKey: 'tutorial.strategy.trumps',
     timing: 'preTactic',

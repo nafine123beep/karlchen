@@ -28,10 +28,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           {/* Ornate Header */}
-          <OrnateHeader
-            title="🃏 Karlchen"
-            subtitle="Lerne Doppelkopf spielen"
-          />
+          <OrnateHeader title="🃏 Karlchen" subtitle="Lerne Doppelkopf spielen" />
 
           {/* Top Row: 3 Buttons */}
           <View style={styles.topRow}>
@@ -46,10 +43,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               onPress={() => navigation.navigate('BasicTutorial')}
             />
             <View style={styles.buttonGap} />
-            <OrnateButton
-              title="Quiz"
-              onPress={() => navigation.navigate('QuizIntro')}
-            />
+            <OrnateButton title="Quiz" onPress={() => navigation.navigate('QuizIntro')} />
           </View>
 
           {/* Center Featured Button */}

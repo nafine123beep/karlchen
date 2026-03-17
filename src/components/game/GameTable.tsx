@@ -106,7 +106,9 @@ export const GameTable: React.FC<GameTableProps> = ({
               cardCount={opponents.find(o => o.position === 'left')!.player.handSize}
               playerName={opponents.find(o => o.position === 'left')!.player.name}
               position="left"
-              isCurrentTurn={opponents.find(o => o.position === 'left')!.player.id === currentPlayerId}
+              isCurrentTurn={
+                opponents.find(o => o.position === 'left')!.player.id === currentPlayerId
+              }
               tricksWon={opponents.find(o => o.position === 'left')!.player.tricksTaken}
               cards={opponents.find(o => o.position === 'left')!.player.hand}
               showOpen={openCards}
@@ -134,7 +136,9 @@ export const GameTable: React.FC<GameTableProps> = ({
               cardCount={opponents.find(o => o.position === 'right')!.player.handSize}
               playerName={opponents.find(o => o.position === 'right')!.player.name}
               position="right"
-              isCurrentTurn={opponents.find(o => o.position === 'right')!.player.id === currentPlayerId}
+              isCurrentTurn={
+                opponents.find(o => o.position === 'right')!.player.id === currentPlayerId
+              }
               tricksWon={opponents.find(o => o.position === 'right')!.player.tricksTaken}
               cards={opponents.find(o => o.position === 'right')!.player.hand}
               showOpen={openCards}

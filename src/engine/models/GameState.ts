@@ -5,7 +5,14 @@
 import { Player } from './Player';
 import { Trick } from './Trick';
 import { Card } from './Card';
-import { GamePhase, Team, GameStateData, PlayerData, TrickData, SpecialPoints } from '@/types/game.types';
+import {
+  GamePhase,
+  Team,
+  GameStateData,
+  PlayerData,
+  TrickData,
+  SpecialPoints,
+} from '@/types/game.types';
 import { Suit } from '@/types/card.types';
 
 export class GameState {
@@ -38,8 +45,8 @@ export class GameState {
    * Initialize players for the game
    */
   initializePlayers(playerNames: [string, string, string, string]): void {
-    this.players = playerNames.map((name, index) =>
-      new Player(`player_${index}`, name, index === 0) // Player 0 is human
+    this.players = playerNames.map(
+      (name, index) => new Player(`player_${index}`, name, index === 0), // Player 0 is human
     );
   }
 
@@ -145,7 +152,7 @@ export class GameState {
 
     gameState.currentTrick = Trick.fromData(data.currentTrick, cardLookup);
     gameState.completedTricks = data.completedTricks.map((td: TrickData) =>
-      Trick.fromData(td, cardLookup)
+      Trick.fromData(td, cardLookup),
     );
     gameState.currentPlayerIndex = data.currentPlayerIndex;
     gameState.trumpSuit = data.trumpSuit;

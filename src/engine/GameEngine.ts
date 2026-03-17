@@ -184,7 +184,12 @@ export class GameEngine {
     }
 
     // Check for Karlchen caught (opponent captures Club Jack in trick 12)
-    const karlchenCaught = detectKarlchenCaught(trick, trickNumber, winnerId, this.gameState.players);
+    const karlchenCaught = detectKarlchenCaught(
+      trick,
+      trickNumber,
+      winnerId,
+      this.gameState.players,
+    );
     if (karlchenCaught) {
       this.gameState.specialPoints.karlchenCaught = karlchenCaught;
     }

@@ -113,7 +113,13 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         setCurrentHint(feedbackHint);
       }
     }
-  }, [isAnimatingTrickWin, gameState?.completedTricks.length, beginnerHintsEnabled, hintsMuted, humanPlayer]);
+  }, [
+    isAnimatingTrickWin,
+    gameState?.completedTricks.length,
+    beginnerHintsEnabled,
+    hintsMuted,
+    humanPlayer,
+  ]);
 
   // Get current trick cards for display
   // stateVersion as dependency ensures recomputation when cards are added
@@ -157,9 +163,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
     if (!requiredSuit) return null;
 
     // Übersetze Suit-Namen ins Deutsche
-    const suitNameDE = requiredSuit === 'trump'
-      ? 'Trumpf'
-      : SUIT_NAMES_DE[requiredSuit];
+    const suitNameDE = requiredSuit === 'trump' ? 'Trumpf' : SUIT_NAMES_DE[requiredSuit];
 
     return {
       suit: suitNameDE,
@@ -309,7 +313,11 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
           players={gameState.players}
           humanPlayerId={humanPlayer.id}
           currentPlayerId={gameState.players[gameState.currentPlayerIndex]?.id ?? ''}
-          currentTrickCards={isAnimatingTrickWin && lastCompletedTrickCards ? lastCompletedTrickCards : currentTrickCards}
+          currentTrickCards={
+            isAnimatingTrickWin && lastCompletedTrickCards
+              ? lastCompletedTrickCards
+              : currentTrickCards
+          }
           winningCardId={trickWinInfo?.winningCardId ?? null}
           winnerPlayerId={trickWinInfo?.winnerPlayerId ?? null}
           winnerName={trickWinInfo?.winnerName}
@@ -368,8 +376,14 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
         specialPoints={gameState.specialPoints}
         playerTeam={humanPlayer.team}
         playerNames={playerNames}
-        onNewGame={() => { setShowGameOver(false); startNewGame(); }}
-        onExit={() => { setShowGameOver(false); navigation.goBack(); }}
+        onNewGame={() => {
+          setShowGameOver(false);
+          startNewGame();
+        }}
+        onExit={() => {
+          setShowGameOver(false);
+          navigation.goBack();
+        }}
       />
 
       {/* Illegal Move Modal */}
@@ -393,7 +407,7 @@ const GameScreen: React.FC<Props> = ({ navigation, route }) => {
             await playCard(cardToPlay);
           }
         }}
-        onLearnMore={(key) => {
+        onLearnMore={key => {
           // Optional: Navigate to tutorial section
           // navigation.navigate('BasicTutorial', { scrollTo: key });
           console.log('Learn more:', key);

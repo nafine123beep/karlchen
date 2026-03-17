@@ -60,7 +60,10 @@ export function calculateFinalScore(gameState: GameState): GameScore {
 /**
  * Calculate card points for each team from completed tricks
  */
-export function calculateTeamPoints(gameState: GameState): { rePoints: number; kontraPoints: number } {
+export function calculateTeamPoints(gameState: GameState): {
+  rePoints: number;
+  kontraPoints: number;
+} {
   let rePoints = 0;
   let kontraPoints = 0;
 
@@ -88,7 +91,7 @@ export function calculateTeamPoints(gameState: GameState): { rePoints: number; k
  */
 function calculateSpecialPoints(
   rePoints: number,
-  kontraPoints: number
+  kontraPoints: number,
 ): {
   against90?: Team;
   against60?: Team;
@@ -129,7 +132,7 @@ function calculateGameValue(
     against60?: Team;
     against30?: Team;
     schwarz?: Team;
-  }
+  },
 ): number {
   let value = 1; // Base game
 
@@ -176,7 +179,11 @@ export function getPointsNeededToWin(currentPoints: number): number {
 /**
  * Check if game is mathematically decided
  */
-export function isGameDecided(rePoints: number, kontraPoints: number, tricksRemaining: number): boolean {
+export function isGameDecided(
+  rePoints: number,
+  kontraPoints: number,
+  tricksRemaining: number,
+): boolean {
   // Maximum points remaining
   const maxPointsRemaining = tricksRemaining * 30; // Approximate max per trick
 
@@ -197,7 +204,7 @@ export function isGameDecided(rePoints: number, kontraPoints: number, tricksRema
 export function detectFoxCatch(
   trick: Trick,
   winnerId: PlayerId,
-  players: Player[]
+  players: Player[],
 ): { caughtByTeam: Team; fromPlayerId: PlayerId } | null {
   const winner = players.find(p => p.id === winnerId);
   if (!winner) return null;
@@ -231,7 +238,7 @@ export function detectKarlchen(
   trick: Trick,
   trickNumber: number,
   winnerId: PlayerId,
-  players: Player[]
+  players: Player[],
 ): { team: Team; playerId: PlayerId } | null {
   // Karlchen only counts on the last trick (trick 12 mit Neunen)
   if (trickNumber !== 12) return null;
@@ -261,7 +268,7 @@ export function detectKarlchenCaught(
   trick: Trick,
   trickNumber: number,
   winnerId: PlayerId,
-  players: Player[]
+  players: Player[],
 ): { caughtByTeam: Team; fromPlayerId: PlayerId } | null {
   if (trickNumber !== 12) return null;
 
@@ -293,7 +300,7 @@ export function detectFoxLastTrick(
   trick: Trick,
   trickNumber: number,
   winnerId: PlayerId,
-  players: Player[]
+  players: Player[],
 ): { team: Team; playerId: PlayerId } | null {
   if (trickNumber !== 12) return null;
 
@@ -320,7 +327,7 @@ export function detectFoxLastTrick(
 export function detectDoppelkopfTrick(
   trick: Trick,
   winnerId: PlayerId,
-  players: Player[]
+  players: Player[],
 ): { team: Team; playerId: PlayerId; points: number } | null {
   const trickPoints = trick.getTotalValue();
 

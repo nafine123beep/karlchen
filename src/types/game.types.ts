@@ -8,7 +8,7 @@ import { ICard, CardData, Suit } from './card.types';
 export enum Team {
   RE = 're',
   CONTRA = 'contra',
-  UNKNOWN = 'unknown'
+  UNKNOWN = 'unknown',
 }
 
 // Player Interface
@@ -39,7 +39,7 @@ export enum GamePhase {
   ANNOUNCEMENTS = 'announcements',
   PLAYING = 'playing',
   SCORING = 'scoring',
-  FINISHED = 'finished'
+  FINISHED = 'finished',
 }
 
 // Game State
@@ -49,8 +49,8 @@ export interface IGameState {
   completedTricks: ITrick[];
   currentPlayerIndex: number;
   phase: GamePhase;
-  reTeam: string[];      // Player IDs
-  contraTeam: string[];  // Player IDs
+  reTeam: string[]; // Player IDs
+  contraTeam: string[]; // Player IDs
   round: number;
 }
 

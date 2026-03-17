@@ -59,22 +59,10 @@ export const WoodTexture: React.FC<WoodTextureProps> = ({ width, height }) => {
       <Rect width="100%" height="100%" fill="url(#grainPattern)" />
 
       {/* Subtle highlight on top edge */}
-      <Rect
-        y="0"
-        width="100%"
-        height="4"
-        fill={HOME_THEME.wood.highlight}
-        opacity="0.3"
-      />
+      <Rect y="0" width="100%" height="4" fill={HOME_THEME.wood.highlight} opacity="0.3" />
 
       {/* Subtle shadow on bottom edge */}
-      <Rect
-        y="96%"
-        width="100%"
-        height="4%"
-        fill={HOME_THEME.wood.shadow}
-        opacity="0.4"
-      />
+      <Rect y="96%" width="100%" height="4%" fill={HOME_THEME.wood.shadow} opacity="0.4" />
     </Svg>
   );
 };

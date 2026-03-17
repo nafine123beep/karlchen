@@ -32,7 +32,9 @@ const QuizResultScreen: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Ergebnis</Text>
-        <Text style={styles.score}>{correct} / {total} richtig</Text>
+        <Text style={styles.score}>
+          {correct} / {total} richtig
+        </Text>
         <Text style={styles.message}>{message}</Text>
       </View>
 

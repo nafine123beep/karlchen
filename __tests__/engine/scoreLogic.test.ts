@@ -62,12 +62,18 @@ function pickCardValues(target: number, count: number): number[] | null {
 /** Map a point value back to a Rank */
 function rankForValue(value: number): Rank {
   switch (value) {
-    case 11: return Rank.ACE;
-    case 10: return Rank.TEN;
-    case 4: return Rank.KING;
-    case 3: return Rank.QUEEN;
-    case 2: return Rank.JACK;
-    default: return Rank.NINE;
+    case 11:
+      return Rank.ACE;
+    case 10:
+      return Rank.TEN;
+    case 4:
+      return Rank.KING;
+    case 3:
+      return Rank.QUEEN;
+    case 2:
+      return Rank.JACK;
+    default:
+      return Rank.NINE;
   }
 }
 

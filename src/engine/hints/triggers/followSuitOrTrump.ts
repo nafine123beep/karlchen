@@ -21,7 +21,8 @@ export function checkFollowSuitOrTrump(context: HintContext): Hint | null {
     return {
       id: 'FOLLOW_SUIT_OR_TRUMP',
       title: 'Du musst Trumpf bedienen!',
-      message: 'In Doppelkopf gilt Bedienzwang: Wenn Trumpf angespielt wurde und du noch Trumpfkarten hast, musst du eine davon spielen.',
+      message:
+        'In Doppelkopf gilt Bedienzwang: Wenn Trumpf angespielt wurde und du noch Trumpfkarten hast, musst du eine davon spielen.',
       severity: 'warn',
       learnMoreKey: 'tutorial.rules.following',
       timing: 'rule',

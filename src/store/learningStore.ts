@@ -20,11 +20,7 @@ interface LearningStore {
   resetTutorial: () => void;
   setIllusionGamePlayed: () => void;
 
-  updateStats: (gameResult: {
-    won: boolean;
-    tricksTaken: number;
-    points: number;
-  }) => void;
+  updateStats: (gameResult: { won: boolean; tricksTaken: number; points: number }) => void;
   unlockAchievement: (achievementId: string) => void;
 
   setShowTips: (show: boolean) => void;
@@ -210,6 +206,6 @@ export const useLearningStore = create<LearningStore>()(
         showTips: state.showTips,
         illusionGamePlayed: state.illusionGamePlayed,
       }),
-    }
-  )
+    },
+  ),
 );

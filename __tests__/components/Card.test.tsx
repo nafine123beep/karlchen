@@ -52,9 +52,7 @@ describe('Card component - trump visual indicators', () => {
     render(<Card suit={Suit.CLUBS} rank={Rank.QUEEN} isTrump={true} />);
 
     // Find rect with trump glow stroke
-    const trumpBorderRect = renderedRects.find(
-      r => r.stroke === 'url(#trumpGlow)',
-    );
+    const trumpBorderRect = renderedRects.find(r => r.stroke === 'url(#trumpGlow)');
     expect(trumpBorderRect).toBeDefined();
     expect(trumpBorderRect.strokeWidth).toBe(3);
   });
@@ -62,9 +60,7 @@ describe('Card component - trump visual indicators', () => {
   it('should NOT render golden border for non-trump cards', () => {
     render(<Card suit={Suit.HEARTS} rank={Rank.ACE} isTrump={false} />);
 
-    const trumpBorderRect = renderedRects.find(
-      r => r.stroke === 'url(#trumpGlow)',
-    );
+    const trumpBorderRect = renderedRects.find(r => r.stroke === 'url(#trumpGlow)');
     expect(trumpBorderRect).toBeUndefined();
   });
 

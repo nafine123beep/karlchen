@@ -41,8 +41,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     step: TutorialStep.CARD_RANKS,
     title: 'Kartenwerte lernen 📊',
-    description:
-      'Nicht alle Karten sind gleich viel wert! Lerne die Punktwerte der Karten kennen.',
+    description: 'Nicht alle Karten sind gleich viel wert! Lerne die Punktwerte der Karten kennen.',
     objectives: [
       'Kenne alle Kartenwerte auswendig',
       'Verstehe welche Karten wertvoll sind',
@@ -65,8 +64,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     step: TutorialStep.TRUMP_CARDS,
     title: 'Trümpfe verstehen 🔥',
-    description:
-      'Trümpfe sind die mächtigsten Karten im Spiel. Sie schlagen alle anderen Karten!',
+    description: 'Trümpfe sind die mächtigsten Karten im Spiel. Sie schlagen alle anderen Karten!',
     objectives: [
       'Erkenne alle Trumpfkarten',
       'Kenne die Trumpf-Reihenfolge',
@@ -80,10 +78,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
       'Kreuz-Dame ist der höchste Trumpf',
       'Karo-9 ist der niedrigste Trumpf',
     ],
-    tips: [
-      'Über die Hälfte aller Karten sind Trümpfe!',
-      'Merke: Kreuz-Dame ist unschlagbar!',
-    ],
+    tips: ['Über die Hälfte aller Karten sind Trümpfe!', 'Merke: Kreuz-Dame ist unschlagbar!'],
     completionCriteria: 'Identifiziere 10 Trümpfe korrekt',
   },
   {
@@ -112,8 +107,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     step: TutorialStep.TRICKS,
     title: 'Stiche gewinnen 🏆',
-    description:
-      'Lerne wie Stiche funktionieren und welche Regeln du befolgen musst.',
+    description: 'Lerne wie Stiche funktionieren und welche Regeln du befolgen musst.',
     objectives: [
       'Verstehe den Ablauf eines Stichs',
       'Lerne die Bedienpflicht',
@@ -135,8 +129,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     step: TutorialStep.SCORING,
     title: 'Punkte zählen 🔢',
-    description:
-      'Verstehe wie Punkte gezählt werden und welche Sonderpunkte es gibt.',
+    description: 'Verstehe wie Punkte gezählt werden und welche Sonderpunkte es gibt.',
     objectives: [
       'Berechne Spielpunkte korrekt',
       'Verstehe Sonderpunkte',
@@ -159,8 +152,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     step: TutorialStep.FIRST_GAME,
     title: 'Dein erstes Spiel! 🎮',
-    description:
-      'Jetzt weißt du genug! Spiele dein erstes vollständiges Doppelkopf-Spiel.',
+    description: 'Jetzt weißt du genug! Spiele dein erstes vollständiges Doppelkopf-Spiel.',
     objectives: [
       'Wende alle gelernten Regeln an',
       'Spiele strategisch',

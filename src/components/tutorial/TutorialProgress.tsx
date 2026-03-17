@@ -10,20 +10,14 @@ interface TutorialProgressProps {
   currentStep: number;
 }
 
-export const TutorialProgress: React.FC<TutorialProgressProps> = ({
-  totalSteps,
-  currentStep,
-}) => {
+export const TutorialProgress: React.FC<TutorialProgressProps> = ({ totalSteps, currentStep }) => {
   return (
     <View style={styles.container}>
       <View style={styles.dotsRow}>
         {Array.from({ length: totalSteps }, (_, index) => (
           <View
             key={index}
-            style={[
-              styles.dot,
-              index === currentStep ? styles.dotActive : styles.dotInactive,
-            ]}
+            style={[styles.dot, index === currentStep ? styles.dotActive : styles.dotInactive]}
           />
         ))}
       </View>

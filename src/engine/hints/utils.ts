@@ -59,14 +59,24 @@ export function getCurrentWinningPlayer(trick: Trick): string | null {
 /**
  * Check if card can beat winningCard
  */
-export function canBeat(card: Card, winningCard: Card, leadSuit?: Suit | null, isLastTrick: boolean = false): boolean {
+export function canBeat(
+  card: Card,
+  winningCard: Card,
+  leadSuit?: Suit | null,
+  isLastTrick: boolean = false,
+): boolean {
   return beats(card, winningCard, leadSuit, isLastTrick);
 }
 
 /**
  * Determine if card1 beats card2 following Doppelkopf rules
  */
-function beats(card1: Card, card2: Card, leadSuit?: Suit | null, isLastTrick: boolean = false): boolean {
+function beats(
+  card1: Card,
+  card2: Card,
+  leadSuit?: Suit | null,
+  isLastTrick: boolean = false,
+): boolean {
   // Both trump: compare trump order (lower order = stronger)
   if (card1.isTrump && card2.isTrump) {
     const order1 = card1.trumpOrder ?? 99;
@@ -92,11 +102,7 @@ function beats(card1: Card, card2: Card, leadSuit?: Suit | null, isLastTrick: bo
  * Check if playerId is on the same team as playerTeam
  * Note: This only works reliably after team announcements
  */
-export function isTeammate(
-  playerId: string,
-  playerTeam: Team,
-  context: HintContext
-): boolean {
+export function isTeammate(playerId: string, playerTeam: Team, context: HintContext): boolean {
   // Can only reliably determine teammates after announcements
   const { announcements } = context;
 

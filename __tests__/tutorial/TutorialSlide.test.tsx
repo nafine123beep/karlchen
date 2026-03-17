@@ -8,7 +8,9 @@ jest.mock('@/components/cards/Card', () => {
   const { View, Text } = require('react-native');
   return {
     Card: ({ suit, rank }: any) => (
-      <View><Text>{`${rank} ${suit}`}</Text></View>
+      <View>
+        <Text>{`${rank} ${suit}`}</Text>
+      </View>
     ),
   };
 });
@@ -22,18 +24,14 @@ const baseSlide: TutorialSlideData = {
 
 describe('TutorialSlide', () => {
   it('renders headline and text', () => {
-    const { getByText } = render(
-      <TutorialSlide slide={baseSlide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={baseSlide} isActive={true} />);
 
     expect(getByText('Test Headline')).toBeTruthy();
     expect(getByText('Test paragraph text')).toBeTruthy();
   });
 
   it('returns null when isActive is false', () => {
-    const { toJSON } = render(
-      <TutorialSlide slide={baseSlide} isActive={false} />
-    );
+    const { toJSON } = render(<TutorialSlide slide={baseSlide} isActive={false} />);
 
     expect(toJSON()).toBeNull();
   });
@@ -44,9 +42,7 @@ describe('TutorialSlide', () => {
       text: ['First paragraph', 'Second paragraph'],
     };
 
-    const { getByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     expect(getByText('First paragraph')).toBeTruthy();
     expect(getByText('Second paragraph')).toBeTruthy();
@@ -58,9 +54,7 @@ describe('TutorialSlide', () => {
       bulletPoints: ['Point one', 'Point two', 'Point three'],
     };
 
-    const { getByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     expect(getByText('Point one')).toBeTruthy();
     expect(getByText('Point two')).toBeTruthy();
@@ -73,17 +67,13 @@ describe('TutorialSlide', () => {
       highlightText: 'Important info!',
     };
 
-    const { getByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     expect(getByText('Important info!')).toBeTruthy();
   });
 
   it('renders cards visual for cards type', () => {
-    const { getByText } = render(
-      <TutorialSlide slide={baseSlide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={baseSlide} isActive={true} />);
 
     // Card mock renders "rank suit" text
     expect(getByText('Q clubs')).toBeTruthy();
@@ -95,17 +85,13 @@ describe('TutorialSlide', () => {
       visual: { type: 'rules' },
     };
 
-    const { getByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     // RulesVisual shows a mini trick with Farbzwang annotations
     expect(getByText('Stich')).toBeTruthy();
     expect(getByText(/spielt \u2660 aus/)).toBeTruthy();
     // Two players have "Farbzwang!" tags (Ben + Clara)
-    const { getAllByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getAllByText } = render(<TutorialSlide slide={slide} isActive={true} />);
     expect(getAllByText('Farbzwang!')).toHaveLength(2);
   });
 
@@ -116,9 +102,7 @@ describe('TutorialSlide', () => {
       text: 'Text only',
     };
 
-    const { queryByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { queryByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     expect(queryByText('Stich')).toBeNull();
     expect(queryByText('Q clubs')).toBeNull();
@@ -130,9 +114,7 @@ describe('TutorialSlide', () => {
       visual: { type: 'suits' },
     };
 
-    const { getByText } = render(
-      <TutorialSlide slide={slide} isActive={true} />
-    );
+    const { getByText } = render(<TutorialSlide slide={slide} isActive={true} />);
 
     expect(getByText('Kreuz')).toBeTruthy();
     expect(getByText('Pik')).toBeTruthy();

@@ -5,11 +5,7 @@
 
 import React, { useState } from 'react';
 import { Pressable, Text, View, StyleSheet, ViewStyle, LayoutChangeEvent } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { WoodTexture } from './textures/WoodTexture';
 import { GoldBorder } from './textures/GoldBorder';
 import { HOME_THEME, HOME_LAYOUT, HOME_SHADOWS } from '@/theme/homeTheme';
@@ -93,7 +89,11 @@ export const OrnateButton: React.FC<OrnateButtonProps> = ({
             <GoldBorder
               width={layout.width}
               height={layout.height}
-              borderRadius={isFeatured ? HOME_LAYOUT.button.featured.borderRadius : HOME_LAYOUT.button.horizontal.borderRadius}
+              borderRadius={
+                isFeatured
+                  ? HOME_LAYOUT.button.featured.borderRadius
+                  : HOME_LAYOUT.button.horizontal.borderRadius
+              }
               showCornerOrnaments={isFeatured}
             />
           )}
@@ -101,10 +101,7 @@ export const OrnateButton: React.FC<OrnateButtonProps> = ({
           {/* Text content */}
           <View style={styles.content}>
             <Text
-              style={[
-                styles.title,
-                isFeatured && styles.featuredTitle,
-              ]}
+              style={[styles.title, isFeatured && styles.featuredTitle]}
               numberOfLines={2}
               adjustsFontSizeToFit
             >

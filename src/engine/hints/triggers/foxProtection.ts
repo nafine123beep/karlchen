@@ -30,7 +30,8 @@ export function checkFoxProtection(context: HintContext): Hint | null {
   return {
     id: 'FOX_PROTECTION',
     title: 'Fuchs in Gefahr!',
-    message: 'Der Karo-Ass (Fuchs) bringt Extrapunkte für die Gegner, wenn sie ihn fangen. Versuche ihn zu schützen oder nur in Stichen zu spielen, die du gewinnst.',
+    message:
+      'Der Karo-Ass (Fuchs) bringt Extrapunkte für die Gegner, wenn sie ihn fangen. Versuche ihn zu schützen oder nur in Stichen zu spielen, die du gewinnst.',
     severity: 'warn',
     learnMoreKey: 'tutorial.special.fox',
     timing: 'preTactic',

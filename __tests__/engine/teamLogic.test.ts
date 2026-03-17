@@ -42,10 +42,7 @@ function fillerCard(suit: Suit, rank: Rank, copy: 1 | 2): Card {
 
 // Helper: give each player 12 cards, with QC distributed as specified
 // qcDistribution maps player index (0-3) to how many QC copies they get
-function dealWithQueens(
-  gs: GameState,
-  qcDistribution: [number, number, number, number],
-): void {
+function dealWithQueens(gs: GameState, qcDistribution: [number, number, number, number]): void {
   let qcCopy: 1 | 2 = 1;
 
   gs.players.forEach((player, idx) => {
@@ -106,21 +103,14 @@ describe('teamLogic', () => {
   describe('determinePlayerTeam', () => {
     it('should return Re for player with one Queen of Clubs', () => {
       const player = new Player('p1', 'Alice');
-      player.receiveCards([
-        queenOfClubs(1),
-        fillerCard(Suit.HEARTS, Rank.ACE, 1),
-      ]);
+      player.receiveCards([queenOfClubs(1), fillerCard(Suit.HEARTS, Rank.ACE, 1)]);
 
       expect(determinePlayerTeam(player)).toBe(Team.RE);
     });
 
     it('should return Re for player with two Queens of Clubs', () => {
       const player = new Player('p1', 'Alice');
-      player.receiveCards([
-        queenOfClubs(1),
-        queenOfClubs(2),
-        fillerCard(Suit.HEARTS, Rank.ACE, 1),
-      ]);
+      player.receiveCards([queenOfClubs(1), queenOfClubs(2), fillerCard(Suit.HEARTS, Rank.ACE, 1)]);
 
       expect(determinePlayerTeam(player)).toBe(Team.RE);
     });

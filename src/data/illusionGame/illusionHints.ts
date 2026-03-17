@@ -125,10 +125,8 @@ export const ILLUSION_HINTS: IllusionHint[] = [
  */
 export function getIllusionHint(
   trickNumber: number,
-  timing: 'before_play' | 'after_trick'
+  timing: 'before_play' | 'after_trick',
 ): Hint | null {
-  const entry = ILLUSION_HINTS.find(
-    h => h.trickNumber === trickNumber && h.timing === timing
-  );
+  const entry = ILLUSION_HINTS.find(h => h.trickNumber === trickNumber && h.timing === timing);
   return entry?.hint ?? null;
 }

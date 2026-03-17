@@ -14,9 +14,8 @@ const StatsScreen: React.FC<Props> = () => {
   const stats = useLearningStore(state => state.stats);
   const tutorialProgress = useLearningStore(state => state.getTutorialProgress());
 
-  const winRate = stats.gamesPlayed > 0
-    ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100)
-    : 0;
+  const winRate =
+    stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0;
 
   return (
     <ScrollView style={styles.container}>
@@ -73,9 +72,7 @@ const StatsScreen: React.FC<Props> = () => {
         {/* Achievements */}
         <View style={styles.card}>
           <Text style={styles.cardTitle}>🏆 Erfolge</Text>
-          <Text style={styles.placeholder}>
-            {stats.achievements.length} Erfolge freigeschaltet
-          </Text>
+          <Text style={styles.placeholder}>{stats.achievements.length} Erfolge freigeschaltet</Text>
           {/* TODO: Display achievement list */}
         </View>
       </View>

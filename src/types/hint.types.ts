@@ -43,11 +43,11 @@ export type HintId =
  */
 export interface Hint {
   id: HintId;
-  title: string;           // German, short (e.g., "Bedienpflicht beachten!")
-  message: string;         // German, detailed explanation (1-2 sentences)
+  title: string; // German, short (e.g., "Bedienpflicht beachten!")
+  message: string; // German, detailed explanation (1-2 sentences)
   severity: 'info' | 'warn';
-  learnMoreKey?: string;   // Optional tutorial reference
-  timing: HintTiming;      // NEW: When hint is shown (rule/preTactic/feedback)
+  learnMoreKey?: string; // Optional tutorial reference
+  timing: HintTiming; // NEW: When hint is shown (rule/preTactic/feedback)
 }
 
 export interface HintContext {

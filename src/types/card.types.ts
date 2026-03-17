@@ -4,29 +4,29 @@
 
 // Kartenfarben (Suits)
 export enum Suit {
-  CLUBS = 'clubs',      // Kreuz
-  SPADES = 'spades',    // Pik
-  HEARTS = 'hearts',    // Herz
-  DIAMONDS = 'diamonds' // Karo
+  CLUBS = 'clubs', // Kreuz
+  SPADES = 'spades', // Pik
+  HEARTS = 'hearts', // Herz
+  DIAMONDS = 'diamonds', // Karo
 }
 
 // Kartenwerte (Ranks) - mit Neunen
 export enum Rank {
-  NINE = '9',    // Neun
-  JACK = 'J',    // Bube
-  QUEEN = 'Q',   // Dame
-  KING = 'K',    // König
+  NINE = '9', // Neun
+  JACK = 'J', // Bube
+  QUEEN = 'Q', // Dame
+  KING = 'K', // König
   TEN = '10',
-  ACE = 'A'
+  ACE = 'A',
 }
 
 // Card Interface
 export interface ICard {
   suit: Suit;
   rank: Rank;
-  value: number;      // Punkte (Augen): Ass=11, 10=10, König=4, Dame=3, Bube=2, 9=0
-  isTrump: boolean;   // Wird dynamisch berechnet
-  id: string;         // Unique ID (z.B. "clubs-Q-1" für erste Kreuz-Dame)
+  value: number; // Punkte (Augen): Ass=11, 10=10, König=4, Dame=3, Bube=2, 9=0
+  isTrump: boolean; // Wird dynamisch berechnet
+  id: string; // Unique ID (z.B. "clubs-Q-1" für erste Kreuz-Dame)
 }
 
 // Trump-Reihenfolge (höher = stärker)

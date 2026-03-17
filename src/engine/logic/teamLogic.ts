@@ -27,7 +27,7 @@ export function assignTeams(gameState: GameState): void {
 export function determinePlayerTeam(player: Player): Team {
   // Check if player has Queen of Clubs
   const hasQueenOfClubs = player.hand.some(
-    card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS
+    card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS,
   );
 
   return hasQueenOfClubs ? Team.RE : Team.CONTRA;
@@ -122,7 +122,7 @@ export function isTeamRevealed(player: Player, gameState: GameState): boolean {
 
   // Team is revealed if Queen of Clubs has been played
   const queenOfClubsPlayed = gameState.completedTricks.some(trick =>
-    trick.getCards().some(card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS)
+    trick.getCards().some(card => card.rank === Rank.QUEEN && card.suit === Suit.CLUBS),
   );
 
   if (queenOfClubsPlayed && player.team !== Team.UNKNOWN) {

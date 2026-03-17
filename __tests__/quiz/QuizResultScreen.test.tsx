@@ -28,7 +28,7 @@ describe('QuizResultScreen', () => {
     }
 
     const { getByText } = render(
-      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />
+      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(getByText(`${questions.length} / ${questions.length} richtig`)).toBeTruthy();
@@ -49,7 +49,7 @@ describe('QuizResultScreen', () => {
     }
 
     const { getByText } = render(
-      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />
+      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(getByText(`3 / ${questions.length} richtig`)).toBeTruthy();
@@ -58,7 +58,7 @@ describe('QuizResultScreen', () => {
 
   it('navigates to Home on menu button press', () => {
     const { getByText } = render(
-      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />
+      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     fireEvent.press(getByText('Zur\u00fcck zum Men\u00fc'));
@@ -68,7 +68,7 @@ describe('QuizResultScreen', () => {
 
   it('restarts quiz and navigates to Quiz', () => {
     const { getByText } = render(
-      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />
+      <QuizResultScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     fireEvent.press(getByText('Quiz wiederholen'));

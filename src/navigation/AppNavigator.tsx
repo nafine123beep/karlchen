@@ -46,41 +46,21 @@ export const AppNavigator: React.FC = () => {
         },
       }}
     >
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="BasicTutorial"
         component={BasicTutorialScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Tutorial"
-        component={TutorialScreen}
-        options={{ title: 'Tutorial' }}
-      />
+      <Stack.Screen name="Tutorial" component={TutorialScreen} options={{ title: 'Tutorial' }} />
       <Stack.Screen
         name="Game"
         component={GameScreen}
         options={{ title: 'Karlchen - Freies Spiel', headerBackVisible: false }}
       />
-      <Stack.Screen
-        name="Stats"
-        component={StatsScreen}
-        options={{ title: 'Statistiken' }}
-      />
-      <Stack.Screen
-        name="QuizIntro"
-        component={QuizIntroScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Quiz"
-        component={QuizScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Stats" component={StatsScreen} options={{ title: 'Statistiken' }} />
+      <Stack.Screen name="QuizIntro" component={QuizIntroScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Quiz" component={QuizScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="QuizResult"
         component={QuizResultScreen}

@@ -77,7 +77,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
     if (isWinningCard) {
       scale.value = withSequence(
         withTiming(1.15, { duration: 200 }),
-        withTiming(1, { duration: 200 })
+        withTiming(1, { duration: 200 }),
       );
     }
 
@@ -87,7 +87,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
       withTiming(targetOffset.x, {
         duration: ANIMATION_DURATION,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      })
+      }),
     );
 
     translateY.value = withDelay(
@@ -95,17 +95,17 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
       withTiming(targetOffset.y, {
         duration: ANIMATION_DURATION,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      })
+      }),
     );
 
     // Fade out at the end
     opacity.value = withDelay(
       HIGHLIGHT_DELAY + ANIMATION_DURATION - 200,
-      withTiming(0, { duration: 200 }, (finished) => {
+      withTiming(0, { duration: 200 }, finished => {
         if (finished && onComplete) {
           runOnJS(onComplete)();
         }
-      })
+      }),
     );
   }, []);
 
@@ -120,11 +120,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
 
   return (
     <Animated.View
-      style={[
-        styles.cardPosition,
-        { zIndex: isWinningCard ? 10 : index },
-        animatedStyle,
-      ]}
+      style={[styles.cardPosition, { zIndex: isWinningCard ? 10 : index }, animatedStyle]}
     >
       <View style={isWinningCard && styles.winningCard}>
         <Card
@@ -166,9 +162,12 @@ export const TrickWinAnimation: React.FC<TrickWinAnimationProps> = ({
   // Fallback for web: ensure animation completes even if reanimated callbacks don't fire
   useEffect(() => {
     if (Platform.OS === 'web') {
-      const timeout = setTimeout(() => {
-        handleCardAnimationComplete();
-      }, HIGHLIGHT_DELAY + ANIMATION_DURATION + 300);
+      const timeout = setTimeout(
+        () => {
+          handleCardAnimationComplete();
+        },
+        HIGHLIGHT_DELAY + ANIMATION_DURATION + 300,
+      );
       return () => clearTimeout(timeout);
     }
   }, []);

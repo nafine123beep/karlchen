@@ -20,12 +20,15 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
   const isLast = currentIndex === questions.length - 1;
   const isCorrect = selectedIndex === question.correctOptionIndex;
 
-  const handleSelect = useCallback((index: number) => {
-    if (answered) return;
-    setSelectedIndex(index);
-    setAnswered(true);
-    answerQuestion(index);
-  }, [answered, answerQuestion]);
+  const handleSelect = useCallback(
+    (index: number) => {
+      if (answered) return;
+      setSelectedIndex(index);
+      setAnswered(true);
+      answerQuestion(index);
+    },
+    [answered, answerQuestion],
+  );
 
   const handleNext = useCallback(() => {
     if (isLast) {
@@ -76,9 +79,8 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
         {question.options.map((option, index) => {
           let optionStyle = styles.optionDefault;
           if (answered && index === selectedIndex) {
-            optionStyle = index === question.correctOptionIndex
-              ? styles.optionCorrect
-              : styles.optionIncorrect;
+            optionStyle =
+              index === question.correctOptionIndex ? styles.optionCorrect : styles.optionIncorrect;
           } else if (answered && index === question.correctOptionIndex) {
             optionStyle = styles.optionCorrectHint;
           }
@@ -97,7 +99,12 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
 
         {answered && (
           <View style={styles.explanationContainer}>
-            <Text style={[styles.feedbackLabel, isCorrect ? styles.correctLabel : styles.incorrectLabel]}>
+            <Text
+              style={[
+                styles.feedbackLabel,
+                isCorrect ? styles.correctLabel : styles.incorrectLabel,
+              ]}
+            >
               {isCorrect ? 'Richtig!' : 'Falsch'}
             </Text>
             <Text style={styles.explanationText}>{question.explanation}</Text>
@@ -111,9 +118,7 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
           style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]}
           onPress={handleNext}
         >
-          <Text style={styles.nextButtonText}>
-            {isLast ? 'Ergebnis anzeigen' : 'Weiter'}
-          </Text>
+          <Text style={styles.nextButtonText}>{isLast ? 'Ergebnis anzeigen' : 'Weiter'}</Text>
         </Pressable>
       )}
     </View>

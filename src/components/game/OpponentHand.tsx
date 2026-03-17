@@ -48,32 +48,30 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
   const renderCards = () => {
     const rendered = [];
     for (let i = 0; i < cardCount; i++) {
-      const style = isVertical
-        ? { top: i * overlap }
-        : { left: i * overlap };
+      const style = isVertical ? { top: i * overlap } : { left: i * overlap };
 
       const CardWrapper = isWeb ? View : Animated.View;
-      const wrapperProps = isWeb ? {} : {
-        entering: FadeIn.delay(i * 30),
-        layout: Layout.springify(),
-      };
+      const wrapperProps = isWeb
+        ? {}
+        : {
+            entering: FadeIn.delay(i * 30),
+            layout: Layout.springify(),
+          };
 
       const rotation = isVertical ? (position === 'left' ? 90 : -90) : 0;
-      const cardContent = showOpen && cards && cards[i] ? (
-        <View style={rotation !== 0 ? { transform: [{ rotate: `${rotation}deg` }] } : undefined}>
-          <Card
-            suit={cards[i].suit as Suit}
-            rank={cards[i].rank as Rank}
-            isTrump={cards[i].isTrump}
-            size={cardSize}
-          />
-        </View>
-      ) : (
-        <CardBack
-          size={cardSize}
-          rotation={rotation}
-        />
-      );
+      const cardContent =
+        showOpen && cards && cards[i] ? (
+          <View style={rotation !== 0 ? { transform: [{ rotate: `${rotation}deg` }] } : undefined}>
+            <Card
+              suit={cards[i].suit as Suit}
+              rank={cards[i].rank as Rank}
+              isTrump={cards[i].isTrump}
+              size={cardSize}
+            />
+          </View>
+        ) : (
+          <CardBack size={cardSize} rotation={rotation} />
+        );
 
       rendered.push(
         <CardWrapper
@@ -82,7 +80,7 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
           style={[styles.cardWrapper, style, { zIndex: i }]}
         >
           {cardContent}
-        </CardWrapper>
+        </CardWrapper>,
       );
     }
     return rendered;
@@ -92,30 +90,19 @@ export const OpponentHand: React.FC<OpponentHandProps> = ({
   const cardWidth = 70 * 0.7; // small size multiplier
   const cardHeight = 100 * 0.7;
 
-  const containerWidth = isVertical
-    ? cardHeight
-    : cardWidth + (cardCount - 1) * overlap;
+  const containerWidth = isVertical ? cardHeight : cardWidth + (cardCount - 1) * overlap;
 
-  const containerHeight = isVertical
-    ? cardWidth + (cardCount - 1) * overlap
-    : cardHeight;
+  const containerHeight = isVertical ? cardWidth + (cardCount - 1) * overlap : cardHeight;
 
   return (
     <View style={[styles.container, styles[`container_${position}`]]}>
       {/* Player name and info */}
       <View style={[styles.infoContainer, styles[`info_${position}`]]}>
-        <Text
-          style={[styles.playerName, isCurrentTurn && styles.currentTurn]}
-          numberOfLines={1}
-        >
+        <Text style={[styles.playerName, isCurrentTurn && styles.currentTurn]} numberOfLines={1}>
           {playerName}
         </Text>
-        <Text style={styles.tricksText}>
-          Stiche: {tricksWon}
-        </Text>
-        {isCurrentTurn && (
-          <View style={styles.turnIndicator} />
-        )}
+        <Text style={styles.tricksText}>Stiche: {tricksWon}</Text>
+        {isCurrentTurn && <View style={styles.turnIndicator} />}
       </View>
 
       {/* Cards */}

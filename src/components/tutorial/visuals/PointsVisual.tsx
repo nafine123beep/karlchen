@@ -15,12 +15,7 @@ export const PointsVisual: React.FC = () => {
     <View style={styles.container}>
       {POINT_CARDS.map((card, index) => (
         <View key={index} style={styles.cardColumn}>
-          <Card
-            suit={card.suit}
-            rank={card.rank}
-            isTrump={card.isTrump}
-            size="small"
-          />
+          <Card suit={card.suit} rank={card.rank} isTrump={card.isTrump} size="small" />
           <View style={styles.pointBadge}>
             <Text style={styles.pointValue}>{card.points}</Text>
           </View>

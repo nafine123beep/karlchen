@@ -33,10 +33,7 @@ describe('Player', () => {
 
   describe('receiveCards', () => {
     it('should add cards to hand', () => {
-      const cards = [
-        new Card(Suit.HEARTS, Rank.ACE, 1),
-        new Card(Suit.CLUBS, Rank.TEN, 1),
-      ];
+      const cards = [new Card(Suit.HEARTS, Rank.ACE, 1), new Card(Suit.CLUBS, Rank.TEN, 1)];
 
       player.receiveCards(cards);
       expect(player.hand).toHaveLength(2);
@@ -210,10 +207,7 @@ describe('Player', () => {
     });
 
     it('should decrease after playing a card', () => {
-      player.receiveCards([
-        new Card(Suit.HEARTS, Rank.ACE, 1),
-        new Card(Suit.CLUBS, Rank.TEN, 1),
-      ]);
+      player.receiveCards([new Card(Suit.HEARTS, Rank.ACE, 1), new Card(Suit.CLUBS, Rank.TEN, 1)]);
       player.playCard('hearts_A_1');
       expect(player.handSize).toBe(1);
     });
@@ -322,11 +316,7 @@ describe('Player', () => {
 
       const restored = Player.fromData(player.toData());
       expect(restored.hand).toHaveLength(3);
-      expect(restored.hand.map(c => c.id)).toEqual([
-        'hearts_A_1',
-        'spades_9_2',
-        'diamonds_10_1',
-      ]);
+      expect(restored.hand.map(c => c.id)).toEqual(['hearts_A_1', 'spades_9_2', 'diamonds_10_1']);
     });
   });
 });

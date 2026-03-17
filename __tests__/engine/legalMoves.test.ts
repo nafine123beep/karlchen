@@ -64,10 +64,7 @@ describe('getLegalMoves', () => {
       trick.addCard(leadCard, 'player_1');
 
       // Hand has only Clubs and Spades (no Hearts, no trumps)
-      const hand = [
-        createCard(Suit.CLUBS, Rank.ACE),
-        createCard(Suit.SPADES, Rank.NINE),
-      ];
+      const hand = [createCard(Suit.CLUBS, Rank.ACE), createCard(Suit.SPADES, Rank.NINE)];
       const player = createPlayer(hand);
 
       const moves = getLegalMoves(player, trick);
@@ -101,10 +98,7 @@ describe('getLegalMoves', () => {
       trick.addCard(leadCard, 'player_1');
 
       // Hand has no trump cards
-      const hand = [
-        createCard(Suit.HEARTS, Rank.ACE),
-        createCard(Suit.CLUBS, Rank.NINE),
-      ];
+      const hand = [createCard(Suit.HEARTS, Rank.ACE), createCard(Suit.CLUBS, Rank.NINE)];
       const player = createPlayer(hand);
 
       const moves = getLegalMoves(player, trick);

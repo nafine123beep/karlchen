@@ -122,10 +122,7 @@ describe('AIPlayer', () => {
       trick.addCard(createCard(Suit.SPADES, Rank.ACE), 'player_0');
 
       // AI has no Spades
-      const hand = [
-        createCard(Suit.HEARTS, Rank.NINE),
-        createCard(Suit.CLUBS, Rank.ACE),
-      ];
+      const hand = [createCard(Suit.HEARTS, Rank.NINE), createCard(Suit.CLUBS, Rank.ACE)];
 
       const aiPlayerModel = new Player('player_1', 'AI Bot', false);
       aiPlayerModel.hand = [...hand];
@@ -158,7 +155,11 @@ describe('AIPlayer', () => {
 
       const legalIds = new Set(
         getLegalMoves(
-          (() => { const p = new Player('p', 'P'); p.hand = [...hand]; return p; })(),
+          (() => {
+            const p = new Player('p', 'P');
+            p.hand = [...hand];
+            return p;
+          })(),
           trick,
         ).map(c => c.id),
       );
@@ -184,7 +185,7 @@ describe('AIPlayer', () => {
   describe('all AI levels use same legal moves logic', () => {
     it.each([AILevel.Easy, AILevel.Medium, AILevel.Hard])(
       'AI level %s should respect suit obligation',
-      async (level) => {
+      async level => {
         const trick = new Trick('player_0', 1);
         trick.addCard(createCard(Suit.HEARTS, Rank.ACE), 'player_0');
 

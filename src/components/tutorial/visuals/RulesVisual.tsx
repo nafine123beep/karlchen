@@ -5,10 +5,34 @@ import { Suit, Rank } from '@/types/card.types';
 
 // A mini trick: Anna leads Spades, everyone must follow (Farbzwang), Ace wins
 const TRICK_CARDS = [
-  { suit: Suit.SPADES, rank: Rank.TEN, name: 'Anna', tag: 'spielt ♠ aus', tagType: 'lead' as const },
-  { suit: Suit.SPADES, rank: Rank.KING, name: 'Ben', tag: 'Farbzwang!', tagType: 'follow' as const },
-  { suit: Suit.SPADES, rank: Rank.NINE, name: 'Clara', tag: 'Farbzwang!', tagType: 'follow' as const },
-  { suit: Suit.SPADES, rank: Rank.ACE, name: 'Du', tag: 'höchste → Stich!', tagType: 'winner' as const },
+  {
+    suit: Suit.SPADES,
+    rank: Rank.TEN,
+    name: 'Anna',
+    tag: 'spielt ♠ aus',
+    tagType: 'lead' as const,
+  },
+  {
+    suit: Suit.SPADES,
+    rank: Rank.KING,
+    name: 'Ben',
+    tag: 'Farbzwang!',
+    tagType: 'follow' as const,
+  },
+  {
+    suit: Suit.SPADES,
+    rank: Rank.NINE,
+    name: 'Clara',
+    tag: 'Farbzwang!',
+    tagType: 'follow' as const,
+  },
+  {
+    suit: Suit.SPADES,
+    rank: Rank.ACE,
+    name: 'Du',
+    tag: 'höchste → Stich!',
+    tagType: 'winner' as const,
+  },
 ];
 
 const TAG_COLORS = {

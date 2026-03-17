@@ -26,8 +26,7 @@ export const TRUMP_EXPLANATIONS: Explanation[] = [
       'In Doppelkopf sind Trümpfe besondere Karten, die stärker sind als normale Karten. ' +
       'Sie können jeden Stich gewinnen, egal welche Farbe ausgespielt wurde. ' +
       'Zu den Trümpfen gehören: die Herz-10 (Dulle), alle Damen, alle Buben und alle Karo-Karten.',
-    example:
-      'Wenn Herz ausgespielt wird, aber du Karo 9 (Trumpf) spielst, gewinnst du den Stich!',
+    example: 'Wenn Herz ausgespielt wird, aber du Karo 9 (Trumpf) spielst, gewinnst du den Stich!',
   },
   {
     id: 'trump_order',
@@ -111,7 +110,8 @@ export const SCORING_EXPLANATIONS: Explanation[] = [
       'Gegen 60 (+1): Gegner unter 60 Punkte. ' +
       'Gegen 30 (+1): Gegner unter 30 Punkte. ' +
       'Schwarz (+1): Gegner macht keinen Stich.',
-    example: 'Gewinnst du mit 180:60 Punkten, bekommst du: 1 (gewonnen) + 1 (gegen 90) + 1 (gegen 60) = 3 Punkte!',
+    example:
+      'Gewinnst du mit 180:60 Punkten, bekommst du: 1 (gewonnen) + 1 (gegen 90) + 1 (gegen 60) = 3 Punkte!',
   },
   {
     id: 'fuchs',
@@ -122,7 +122,8 @@ export const SCORING_EXPLANATIONS: Explanation[] = [
       'Jedes Karo-Ass heißt „Fuchs". Wenn die gegnerische Partei deinen Fuchs in einem Stich fängt, ' +
       'bekommt sie einen Sonderpunkt (+1). Wenn du den letzten Stich mit einem Fuchs gewinnst, ' +
       'gibt es ebenfalls einen Sonderpunkt (+1). Versuche also, deinen Fuchs bei deinem Partner oder dir selbst zu halten!',
-    example: 'Der Gegner gewinnt einen Stich, in dem dein Karo-Ass liegt? +1 Sonderpunkt für den Gegner!',
+    example:
+      'Der Gegner gewinnt einen Stich, in dem dein Karo-Ass liegt? +1 Sonderpunkt für den Gegner!',
   },
   {
     id: 'karlchen',
@@ -133,7 +134,8 @@ export const SCORING_EXPLANATIONS: Explanation[] = [
       'Der Kreuz-Bube heißt „Karlchen". Wer den letzten Stich (Stich 12) mit Karlchen gewinnt, ' +
       'bekommt einen Sonderpunkt (+1). Aber Vorsicht: Wird Karlchen im letzten Stich vom Gegner gefangen, ' +
       'bekommt stattdessen der Gegner den Punkt.',
-    example: 'Du spielst den Kreuz-Buben im letzten Stich und gewinnst? +1 Punkt! Aber der Gegner sticht mit einer Dame? Dann bekommt er den Punkt.',
+    example:
+      'Du spielst den Kreuz-Buben im letzten Stich und gewinnst? +1 Punkt! Aber der Gegner sticht mit einer Dame? Dann bekommt er den Punkt.',
   },
 ];
 
@@ -193,8 +195,7 @@ export const RULES_EXPLANATIONS: Explanation[] = [
       'Zu Beginn des Spiels kannst du "Re" oder "Kontra" ansagen, um zu zeigen, dass du ein gutes Blatt hast. ' +
       'Dadurch verdoppelst du die Punkte, die du gewinnen oder verlieren kannst. ' +
       'Sage nur an, wenn du mindestens 6 Trümpfe oder sehr hohe Karten hast!',
-    example:
-      'Du hast 8 Trümpfe inkl. 2 Damen? Perfekt für eine Re-Ansage! Doppelte Punkte!',
+    example: 'Du hast 8 Trümpfe inkl. 2 Damen? Perfekt für eine Re-Ansage! Doppelte Punkte!',
   },
 ];
 

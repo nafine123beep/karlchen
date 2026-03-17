@@ -206,9 +206,7 @@ describe('Trick', () => {
       expect(restored.leadPlayerId).toBe('p1');
       expect(restored.winnerId).toBe('p1');
       expect(restored.size).toBe(4);
-      expect(restored.getCards().map(c => c.id)).toEqual([
-        c1.id, c2.id, c3.id, c4.id,
-      ]);
+      expect(restored.getCards().map(c => c.id)).toEqual([c1.id, c2.id, c3.id, c4.id]);
     });
 
     it('should round-trip an empty trick', () => {

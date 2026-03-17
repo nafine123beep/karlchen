@@ -5,11 +5,7 @@
 import React from 'react';
 import { StyleSheet, Pressable, Platform } from 'react-native';
 import Svg, { Rect, Text as SvgText, G, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
-import Animated, {
-  useAnimatedStyle,
-  withSpring,
-  useSharedValue,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, withSpring, useSharedValue } from 'react-native-reanimated';
 import { Suit, Rank } from '@/types/card.types';
 
 // Card dimensions
@@ -95,10 +91,7 @@ export const Card: React.FC<CardProps> = ({
 
   // Animated styles for interactions (native only)
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { scale: scale.value },
-      { translateY: translateY.value },
-    ],
+    transform: [{ scale: scale.value }, { translateY: translateY.value }],
   }));
 
   // Handle press animations
@@ -201,14 +194,7 @@ export const Card: React.FC<CardProps> = ({
 
         {/* Top-left rank and suit */}
         <G>
-          <SvgText
-            x={8}
-            y={18}
-            fontSize={14}
-            fontWeight="bold"
-            fill={color}
-            textAnchor="start"
-          >
+          <SvgText x={8} y={18} fontSize={14} fontWeight="bold" fill={color} textAnchor="start">
             {rankDisplay}
           </SvgText>
           <G transform="translate(2, 20) scale(0.5)">
@@ -223,21 +209,13 @@ export const Card: React.FC<CardProps> = ({
 
         {/* Bottom-right rank and suit (rotated) */}
         <G transform={`rotate(180, ${CARD_WIDTH / 2}, ${CARD_HEIGHT / 2})`}>
-          <SvgText
-            x={8}
-            y={18}
-            fontSize={14}
-            fontWeight="bold"
-            fill={color}
-            textAnchor="start"
-          >
+          <SvgText x={8} y={18} fontSize={14} fontWeight="bold" fill={color} textAnchor="start">
             {rankDisplay}
           </SvgText>
           <G transform="translate(2, 20) scale(0.5)">
             <Path d={SUIT_PATHS[suit]} fill={color} />
           </G>
         </G>
-
       </Svg>
     </AnimatedPressable>
   );

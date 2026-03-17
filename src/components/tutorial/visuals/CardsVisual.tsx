@@ -49,12 +49,7 @@ export const CardsVisual: React.FC<CardsVisualProps> = ({ data }) => {
               transform: [{ rotate: `${rotation}deg` }],
             }}
           >
-            <Card
-              suit={card.suit}
-              rank={card.rank}
-              isTrump={card.isTrump}
-              size="small"
-            />
+            <Card suit={card.suit} rank={card.rank} isTrump={card.isTrump} size="small" />
           </View>
         );
       })}

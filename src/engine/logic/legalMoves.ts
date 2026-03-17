@@ -132,7 +132,7 @@ const SUIT_NAMES_DE: Record<Suit, string> = {
 export function validateMove(
   card: Card,
   player: Player,
-  currentTrick: Trick
+  currentTrick: Trick,
 ): { valid: boolean; reason?: string; explanation?: string } {
   // Check if player has the card
   if (!player.hasCard(card.id)) {

@@ -10,19 +10,17 @@ module.exports = {
   //   resizeMode: 'contain',
   //   backgroundColor: '#ffffff'
   // }, // TODO: Add splash screen
-  assetBundlePatterns: [
-    '**/*'
-  ],
+  assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.karlchen.app'
+    bundleIdentifier: 'com.karlchen.app',
   },
   android: {
     // adaptiveIcon: {
     //   foregroundImage: './assets/adaptive-icon.png',
     //   backgroundColor: '#ffffff'
     // }, // TODO: Add adaptive icon
-    package: 'com.karlchen.app'
+    package: 'com.karlchen.app',
   },
   web: {
     bundler: 'metro',
@@ -31,10 +29,8 @@ module.exports = {
   experiments: {
     baseUrl: '/karlchen',
   },
-  plugins: [
-    'expo-font'
-  ],
+  plugins: ['expo-font'],
   extra: {
-    description: 'Lerne Doppelkopf spielen mit interaktivem Tutorial und KI-Gegnern'
-  }
+    description: 'Lerne Doppelkopf spielen mit interaktivem Tutorial und KI-Gegnern',
+  },
 };

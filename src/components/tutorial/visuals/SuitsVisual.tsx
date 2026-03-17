@@ -11,16 +11,14 @@ const SUITS = [
 export const SuitsVisual: React.FC = () => {
   return (
     <View style={styles.container}>
-      {SUITS.map((suit) => (
+      {SUITS.map(suit => (
         <View key={suit.name} style={styles.suitCard}>
           <Text style={[styles.suitSymbol, { color: suit.isRed ? '#dc2626' : '#1f2937' }]}>
             {suit.symbol}
           </Text>
           <Text style={styles.suitName}>{suit.name}</Text>
           <View style={[styles.badge, suit.isTrump ? styles.trumpBadge : styles.fehlBadge]}>
-            <Text style={styles.badgeText}>
-              {suit.isTrump ? 'Trumpf' : 'Fehlfarbe'}
-            </Text>
+            <Text style={styles.badgeText}>{suit.isTrump ? 'Trumpf' : 'Fehlfarbe'}</Text>
           </View>
         </View>
       ))}

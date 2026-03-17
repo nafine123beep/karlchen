@@ -6,13 +6,13 @@ export const basicTutorialSlides: TutorialSlide[] = [
     headline: 'Willkommen bei Doppelkopf!',
     text: [
       'Doppelkopf ist ein Teamspiel – aber du weißt am Anfang nicht, wer dein Partner ist.',
-      'Gespielt wird mit 48 Karten (inkl. 9er).'
+      'Gespielt wird mit 48 Karten (inkl. 9er).',
     ],
     highlightText: 'Ziel: Als Team 121 Punkte holen',
     visual: {
       type: 'cards',
-      data: { showFullDeck: true }
-    }
+      data: { showFullDeck: true },
+    },
   },
   {
     id: 'slide-2',
@@ -20,12 +20,12 @@ export const basicTutorialSlides: TutorialSlide[] = [
     text: 'Niemand sagt am Anfang, wer wo ist – du musst es herausfinden!',
     bulletPoints: [
       'Re-Team: Die zwei Spieler mit den Kreuz-Damen',
-      'Kontra-Team: Die anderen beiden'
+      'Kontra-Team: Die anderen beiden',
     ],
     visual: {
       type: 'players',
-      data: { highlightQueens: true }
-    }
+      data: { highlightQueens: true },
+    },
   },
   {
     id: 'slide-3',
@@ -50,11 +50,11 @@ export const basicTutorialSlides: TutorialSlide[] = [
       'Kreuz Dame ("Alte" – es gibt 2 davon!)',
       'Pik Dame',
       'Herz Dame',
-      'Karo Dame'
+      'Karo Dame',
     ],
     visual: {
       type: 'trumpOverview',
-    }
+    },
   },
   {
     id: 'slide-5',
@@ -66,11 +66,11 @@ export const basicTutorialSlides: TutorialSlide[] = [
       'König = 4 Punkte',
       'Dame = 3 Punkte',
       'Bube = 2 Punkte',
-      '9 = 0 Punkte'
+      '9 = 0 Punkte',
     ],
     visual: {
-      type: 'points'
-    }
+      type: 'points',
+    },
   },
   {
     id: 'slide-6',
@@ -79,11 +79,11 @@ export const basicTutorialSlides: TutorialSlide[] = [
     bulletPoints: [
       'Farbzwang: Wenn eine Farbe ausgespielt wird, musst du sie bedienen (falls vorhanden)',
       'Höchste Karte gewinnt: Bei Trümpfen → höchster Trumpf, bei Fehlfarben → höchste Karte der Farbe',
-      'Stich-Reihenfolge: Wer den Stich macht, spielt als nächstes aus'
+      'Stich-Reihenfolge: Wer den Stich macht, spielt als nächstes aus',
     ],
     highlightText: 'Jetzt bist du bereit für dein erstes Spiel!',
     visual: {
-      type: 'rules'
-    }
-  }
+      type: 'rules',
+    },
+  },
 ];

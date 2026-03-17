@@ -18,13 +18,17 @@ const GameRulesScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Grundregeln</Text>
         <Text style={styles.text}>
-          Doppelkopf ist ein Kartenspiel für vier Spieler. Das Spiel wird mit 48 Karten gespielt (jede Karte existiert doppelt: 9, Bube, Dame, König, 10, Ass in vier Farben).
+          Doppelkopf ist ein Kartenspiel für vier Spieler. Das Spiel wird mit 48 Karten gespielt
+          (jede Karte existiert doppelt: 9, Bube, Dame, König, 10, Ass in vier Farben).
         </Text>
         <Text style={styles.text}>
-          Jeder Spieler erhält 12 Karten. Das Spiel besteht aus 12 Stichen. In jedem Stich spielt jeder Spieler genau eine Karte. Die höchste Karte gewinnt den Stich und alle darin enthaltenen Punkte. Der Gewinner des Stichs spielt im nächsten Stich aus.
+          Jeder Spieler erhält 12 Karten. Das Spiel besteht aus 12 Stichen. In jedem Stich spielt
+          jeder Spieler genau eine Karte. Die höchste Karte gewinnt den Stich und alle darin
+          enthaltenen Punkte. Der Gewinner des Stichs spielt im nächsten Stich aus.
         </Text>
         <Text style={styles.text}>
-          Bedienpflicht: Wenn eine Farbe ausgespielt wird, musst du diese Farbe bedienen, falls du sie auf der Hand hast. Trumpf zählt als eigene Farbe.
+          Bedienpflicht: Wenn eine Farbe ausgespielt wird, musst du diese Farbe bedienen, falls du
+          sie auf der Hand hast. Trumpf zählt als eigene Farbe.
         </Text>
       </View>
 
@@ -39,18 +43,18 @@ const GameRulesScreen: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.listItem}>• Neun: 0 Punkte</Text>
         </View>
         <Text style={styles.text}>
-          Insgesamt gibt es 240 Punkte im Spiel. Eine Partei benötigt mindestens 121 Punkte, um zu gewinnen.
+          Insgesamt gibt es 240 Punkte im Spiel. Eine Partei benötigt mindestens 121 Punkte, um zu
+          gewinnen.
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Trumpfkarten</Text>
         <Text style={styles.text}>
-          Trümpfe sind: die Herz-10 (Dulle), alle Damen, alle Buben und alle Karo-Karten. Insgesamt 26 Trumpfkarten.
+          Trümpfe sind: die Herz-10 (Dulle), alle Damen, alle Buben und alle Karo-Karten. Insgesamt
+          26 Trumpfkarten.
         </Text>
-        <Text style={styles.text}>
-          Die Trumpfreihenfolge (höchste zuerst):
-        </Text>
+        <Text style={styles.text}>Die Trumpfreihenfolge (höchste zuerst):</Text>
         <View style={styles.list}>
           <Text style={styles.listItem}>1. Herz-10 (Dulle – höchster Trumpf!)</Text>
           <Text style={styles.listItem}>2. Kreuz-Dame</Text>
@@ -67,47 +71,57 @@ const GameRulesScreen: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.listItem}>13. Karo-Neun</Text>
         </View>
         <Text style={styles.text}>
-          Sonderregel: Treffen beide Herz-10 in einem Stich aufeinander, gewinnt die zweite – außer im letzten Stich, da gewinnt die erste.
+          Sonderregel: Treffen beide Herz-10 in einem Stich aufeinander, gewinnt die zweite – außer
+          im letzten Stich, da gewinnt die erste.
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Fuchs und Karlchen</Text>
         <Text style={styles.text}>
-          Das Karo-Ass heißt „Fuchs". Wenn die gegnerische Partei deinen Fuchs in einem Stich fängt, bekommt sie einen Sonderpunkt (+1).
+          Das Karo-Ass heißt {'"'}Fuchs{'"'}. Wenn die gegnerische Partei deinen Fuchs in einem
+          Stich fängt, bekommt sie einen Sonderpunkt (+1).
         </Text>
         <Text style={styles.text}>
-          Der Kreuz-Bube heißt „Karlchen". Wer den letzten Stich (Stich 12) mit dem Kreuz-Buben gewinnt, bekommt einen Sonderpunkt (+1). Wird Karlchen im letzten Stich aber vom Gegner gefangen, bekommt der Gegner stattdessen den Punkt.
+          Der Kreuz-Bube heißt {'"'}Karlchen{'"'}. Wer den letzten Stich (Stich 12) mit dem
+          Kreuz-Buben gewinnt, bekommt einen Sonderpunkt (+1). Wird Karlchen im letzten Stich aber
+          vom Gegner gefangen, bekommt der Gegner stattdessen den Punkt.
         </Text>
         <Text style={styles.text}>
-          Wer den letzten Stich mit einem Fuchs (Karo-Ass) gewinnt, bekommt ebenfalls einen Sonderpunkt (+1).
+          Wer den letzten Stich mit einem Fuchs (Karo-Ass) gewinnt, bekommt ebenfalls einen
+          Sonderpunkt (+1).
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Teams</Text>
         <Text style={styles.text}>
-          Die Spieler mit den Kreuz-Damen bilden das "Re"-Team. Die anderen beiden Spieler bilden das "Contra"-Team.
+          Die Spieler mit den Kreuz-Damen bilden das {'"'}Re{'"'}-Team. Die anderen beiden Spieler
+          bilden das {'"'}Contra{'"'}-Team.
         </Text>
         <Text style={styles.text}>
-          Die Teamzugehörigkeit ist zu Beginn geheim und wird durch das Ausspielen oder Ansagen offenbart.
+          Die Teamzugehörigkeit ist zu Beginn geheim und wird durch das Ausspielen oder Ansagen
+          offenbart.
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Ansagen</Text>
         <Text style={styles.text}>
-          Re-Spieler können „Re" ansagen, Kontra-Spieler „Kontra". Dies muss vor der eigenen zweiten Karte geschehen. Eine Ansage zeigt Stärke und beeinflusst die Wertung.
+          Re-Spieler können {'"'}Re{'"'} ansagen, Kontra-Spieler {'"'}Kontra{'"'}. Dies muss vor der
+          eigenen zweiten Karte geschehen. Eine Ansage zeigt Stärke und beeinflusst die Wertung.
         </Text>
         <Text style={styles.text}>
-          Sage nur an, wenn du denkst, dass dein Team gewinnt – denn wenn du verlierst, bekommt der Gegner die Punkte!
+          Sage nur an, wenn du denkst, dass dein Team gewinnt – denn wenn du verlierst, bekommt der
+          Gegner die Punkte!
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Wertung</Text>
         <Text style={styles.text}>
-          Re braucht mindestens 121 Punkte zum Sieg. Bei 120:120 gewinnt Kontra. Punkte werden für das Erreichen bestimmter Ziele vergeben:
+          Re braucht mindestens 121 Punkte zum Sieg. Bei 120:120 gewinnt Kontra. Punkte werden für
+          das Erreichen bestimmter Ziele vergeben:
         </Text>
         <View style={styles.list}>
           <Text style={styles.listItem}>• Sieg (121+ Punkte): 1 Punkt</Text>
@@ -127,9 +141,7 @@ const GameRulesScreen: React.FC<Props> = ({ navigation }) => {
         </View>
       </View>
 
-      <Text style={styles.footer}>
-        Viel Erfolg beim Lernen! 🃏
-      </Text>
+      <Text style={styles.footer}>Viel Erfolg beim Lernen! 🃏</Text>
     </ScrollView>
   );
 };

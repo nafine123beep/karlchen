@@ -16,11 +16,7 @@ import { assignTeams } from '@/engine/logic/teamLogic';
 import { calculateTrickWinner } from '@/engine/logic/trickLogic';
 import { calculateCurrentScore } from '@/engine/logic/scoreLogic';
 import { validateMove, getLegalMoves } from '@/engine/logic/legalMoves';
-import {
-  ILLUSION_HANDS,
-  ILLUSION_AI_MOVES,
-  CardDef,
-} from '@/data/illusionGame/illusionGameScript';
+import { ILLUSION_HANDS, ILLUSION_AI_MOVES, CardDef } from '@/data/illusionGame/illusionGameScript';
 
 export class IllusionGameEngine {
   private gameState: GameState;
@@ -39,7 +35,7 @@ export class IllusionGameEngine {
     // Assign predefined hands
     for (let i = 0; i < 4; i++) {
       const cards = ILLUSION_HANDS[i].map(
-        (def: CardDef) => new Card(def.suit, def.rank, def.copyNumber)
+        (def: CardDef) => new Card(def.suit, def.rank, def.copyNumber),
       );
       this.gameState.players[i].receiveCards(cards);
     }

@@ -7,10 +7,7 @@ import { Hint } from '@/types/hint.types';
 import { Trick } from '@/engine/models/Trick';
 import { Suit, Rank } from '@/types/card.types';
 
-export function checkFoxCaught(
-  completedTrick: Trick,
-  humanPlayerId: string
-): Hint | null {
+export function checkFoxCaught(completedTrick: Trick, humanPlayerId: string): Hint | null {
   const playerCard = completedTrick.getCardByPlayer(humanPlayerId);
   if (!playerCard) return null;
 
@@ -24,7 +21,8 @@ export function checkFoxCaught(
   return {
     id: 'FEEDBACK_FOX_CAUGHT',
     title: 'Fuchs gefangen!',
-    message: 'Dein Fuchs (Karo-Ass) wurde vom Gegner gefangen. Der Fuchs ist 11 Augen wert und gibt dem Gegner einen Extrapunkt. Versuche, ihn besser zu schützen oder rechtzeitig abzuwerfen.',
+    message:
+      'Dein Fuchs (Karo-Ass) wurde vom Gegner gefangen. Der Fuchs ist 11 Augen wert und gibt dem Gegner einen Extrapunkt. Versuche, ihn besser zu schützen oder rechtzeitig abzuwerfen.',
     severity: 'warn',
     timing: 'feedback',
     learnMoreKey: 'tutorial.special.fox',

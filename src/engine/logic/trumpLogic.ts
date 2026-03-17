@@ -53,7 +53,7 @@ export function getTrumpOrder(card: Card): number | undefined {
   // Queens (order 1-4)
   if (card.rank === Rank.QUEEN) {
     const queenOrder: Record<Suit, number> = {
-      [Suit.CLUBS]: 1,    // Highest Queen
+      [Suit.CLUBS]: 1, // Highest Queen
       [Suit.SPADES]: 2,
       [Suit.HEARTS]: 3,
       [Suit.DIAMONDS]: 4, // Lowest Queen
@@ -64,7 +64,7 @@ export function getTrumpOrder(card: Card): number | undefined {
   // Jacks (order 5-8)
   if (card.rank === Rank.JACK) {
     const jackOrder: Record<Suit, number> = {
-      [Suit.CLUBS]: 5,    // Highest Jack
+      [Suit.CLUBS]: 5, // Highest Jack
       [Suit.SPADES]: 6,
       [Suit.HEARTS]: 7,
       [Suit.DIAMONDS]: 8, // Lowest Jack

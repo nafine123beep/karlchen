@@ -24,21 +24,37 @@ export const PlayersVisual: React.FC<PlayersVisualProps> = ({ data }) => {
     <View style={styles.container}>
       {/* Top player */}
       <View style={styles.topRow}>
-        <PlayerSeat name={PLAYERS[0].name} team={PLAYERS[0].team} showQueen={data?.highlightQueens} />
+        <PlayerSeat
+          name={PLAYERS[0].name}
+          team={PLAYERS[0].team}
+          showQueen={data?.highlightQueens}
+        />
       </View>
 
       {/* Middle row: left + table + right */}
       <View style={styles.middleRow}>
-        <PlayerSeat name={PLAYERS[1].name} team={PLAYERS[1].team} showQueen={data?.highlightQueens} />
+        <PlayerSeat
+          name={PLAYERS[1].name}
+          team={PLAYERS[1].team}
+          showQueen={data?.highlightQueens}
+        />
         <View style={styles.table}>
           <Text style={styles.tableText}>Tisch</Text>
         </View>
-        <PlayerSeat name={PLAYERS[2].name} team={PLAYERS[2].team} showQueen={data?.highlightQueens} />
+        <PlayerSeat
+          name={PLAYERS[2].name}
+          team={PLAYERS[2].team}
+          showQueen={data?.highlightQueens}
+        />
       </View>
 
       {/* Bottom player */}
       <View style={styles.bottomRow}>
-        <PlayerSeat name={PLAYERS[3].name} team={PLAYERS[3].team} showQueen={data?.highlightQueens} />
+        <PlayerSeat
+          name={PLAYERS[3].name}
+          team={PLAYERS[3].team}
+          showQueen={data?.highlightQueens}
+        />
       </View>
     </View>
   );
@@ -55,9 +71,7 @@ const PlayerSeat: React.FC<{
     <View style={styles.seatWrapper}>
       <View style={[styles.seat, { borderLeftColor: color }]}>
         <Text style={styles.seatName}>{name}</Text>
-        <Text style={[styles.seatTeam, { color }]}>
-          {team === 're' ? 'Re' : 'Kontra'}
-        </Text>
+        <Text style={[styles.seatTeam, { color }]}>{team === 're' ? 'Re' : 'Kontra'}</Text>
       </View>
       {showQueen && team === 're' && (
         <View style={styles.queenCard}>

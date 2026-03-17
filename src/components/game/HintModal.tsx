@@ -41,12 +41,7 @@ export const HintModal: React.FC<HintModalProps> = ({
   const icon = isWarning ? '⚠️' : '💡';
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onDismiss}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onDismiss}>
       <Pressable style={styles.overlay} onPress={onDismiss}>
         <Animated.View
           entering={isWeb ? undefined : SlideInDown.springify()}
@@ -65,10 +60,7 @@ export const HintModal: React.FC<HintModalProps> = ({
 
           {/* NEW: Mute button (full-width, above other buttons) */}
           {showMuteOption && onMute && (
-            <Pressable
-              style={styles.muteButton}
-              onPress={onMute}
-            >
+            <Pressable style={styles.muteButton} onPress={onMute}>
               <Text style={styles.muteButtonText}>🔇 Hinweise für dieses Spiel ausblenden</Text>
             </Pressable>
           )}

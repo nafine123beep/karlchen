@@ -54,9 +54,10 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
     winnerName: string;
     winningCardId: string;
   } | null>(null);
-  const [lastCompletedTrickCards, setLastCompletedTrickCards] = useState<
-    Array<{ card: Card; playerId: string }> | null
-  >(null);
+  const [lastCompletedTrickCards, setLastCompletedTrickCards] = useState<Array<{
+    card: Card;
+    playerId: string;
+  }> | null>(null);
 
   const setIllusionGamePlayed = useLearningStore(s => s.setIllusionGamePlayed);
 
@@ -110,27 +111,24 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
       const stateAfter = engine.getGameState();
 
       // Check if trick completed (more robust check)
-      const trickJustCompleted =
-        stateAfter.completedTricks.length > completedTricksBefore;
+      const trickJustCompleted = stateAfter.completedTricks.length > completedTricksBefore;
 
       if (trickJustCompleted && stateAfter.completedTricks.length > 0) {
-        const completedTrick =
-          stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
+        const completedTrick = stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
         const winnerId = completedTrick.winnerId;
         const winnerPlayer = stateAfter.players.find(p => p.id === winnerId);
         const winningCard = winnerId ? completedTrick.getCardByPlayer(winnerId) : null;
 
         // Build animation cards
-        const playedCardRef = currentPlayer.hand.find(c => c.id === result.cardId)
-          ?? stateAfter.completedTricks[stateAfter.completedTricks.length - 1]
-              .getCards()
-              .find(c => c.id === result.cardId);
+        const playedCardRef =
+          currentPlayer.hand.find(c => c.id === result.cardId) ??
+          stateAfter.completedTricks[stateAfter.completedTricks.length - 1]
+            .getCards()
+            .find(c => c.id === result.cardId);
 
         const trickCardsForAnimation = [
           ...trickCardsBefore,
-          ...(playedCardRef
-            ? [{ card: playedCardRef, playerId: currentPlayer.id }]
-            : []),
+          ...(playedCardRef ? [{ card: playedCardRef, playerId: currentPlayer.id }] : []),
         ];
 
         setTrickWinInfo(
@@ -140,7 +138,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
                 winnerName: winnerPlayer?.name || 'Spieler',
                 winningCardId: winningCard?.id || '',
               }
-            : null
+            : null,
         );
         setLastCompletedTrickCards(trickCardsForAnimation);
         setIsAnimatingTrickWin(true);
@@ -220,7 +218,14 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
    * Handle human card press.
    */
   const handleCardPress = async (cardId: string) => {
-    if (!isPlayerTurn || isProcessing || isAnimatingTrickWin || !gameState || !humanPlayer || !engine)
+    if (
+      !isPlayerTurn ||
+      isProcessing ||
+      isAnimatingTrickWin ||
+      !gameState ||
+      !humanPlayer ||
+      !engine
+    )
       return;
 
     const card = humanPlayer.hand.find(c => c.id === cardId);
@@ -272,12 +277,10 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
 
     // Check if trick was completed by human's card (more robust check)
     const stateAfter = engine.getGameState();
-    const trickJustCompleted =
-      stateAfter.completedTricks.length > completedTricksBefore;
+    const trickJustCompleted = stateAfter.completedTricks.length > completedTricksBefore;
 
     if (trickJustCompleted && stateAfter.completedTricks.length > 0) {
-      const completedTrick =
-        stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
+      const completedTrick = stateAfter.completedTricks[stateAfter.completedTricks.length - 1];
       const winnerId = completedTrick.winnerId;
       const winnerPlayer = stateAfter.players.find(p => p.id === winnerId);
       const winningCard = winnerId ? completedTrick.getCardByPlayer(winnerId) : null;
@@ -294,7 +297,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
               winnerName: winnerPlayer?.name || 'Spieler',
               winningCardId: winningCard?.id || '',
             }
-          : null
+          : null,
       );
       setLastCompletedTrickCards(trickCardsForAnimation);
       setIsAnimatingTrickWin(true);
@@ -476,11 +479,7 @@ const IllusionGameScreen: React.FC<Props> = ({ navigation }) => {
       />
 
       {/* Hint Modal */}
-      <HintModal
-        visible={currentHint !== null}
-        hint={currentHint}
-        onDismiss={handleHintDismiss}
-      />
+      <HintModal visible={currentHint !== null} hint={currentHint} onDismiss={handleHintDismiss} />
     </View>
   );
 };

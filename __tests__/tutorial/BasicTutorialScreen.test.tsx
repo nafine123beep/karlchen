@@ -8,7 +8,9 @@ jest.mock('@/components/cards/Card', () => {
   const { View, Text } = require('react-native');
   return {
     Card: ({ suit, rank }: any) => (
-      <View><Text>{`${rank} ${suit}`}</Text></View>
+      <View>
+        <Text>{`${rank} ${suit}`}</Text>
+      </View>
     ),
   };
 });
@@ -26,8 +28,7 @@ const mockRoute = { params: {} } as any;
 // Mock learning store
 const mockCompleteTutorialStep = jest.fn();
 jest.mock('@/store/learningStore', () => ({
-  useLearningStore: (selector: any) =>
-    selector({ completeTutorialStep: mockCompleteTutorialStep }),
+  useLearningStore: (selector: any) => selector({ completeTutorialStep: mockCompleteTutorialStep }),
 }));
 
 describe('BasicTutorialScreen', () => {
@@ -37,7 +38,7 @@ describe('BasicTutorialScreen', () => {
 
   it('renders first slide on mount', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(getByText(basicTutorialSlides[0].headline)).toBeTruthy();
@@ -46,7 +47,7 @@ describe('BasicTutorialScreen', () => {
 
   it('shows step badge on first slide', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(getByText('1 / 6')).toBeTruthy();
@@ -54,7 +55,7 @@ describe('BasicTutorialScreen', () => {
 
   it('updates step badge when advancing', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     fireEvent.press(getByText('Weiter'));
@@ -64,7 +65,7 @@ describe('BasicTutorialScreen', () => {
 
   it('shows Weiter button on first slide', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(getByText('Weiter')).toBeTruthy();
@@ -72,7 +73,7 @@ describe('BasicTutorialScreen', () => {
 
   it('does not show Zur\u00fcck button on first slide', () => {
     const { queryByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     expect(queryByText('Zur\u00fcck')).toBeNull();
@@ -80,7 +81,7 @@ describe('BasicTutorialScreen', () => {
 
   it('advances to next slide on Weiter press', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     fireEvent.press(getByText('Weiter'));
@@ -91,7 +92,7 @@ describe('BasicTutorialScreen', () => {
 
   it('shows Zur\u00fcck button after advancing', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     fireEvent.press(getByText('Weiter'));
@@ -101,7 +102,7 @@ describe('BasicTutorialScreen', () => {
 
   it('goes back to previous slide on Zur\u00fcck press', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     // Advance to slide 2
@@ -115,7 +116,7 @@ describe('BasicTutorialScreen', () => {
 
   it('shows Weiter zum Quiz on last slide', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     // Navigate to last slide
@@ -128,7 +129,7 @@ describe('BasicTutorialScreen', () => {
 
   it('completes tutorial and navigates to QuizIntro on last slide', () => {
     const { getByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     // Navigate to last slide
@@ -145,7 +146,7 @@ describe('BasicTutorialScreen', () => {
 
   it('Step 3 shows no quiz UI elements', () => {
     const { getByText, queryByText } = render(
-      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />
+      <BasicTutorialScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     // Navigate to slide 3

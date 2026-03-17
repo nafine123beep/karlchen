@@ -30,66 +30,66 @@ export function cardId(suit: Suit, rank: Rank, copy: 1 | 2): string {
 
 /** Player 0 (Human, Re): 8 trumps, 4 non-trumps */
 export const HAND_PLAYER_0: CardDef[] = [
-  { suit: Suit.HEARTS, rank: Rank.TEN, copyNumber: 1 },     // trump order 0 (Dulle – highest!)
-  { suit: Suit.CLUBS, rank: Rank.QUEEN, copyNumber: 1 },     // trump order 1
-  { suit: Suit.SPADES, rank: Rank.QUEEN, copyNumber: 1 },    // trump order 2
-  { suit: Suit.HEARTS, rank: Rank.QUEEN, copyNumber: 1 },    // trump order 3
-  { suit: Suit.CLUBS, rank: Rank.JACK, copyNumber: 1 },      // trump order 5
-  { suit: Suit.SPADES, rank: Rank.JACK, copyNumber: 1 },     // trump order 6
-  { suit: Suit.DIAMONDS, rank: Rank.ACE, copyNumber: 1 },    // trump order 9 (Fox)
-  { suit: Suit.DIAMONDS, rank: Rank.TEN, copyNumber: 1 },    // trump order 10
-  { suit: Suit.SPADES, rank: Rank.ACE, copyNumber: 1 },      // non-trump
-  { suit: Suit.SPADES, rank: Rank.TEN, copyNumber: 1 },      // non-trump
-  { suit: Suit.HEARTS, rank: Rank.ACE, copyNumber: 1 },      // non-trump
-  { suit: Suit.CLUBS, rank: Rank.NINE, copyNumber: 1 },      // non-trump
+  { suit: Suit.HEARTS, rank: Rank.TEN, copyNumber: 1 }, // trump order 0 (Dulle – highest!)
+  { suit: Suit.CLUBS, rank: Rank.QUEEN, copyNumber: 1 }, // trump order 1
+  { suit: Suit.SPADES, rank: Rank.QUEEN, copyNumber: 1 }, // trump order 2
+  { suit: Suit.HEARTS, rank: Rank.QUEEN, copyNumber: 1 }, // trump order 3
+  { suit: Suit.CLUBS, rank: Rank.JACK, copyNumber: 1 }, // trump order 5
+  { suit: Suit.SPADES, rank: Rank.JACK, copyNumber: 1 }, // trump order 6
+  { suit: Suit.DIAMONDS, rank: Rank.ACE, copyNumber: 1 }, // trump order 9 (Fox)
+  { suit: Suit.DIAMONDS, rank: Rank.TEN, copyNumber: 1 }, // trump order 10
+  { suit: Suit.SPADES, rank: Rank.ACE, copyNumber: 1 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.TEN, copyNumber: 1 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.ACE, copyNumber: 1 }, // non-trump
+  { suit: Suit.CLUBS, rank: Rank.NINE, copyNumber: 1 }, // non-trump
 ];
 
 /** Player 1 (AI, Kontra): 6 trumps, 6 non-trumps */
 export const HAND_PLAYER_1: CardDef[] = [
-  { suit: Suit.HEARTS, rank: Rank.TEN, copyNumber: 2 },     // trump order 0 (Dulle!)
-  { suit: Suit.DIAMONDS, rank: Rank.QUEEN, copyNumber: 1 },  // trump order 4
-  { suit: Suit.HEARTS, rank: Rank.JACK, copyNumber: 1 },     // trump order 7
-  { suit: Suit.DIAMONDS, rank: Rank.JACK, copyNumber: 1 },   // trump order 8
-  { suit: Suit.DIAMONDS, rank: Rank.ACE, copyNumber: 2 },    // trump order 9
-  { suit: Suit.DIAMONDS, rank: Rank.NINE, copyNumber: 1 },   // trump order 12
-  { suit: Suit.CLUBS, rank: Rank.ACE, copyNumber: 1 },       // non-trump
-  { suit: Suit.CLUBS, rank: Rank.TEN, copyNumber: 1 },       // non-trump
-  { suit: Suit.CLUBS, rank: Rank.KING, copyNumber: 1 },      // non-trump
-  { suit: Suit.SPADES, rank: Rank.KING, copyNumber: 1 },     // non-trump
-  { suit: Suit.SPADES, rank: Rank.NINE, copyNumber: 1 },     // non-trump
-  { suit: Suit.HEARTS, rank: Rank.KING, copyNumber: 1 },     // non-trump
+  { suit: Suit.HEARTS, rank: Rank.TEN, copyNumber: 2 }, // trump order 0 (Dulle!)
+  { suit: Suit.DIAMONDS, rank: Rank.QUEEN, copyNumber: 1 }, // trump order 4
+  { suit: Suit.HEARTS, rank: Rank.JACK, copyNumber: 1 }, // trump order 7
+  { suit: Suit.DIAMONDS, rank: Rank.JACK, copyNumber: 1 }, // trump order 8
+  { suit: Suit.DIAMONDS, rank: Rank.ACE, copyNumber: 2 }, // trump order 9
+  { suit: Suit.DIAMONDS, rank: Rank.NINE, copyNumber: 1 }, // trump order 12
+  { suit: Suit.CLUBS, rank: Rank.ACE, copyNumber: 1 }, // non-trump
+  { suit: Suit.CLUBS, rank: Rank.TEN, copyNumber: 1 }, // non-trump
+  { suit: Suit.CLUBS, rank: Rank.KING, copyNumber: 1 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.KING, copyNumber: 1 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.NINE, copyNumber: 1 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.KING, copyNumber: 1 }, // non-trump
 ];
 
 /** Player 2 (AI, Re partner): 5 trumps, 7 non-trumps */
 export const HAND_PLAYER_2: CardDef[] = [
-  { suit: Suit.CLUBS, rank: Rank.QUEEN, copyNumber: 2 },     // trump order 1
-  { suit: Suit.DIAMONDS, rank: Rank.QUEEN, copyNumber: 2 },  // trump order 4
-  { suit: Suit.DIAMONDS, rank: Rank.TEN, copyNumber: 2 },    // trump order 10
-  { suit: Suit.DIAMONDS, rank: Rank.KING, copyNumber: 2 },   // trump order 11
-  { suit: Suit.DIAMONDS, rank: Rank.NINE, copyNumber: 2 },   // trump order 12
-  { suit: Suit.CLUBS, rank: Rank.ACE, copyNumber: 2 },       // non-trump
-  { suit: Suit.CLUBS, rank: Rank.TEN, copyNumber: 2 },       // non-trump
-  { suit: Suit.SPADES, rank: Rank.ACE, copyNumber: 2 },      // non-trump
-  { suit: Suit.SPADES, rank: Rank.TEN, copyNumber: 2 },      // non-trump
-  { suit: Suit.SPADES, rank: Rank.NINE, copyNumber: 2 },     // non-trump
-  { suit: Suit.HEARTS, rank: Rank.NINE, copyNumber: 2 },     // non-trump
-  { suit: Suit.HEARTS, rank: Rank.ACE, copyNumber: 2 },      // non-trump
+  { suit: Suit.CLUBS, rank: Rank.QUEEN, copyNumber: 2 }, // trump order 1
+  { suit: Suit.DIAMONDS, rank: Rank.QUEEN, copyNumber: 2 }, // trump order 4
+  { suit: Suit.DIAMONDS, rank: Rank.TEN, copyNumber: 2 }, // trump order 10
+  { suit: Suit.DIAMONDS, rank: Rank.KING, copyNumber: 2 }, // trump order 11
+  { suit: Suit.DIAMONDS, rank: Rank.NINE, copyNumber: 2 }, // trump order 12
+  { suit: Suit.CLUBS, rank: Rank.ACE, copyNumber: 2 }, // non-trump
+  { suit: Suit.CLUBS, rank: Rank.TEN, copyNumber: 2 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.ACE, copyNumber: 2 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.TEN, copyNumber: 2 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.NINE, copyNumber: 2 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.NINE, copyNumber: 2 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.ACE, copyNumber: 2 }, // non-trump
 ];
 
 /** Player 3 (AI, Kontra): 7 trumps, 5 non-trumps */
 export const HAND_PLAYER_3: CardDef[] = [
-  { suit: Suit.SPADES, rank: Rank.QUEEN, copyNumber: 2 },    // trump order 2
-  { suit: Suit.HEARTS, rank: Rank.QUEEN, copyNumber: 2 },    // trump order 3
-  { suit: Suit.CLUBS, rank: Rank.JACK, copyNumber: 2 },      // trump order 5
-  { suit: Suit.SPADES, rank: Rank.JACK, copyNumber: 2 },     // trump order 6
-  { suit: Suit.HEARTS, rank: Rank.JACK, copyNumber: 2 },     // trump order 7
-  { suit: Suit.DIAMONDS, rank: Rank.JACK, copyNumber: 2 },   // trump order 8
-  { suit: Suit.DIAMONDS, rank: Rank.KING, copyNumber: 1 },   // trump order 11
-  { suit: Suit.CLUBS, rank: Rank.KING, copyNumber: 2 },      // non-trump
-  { suit: Suit.CLUBS, rank: Rank.NINE, copyNumber: 2 },      // non-trump
-  { suit: Suit.SPADES, rank: Rank.KING, copyNumber: 2 },     // non-trump
-  { suit: Suit.HEARTS, rank: Rank.NINE, copyNumber: 1 },     // non-trump
-  { suit: Suit.HEARTS, rank: Rank.KING, copyNumber: 2 },     // non-trump
+  { suit: Suit.SPADES, rank: Rank.QUEEN, copyNumber: 2 }, // trump order 2
+  { suit: Suit.HEARTS, rank: Rank.QUEEN, copyNumber: 2 }, // trump order 3
+  { suit: Suit.CLUBS, rank: Rank.JACK, copyNumber: 2 }, // trump order 5
+  { suit: Suit.SPADES, rank: Rank.JACK, copyNumber: 2 }, // trump order 6
+  { suit: Suit.HEARTS, rank: Rank.JACK, copyNumber: 2 }, // trump order 7
+  { suit: Suit.DIAMONDS, rank: Rank.JACK, copyNumber: 2 }, // trump order 8
+  { suit: Suit.DIAMONDS, rank: Rank.KING, copyNumber: 1 }, // trump order 11
+  { suit: Suit.CLUBS, rank: Rank.KING, copyNumber: 2 }, // non-trump
+  { suit: Suit.CLUBS, rank: Rank.NINE, copyNumber: 2 }, // non-trump
+  { suit: Suit.SPADES, rank: Rank.KING, copyNumber: 2 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.NINE, copyNumber: 1 }, // non-trump
+  { suit: Suit.HEARTS, rank: Rank.KING, copyNumber: 2 }, // non-trump
 ];
 
 export const ILLUSION_HANDS: CardDef[][] = [
@@ -155,7 +155,7 @@ export const ILLUSION_AI_MOVES: Record<string, string>[] = [
   {
     player_1: cardId(Suit.SPADES, Rank.NINE, 1),
     player_2: cardId(Suit.SPADES, Rank.TEN, 2),
-    player_3: cardId(Suit.HEARTS, Rank.JACK, 2),  // P3 trumps!
+    player_3: cardId(Suit.HEARTS, Rank.JACK, 2), // P3 trumps!
   },
   // Trick 5: P3 leads SJ2
   {
@@ -179,7 +179,7 @@ export const ILLUSION_AI_MOVES: Record<string, string>[] = [
   {
     player_1: cardId(Suit.CLUBS, Rank.TEN, 1),
     player_2: cardId(Suit.SPADES, Rank.NINE, 2),
-    player_3: cardId(Suit.HEARTS, Rank.QUEEN, 2),  // P3 trumps!
+    player_3: cardId(Suit.HEARTS, Rank.QUEEN, 2), // P3 trumps!
   },
   // Trick 9: P3 leads SQ2
   {

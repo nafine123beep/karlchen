@@ -130,9 +130,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         const winnerPlayer = stateAfter.players.find(p => p.id === winnerId);
 
         // Find winning card (the card played by winner)
-        const playedCard = stateBefore.currentTrick?.cards.find(
-          tc => tc.playerId === cardId
-        );
+        const playedCard = stateBefore.currentTrick?.cards.find(tc => tc.playerId === cardId);
 
         // Build trick cards for animation (including the card just played)
         const trickCardsForAnimation = [
@@ -145,8 +143,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
         // Find winning card ID
         const winningCard = completedTrick.getCards().find(card => {
-          const playedByWinner = completedTrick
-            .getCardByPlayer(winnerId || '');
+          const playedByWinner = completedTrick.getCardByPlayer(winnerId || '');
           return playedByWinner && card.id === playedByWinner.id;
         });
 

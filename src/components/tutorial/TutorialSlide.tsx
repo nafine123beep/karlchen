@@ -5,7 +5,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { TutorialSlide as TutorialSlideData } from '@/types/tutorial.types';
-import { CardsVisual, PlayersVisual, PointsVisual, RulesVisual, SuitsVisual, TrumpOverviewVisual } from './visuals';
+import {
+  CardsVisual,
+  PlayersVisual,
+  PointsVisual,
+  RulesVisual,
+  SuitsVisual,
+  TrumpOverviewVisual,
+} from './visuals';
 
 interface TutorialSlideProps {
   slide: TutorialSlideData;
@@ -52,7 +59,9 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
       <Text style={styles.headline}>{slide.headline}</Text>
 
       {textArray.map((paragraph, index) => (
-        <Text key={index} style={styles.text}>{paragraph}</Text>
+        <Text key={index} style={styles.text}>
+          {paragraph}
+        </Text>
       ))}
 
       {slide.highlightText && (
@@ -71,7 +80,6 @@ export const TutorialSlide: React.FC<TutorialSlideProps> = ({ slide, isActive })
           ))}
         </View>
       )}
-
     </ScrollView>
   );
 };

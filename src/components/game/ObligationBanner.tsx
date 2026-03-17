@@ -18,9 +18,7 @@ export const ObligationBanner: React.FC<ObligationBannerProps> = ({ suit, isTrum
   return (
     <View style={styles.container}>
       <Text style={styles.icon}>{isTrump ? '🏅' : '🎴'}</Text>
-      <Text style={styles.text}>
-        Du musst {suit} bedienen
-      </Text>
+      <Text style={styles.text}>Du musst {suit} bedienen</Text>
     </View>
   );
 };

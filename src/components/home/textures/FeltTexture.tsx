@@ -25,14 +25,7 @@ export const FeltTexture: React.FC<FeltTextureProps> = ({ width, height }) => {
         </LinearGradient>
 
         {/* Noise pattern using dots for fabric texture effect */}
-        <Pattern
-          id="feltNoise"
-          x="0"
-          y="0"
-          width="4"
-          height="4"
-          patternUnits="userSpaceOnUse"
-        >
+        <Pattern id="feltNoise" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
           <Circle cx="2" cy="2" r="0.5" fill="#000" opacity="0.1" />
         </Pattern>
       </Defs>
@@ -41,11 +34,7 @@ export const FeltTexture: React.FC<FeltTextureProps> = ({ width, height }) => {
       <Rect width="100%" height="100%" fill="url(#feltGradient)" />
 
       {/* Noise overlay for texture */}
-      <Rect
-        width="100%"
-        height="100%"
-        fill="url(#feltNoise)"
-      />
+      <Rect width="100%" height="100%" fill="url(#feltNoise)" />
     </Svg>
   );
 };
@@ -59,9 +48,7 @@ export const FeltBackground: React.FC<{ children: React.ReactNode }> = ({ childr
     <View style={styles.container}>
       <FeltTexture width="100%" height="100%" />
       <View style={styles.vignette} />
-      <View style={styles.content}>
-        {children}
-      </View>
+      <View style={styles.content}>{children}</View>
     </View>
   );
 };

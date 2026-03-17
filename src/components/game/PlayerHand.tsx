@@ -4,10 +4,7 @@
 
 import React, { useMemo } from 'react';
 import { View, StyleSheet, ScrollView, Platform } from 'react-native';
-import Animated, {
-  FadeIn,
-  Layout,
-} from 'react-native-reanimated';
+import Animated, { FadeIn, Layout } from 'react-native-reanimated';
 
 const isWeb = Platform.OS === 'web';
 import { Card } from '@/components/cards/Card';
@@ -39,9 +36,7 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
   }, [legalMoves]);
 
   // Calculate total width needed for cards
-  const totalWidth = cards.length > 0
-    ? CARD_WIDTH + (cards.length - 1) * CARD_OVERLAP
-    : 0;
+  const totalWidth = cards.length > 0 ? CARD_WIDTH + (cards.length - 1) * CARD_OVERLAP : 0;
 
   // Sort cards: trumps first, then by suit
   const sortedCards = useMemo(() => {
@@ -57,12 +52,15 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
 
       // Non-trumps: sort by suit then rank
       const suitOrder = { clubs: 0, spades: 1, hearts: 2, diamonds: 3 };
-      const rankOrder = { '9': -1, 'J': 0, 'Q': 1, 'K': 2, '10': 3, 'A': 4 };
+      const rankOrder = { '9': -1, J: 0, Q: 1, K: 2, '10': 3, A: 4 };
 
-      const suitDiff = suitOrder[a.suit as keyof typeof suitOrder] - suitOrder[b.suit as keyof typeof suitOrder];
+      const suitDiff =
+        suitOrder[a.suit as keyof typeof suitOrder] - suitOrder[b.suit as keyof typeof suitOrder];
       if (suitDiff !== 0) return suitDiff;
 
-      return rankOrder[a.rank as keyof typeof rankOrder] - rankOrder[b.rank as keyof typeof rankOrder];
+      return (
+        rankOrder[a.rank as keyof typeof rankOrder] - rankOrder[b.rank as keyof typeof rankOrder]
+      );
     });
   }, [cards]);
 
@@ -71,10 +69,7 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.scrollContent,
-          { minWidth: totalWidth + 32 },
-        ]}
+        contentContainerStyle={[styles.scrollContent, { minWidth: totalWidth + 32 }]}
       >
         <View style={[styles.cardsContainer, { width: totalWidth }]}>
           {sortedCards.map((card, index) => {
@@ -84,10 +79,12 @@ export const PlayerHand: React.FC<PlayerHandProps> = ({
             const isDisabled = disabled || !isLegalMove;
 
             const CardWrapper = isWeb ? View : Animated.View;
-            const wrapperProps = isWeb ? {} : {
-              entering: FadeIn.delay(index * 50),
-              layout: Layout.springify(),
-            };
+            const wrapperProps = isWeb
+              ? {}
+              : {
+                  entering: FadeIn.delay(index * 50),
+                  layout: Layout.springify(),
+                };
 
             return (
               <CardWrapper

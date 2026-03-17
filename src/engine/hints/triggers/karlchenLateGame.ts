@@ -13,14 +13,11 @@ export function checkKarlchenLateGame(context: HintContext): Hint | null {
   if (trickIndex < 10) return null;
 
   // Does player have Club Jack (Karlchen)?
-  const hasKarlchen = playerHand.some(c =>
-    c.suit === Suit.CLUBS && c.rank === Rank.JACK
-  );
+  const hasKarlchen = playerHand.some(c => c.suit === Suit.CLUBS && c.rank === Rank.JACK);
   if (!hasKarlchen) return null;
 
   // Is player about to play something else?
-  const isPlayingKarlchen =
-    selectedCard.suit === Suit.CLUBS && selectedCard.rank === Rank.JACK;
+  const isPlayingKarlchen = selectedCard.suit === Suit.CLUBS && selectedCard.rank === Rank.JACK;
   if (isPlayingKarlchen) return null;
 
   // Only hint in trick 11 (last trick) or trick 10 if player might forget
@@ -28,7 +25,8 @@ export function checkKarlchenLateGame(context: HintContext): Hint | null {
     return {
       id: 'KARLCHEN_LATE_GAME',
       title: 'Karlchen-Chance!',
-      message: 'Du hast noch einen Kreuz-Buben. Wenn du damit den letzten Stich gewinnst, gibt das einen Bonuspunkt ("Karlchen fängt den letzten Stich").',
+      message:
+        'Du hast noch einen Kreuz-Buben. Wenn du damit den letzten Stich gewinnst, gibt das einen Bonuspunkt ("Karlchen fängt den letzten Stich").',
       severity: 'info',
       learnMoreKey: 'tutorial.special.karlchen',
       timing: 'preTactic',
@@ -40,7 +38,8 @@ export function checkKarlchenLateGame(context: HintContext): Hint | null {
     return {
       id: 'KARLCHEN_LATE_GAME',
       title: 'Karlchen für letzten Stich?',
-      message: 'Du hast noch einen Kreuz-Buben. Überlege, ob du ihn für den letzten Stich aufheben möchtest (Bonuspunkt "Karlchen").',
+      message:
+        'Du hast noch einen Kreuz-Buben. Überlege, ob du ihn für den letzten Stich aufheben möchtest (Bonuspunkt "Karlchen").',
       severity: 'info',
       learnMoreKey: 'tutorial.special.karlchen',
       timing: 'preTactic',

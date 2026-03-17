@@ -22,8 +22,8 @@ interface GameOverModalProps {
 
 // Team colors
 const TEAM_COLORS = {
-  [Team.RE]: '#f59e0b',      // Amber/gold
-  [Team.CONTRA]: '#3b82f6',  // Blue
+  [Team.RE]: '#f59e0b', // Amber/gold
+  [Team.CONTRA]: '#3b82f6', // Blue
   [Team.UNKNOWN]: '#6b7280', // Gray
 };
 
@@ -58,18 +58,14 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           {/* Winner Banner */}
           <View style={[styles.winnerBanner, { backgroundColor: winnerColor }]}>
             <Text style={styles.trophyIcon}>🏆</Text>
-            <Text style={styles.winnerTitle}>
-              {isReWinner ? 'RE GEWINNT!' : 'KONTRA GEWINNT!'}
-            </Text>
+            <Text style={styles.winnerTitle}>{isReWinner ? 'RE GEWINNT!' : 'KONTRA GEWINNT!'}</Text>
           </View>
 
           {/* Score Display */}
           <View style={styles.scoreSection}>
             <View style={[styles.teamScore, isReWinner && styles.winningTeamScore]}>
               <Text style={[styles.teamLabel, { color: TEAM_COLORS[Team.RE] }]}>Re</Text>
-              <Text style={[styles.scoreValue, isReWinner && styles.winningScore]}>
-                {reScore}
-              </Text>
+              <Text style={[styles.scoreValue, isReWinner && styles.winningScore]}>{reScore}</Text>
             </View>
             <Text style={styles.scoreDivider}>–</Text>
             <View style={[styles.teamScore, !isReWinner && styles.winningTeamScore]}>
@@ -98,13 +94,16 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           {/* Game Value */}
           <View style={styles.gameValueSection}>
             <Text style={styles.gameValueLabel}>Spielwert:</Text>
-            <Text style={styles.gameValueNumber}>{gameValue} {gameValue === 1 ? 'Punkt' : 'Punkte'}</Text>
+            <Text style={styles.gameValueNumber}>
+              {gameValue} {gameValue === 1 ? 'Punkt' : 'Punkte'}
+            </Text>
           </View>
 
           {/* Player Result */}
           <View style={[styles.playerResult, playerWon ? styles.playerWon : styles.playerLost]}>
             <Text style={styles.playerResultText}>
-              Du warst im Team {playerTeam === Team.RE ? 'Re' : 'Kontra'} – {playerWon ? 'Gewonnen!' : 'Verloren'}
+              Du warst im Team {playerTeam === Team.RE ? 'Re' : 'Kontra'} –{' '}
+              {playerWon ? 'Gewonnen!' : 'Verloren'}
             </Text>
           </View>
 
@@ -154,7 +153,7 @@ interface Achievement {
  */
 function buildAchievementsList(
   specialPoints: SpecialPoints,
-  playerNames: Record<PlayerId, string>
+  playerNames: Record<PlayerId, string>,
 ): Achievement[] {
   const achievements: Achievement[] = [];
 

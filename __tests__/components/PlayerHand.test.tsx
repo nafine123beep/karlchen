@@ -104,10 +104,7 @@ describe('PlayerHand', () => {
 
   describe('not player turn - all cards disabled', () => {
     it('should disable all cards when disabled prop is true', () => {
-      const cards = [
-        createCard(Suit.HEARTS, Rank.ACE),
-        createCard(Suit.CLUBS, Rank.NINE),
-      ];
+      const cards = [createCard(Suit.HEARTS, Rank.ACE), createCard(Suit.CLUBS, Rank.NINE)];
       const legalMoves = [...cards];
 
       const { toJSON } = render(

@@ -39,10 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <Pressable
-      style={({ pressed }) => [
-        buttonStyle,
-        pressed && !disabled && styles.button_pressed,
-      ]}
+      style={({ pressed }) => [buttonStyle, pressed && !disabled && styles.button_pressed]}
       onPress={onPress}
       disabled={disabled}
     >

@@ -57,9 +57,9 @@ export interface ITutorialStep {
   id: string;
   title: string;
   description: string;
-  targetCards?: ICard[];  // Welche Karten sollen highlighted werden?
+  targetCards?: ICard[]; // Welche Karten sollen highlighted werden?
   correctAction?: string; // Was ist der richtige Zug?
-  explanation?: string;   // Erklärung nach dem Zug
+  explanation?: string; // Erklärung nach dem Zug
 }
 
 // Lern-Fortschritt

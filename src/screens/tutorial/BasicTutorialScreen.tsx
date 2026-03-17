@@ -62,10 +62,7 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
       </View>
 
       {/* Progress dots + label */}
-      <TutorialProgress
-        totalSteps={basicTutorialSlides.length}
-        currentStep={currentIndex}
-      />
+      <TutorialProgress totalSteps={basicTutorialSlides.length} currentStep={currentIndex} />
 
       {/* Navigation buttons */}
       <View style={styles.buttonRow}>
@@ -84,9 +81,7 @@ const BasicTutorialScreen: React.FC<Props> = ({ navigation }) => {
           style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]}
           onPress={handleNext}
         >
-          <Text style={styles.nextButtonText}>
-            {isLast ? 'Weiter zum Quiz' : 'Weiter'}
-          </Text>
+          <Text style={styles.nextButtonText}>{isLast ? 'Weiter zum Quiz' : 'Weiter'}</Text>
         </Pressable>
       </View>
     </View>

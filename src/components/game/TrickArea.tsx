@@ -82,9 +82,7 @@ export const TrickArea: React.FC<TrickAreaProps> = ({
     <View style={styles.container}>
       {/* Trick area background */}
       <View style={styles.trickBackground}>
-        {cards.length === 0 && (
-          <Text style={styles.emptyText}>Stich</Text>
-        )}
+        {cards.length === 0 && <Text style={styles.emptyText}>Stich</Text>}
       </View>
 
       {/* Played cards */}
@@ -95,10 +93,12 @@ export const TrickArea: React.FC<TrickAreaProps> = ({
         const isWinning = trickCard.card.id === winningCardId;
 
         const CardWrapper = isWeb ? View : Animated.View;
-        const wrapperProps = isWeb ? {} : {
-          entering: EnterAnimation.duration(300),
-          exiting: ZoomOut.duration(200),
-        };
+        const wrapperProps = isWeb
+          ? {}
+          : {
+              entering: EnterAnimation.duration(300),
+              exiting: ZoomOut.duration(200),
+            };
 
         return (
           <CardWrapper
@@ -107,10 +107,7 @@ export const TrickArea: React.FC<TrickAreaProps> = ({
             style={[
               styles.cardPosition,
               {
-                transform: [
-                  { translateX: offset.left },
-                  { translateY: offset.top },
-                ],
+                transform: [{ translateX: offset.left }, { translateY: offset.top }],
                 zIndex: index,
               },
             ]}

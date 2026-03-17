@@ -20,9 +20,7 @@ describe('QuizScreen', () => {
   });
 
   it('renders first question and options', () => {
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     const question = useQuizStore.getState().questions[0];
     expect(getByText(question.questionText)).toBeTruthy();
@@ -32,18 +30,14 @@ describe('QuizScreen', () => {
   });
 
   it('shows progress badge', () => {
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     const total = useQuizStore.getState().questions.length;
     expect(getByText(`Frage 1 / ${total}`)).toBeTruthy();
   });
 
   it('shows feedback after selecting an answer', () => {
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     const question = useQuizStore.getState().questions[0];
     const correctOption = question.options[question.correctOptionIndex];
@@ -56,7 +50,7 @@ describe('QuizScreen', () => {
 
   it('shows Weiter button after answering', () => {
     const { getByText, queryByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
+      <QuizScreen navigation={mockNavigation} route={mockRoute} />,
     );
 
     // No Weiter button before answering
@@ -70,9 +64,7 @@ describe('QuizScreen', () => {
   });
 
   it('advances to next question on Weiter press', () => {
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     const questions = useQuizStore.getState().questions;
 
@@ -85,9 +77,7 @@ describe('QuizScreen', () => {
   });
 
   it('shows incorrect feedback on wrong answer', () => {
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     const question = useQuizStore.getState().questions[0];
     const wrongIndex = question.correctOptionIndex === 0 ? 1 : 0;
@@ -106,9 +96,7 @@ describe('QuizScreen', () => {
       useQuizStore.getState().nextQuestion();
     }
 
-    const { getByText } = render(
-      <QuizScreen navigation={mockNavigation} route={mockRoute} />
-    );
+    const { getByText } = render(<QuizScreen navigation={mockNavigation} route={mockRoute} />);
 
     // Answer last question
     const lastQ = questions[questions.length - 1];

@@ -51,9 +51,7 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
       <View style={styles.scoreContainer}>
         {/* Re score */}
         <View style={styles.teamScore}>
-          <Text style={[styles.teamLabel, { color: getTeamColor(Team.RE) }]}>
-            Re
-          </Text>
+          <Text style={[styles.teamLabel, { color: getTeamColor(Team.RE) }]}>Re</Text>
           <Text style={styles.scoreValue}>{reScore}</Text>
           {announcements.re && (
             <View style={[styles.announcementBadge, { backgroundColor: getTeamColor(Team.RE) }]}>
@@ -69,12 +67,12 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
 
         {/* Kontra score */}
         <View style={styles.teamScore}>
-          <Text style={[styles.teamLabel, { color: getTeamColor(Team.CONTRA) }]}>
-            Kontra
-          </Text>
+          <Text style={[styles.teamLabel, { color: getTeamColor(Team.CONTRA) }]}>Kontra</Text>
           <Text style={styles.scoreValue}>{kontraScore}</Text>
           {announcements.kontra && (
-            <View style={[styles.announcementBadge, { backgroundColor: getTeamColor(Team.CONTRA) }]}>
+            <View
+              style={[styles.announcementBadge, { backgroundColor: getTeamColor(Team.CONTRA) }]}
+            >
               <Text style={styles.announcementText}>!</Text>
             </View>
           )}

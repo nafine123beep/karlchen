@@ -22,12 +22,7 @@ export const IllegalMoveModal: React.FC<IllegalMoveModalProps> = ({
   onDismiss,
 }) => {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onDismiss}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onDismiss}>
       <Pressable style={styles.overlay} onPress={onDismiss}>
         <Animated.View
           entering={isWeb ? undefined : SlideInDown.springify()}

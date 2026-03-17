@@ -22,9 +22,7 @@ export function checkEyesManagement(context: HintContext): Hint | null {
 
   // Can player win this trick with any legal move?
   const leadSuit = currentTrick.getLeadSuit();
-  const canWinTrick = legalMoves.some(card =>
-    canBeat(card, winningCard, leadSuit)
-  );
+  const canWinTrick = legalMoves.some(card => canBeat(card, winningCard, leadSuit));
 
   if (canWinTrick) return null; // Player can win, no hint
 
@@ -38,7 +36,8 @@ export function checkEyesManagement(context: HintContext): Hint | null {
   return {
     id: 'EYES_MANAGEMENT',
     title: 'Augen abwerfen?',
-    message: 'Du wirfst eine wertvolle Karte (10 oder Ass) in einen Stich ab, den du nicht gewinnst. Überlege, ob du eine niedrigere Karte spielen kannst.',
+    message:
+      'Du wirfst eine wertvolle Karte (10 oder Ass) in einen Stich ab, den du nicht gewinnst. Überlege, ob du eine niedrigere Karte spielen kannst.',
     severity: 'info',
     timing: 'preTactic',
   };
